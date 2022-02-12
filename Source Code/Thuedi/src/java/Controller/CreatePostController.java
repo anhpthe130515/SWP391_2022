@@ -7,10 +7,10 @@ package Controller;
 
 import Model.Post;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,16 +18,16 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Admin
  */
-@WebServlet(name = "CreatePostController", urlPatterns = {"/CreatePost"})
-public class CreatePostController extends RequireLandlordController{
+@WebServlet(name = "CreatePostControl", urlPatterns = {"/Landlord/CreatePost"})
+public class CreatePostController extends HttpServlet {
 
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("createpost.jsp").forward(request, response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/createpost.jsp").forward(request, response);
     }
 
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Post post = new Post();
         post.setUserId(Integer.parseInt(request.getParameter("user_id")));
         post.setCreateDate(new Date(System.currentTimeMillis()));
@@ -44,5 +44,4 @@ public class CreatePostController extends RequireLandlordController{
         
         System.out.println(post);
     }
-    
 }
