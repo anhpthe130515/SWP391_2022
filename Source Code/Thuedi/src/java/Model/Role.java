@@ -10,5 +10,15 @@ package Model;
  * @author Admin
  */
 public enum Role {
-    
+        ADMIN(1),
+        USER(2),
+        LANDLORD(3);
+
+        private final int id;
+
+        Role(final int newValue) {
+            id = newValue;
+        }
+
+        public int getId() { return id; }
 }
