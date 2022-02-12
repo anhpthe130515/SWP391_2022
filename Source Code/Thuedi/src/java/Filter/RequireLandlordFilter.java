@@ -38,10 +38,11 @@ public class RequireLandlordFilter implements Filter {
         
         HttpSession session = request.getSession();
         User account = (User) session.getAttribute("user");
-        if (account != null && account.getRoleId() == Role.LANDLORD.getId()) {
+        if (account != null && 
+           (account.getRoleId() == Role.LANDLORD.getId() || account.getRoleId() == Role.ADMIN.getId())) {
             chain.doFilter(req, res);
         } else {
-            request.getRequestDispatcher("401error.jsp").forward(request, response);
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
     }
 

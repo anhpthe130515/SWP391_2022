@@ -43,11 +43,10 @@ public class LoginControl extends HttpServlet {
         if(a == null){
             String ms = "Sai tài khoản hoặc mật khẩu!";
             request.setAttribute("error", ms);
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         }else{
             HttpSession session = request.getSession();
-            session.setAttribute("acc", a);
-            session.putValue("roleId", a.getRoleId());
+            session.setAttribute("user", a);
             if(a.getRoleId() == 1){
                 response.sendRedirect("admin");
             }
