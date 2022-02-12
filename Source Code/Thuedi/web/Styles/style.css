@@ -201,7 +201,7 @@ a:hover {
 }
 
 
-/* LOGIN */
+/* LOGIN-REGISTER */
 
 .login-section {
     width: 500px;
@@ -235,7 +235,7 @@ input[name="phone"] {
     margin-bottom: 12px;
 }
 
-input[type="button"] {
+button.submit{
     width: 35%;
     padding: 10px;
     margin: auto;

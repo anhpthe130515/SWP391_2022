@@ -14,19 +14,21 @@ import java.sql.Date;
 public class Account {
     private int id;
     private String email;
+    private String password;
     private int roleId;
     private Date createDate;
     private boolean isDeleted;
 
-    public Account(int id, String email, int roleId, Date createDate, boolean isDeleted) {
+    public Account() {
+    }
+
+    public Account(int id, String email, String password, int roleId, Date createDate, boolean isDeleted) {
         this.id = id;
         this.email = email;
+        this.password = password;
         this.roleId = roleId;
         this.createDate = createDate;
         this.isDeleted = isDeleted;
-    }
-
-    public Account() {
     }
 
     public int getId() {
@@ -43,6 +45,14 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getRoleId() {
@@ -71,9 +81,8 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Account{" + "id=" + id + ", email=" + email + ", roleId=" + roleId + ", createDate=" + createDate + ", isDeleted=" + isDeleted + '}';
+        return "Account{" + "id=" + id + ", email=" + email + ", password=" + password + ", roleId=" + roleId + ", createDate=" + createDate + ", isDeleted=" + isDeleted + '}';
     }
-    
-    
-    
+
+   
 }
