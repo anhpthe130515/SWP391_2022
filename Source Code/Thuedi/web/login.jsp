@@ -29,6 +29,7 @@
                 <input type="text" id="email" name="email">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password">
+                <p style="color: red">${requestScope.error}</p>
                 <a class="forget-password" href="#">forget password?</a>
                 <button class="submit" type="submit" name="" id="">Login</button>
                 <a href="register.html">Create Account</a>
