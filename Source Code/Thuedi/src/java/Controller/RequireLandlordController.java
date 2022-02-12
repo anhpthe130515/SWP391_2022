@@ -5,6 +5,7 @@
  */
 package Controller;
 
+import Model.Role;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -24,7 +25,7 @@ public abstract class RequireLandlordController extends HttpServlet {
     private boolean isLandlord(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User account = (User) session.getAttribute("user");
-        return account != null && account.getRoleId() == 3;
+        return account != null && account.getRoleId() == Role.LANDLORD.getId();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
