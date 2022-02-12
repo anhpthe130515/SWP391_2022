@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.UserDao;
+import Model.Role;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,17 +48,11 @@ public class LoginControl extends HttpServlet {
         }else{
             HttpSession session = request.getSession();
             session.setAttribute("user", a);
-            if(a.getRoleId() == 1){
+            if(a.getRoleId() == Role.ADMIN.getId()){
                 response.sendRedirect("admin");
-            }
-            if(a.getRoleId() == 2){
+            } else {
                 response.sendRedirect("list");
             }
-            if(a.getRoleId() == 3){
-                response.sendRedirect("list");
-            }
-//            request.getRequestDispatcher("list").forward(request, response);
-//           response.sendRedirect("list");
         }
     }
 
