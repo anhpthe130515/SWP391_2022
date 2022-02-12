@@ -42,6 +42,8 @@ public class CreatePostController extends HttpServlet {
         post.setAddressDetail(request.getParameter("address_detail"));
         post.setPropertyType(Integer.parseInt(request.getParameter("property_type")));
         
-        System.out.println(post);
+        request.getSession().setAttribute("post", post);
+        
+        response.sendRedirect("Payment");
     }
 }

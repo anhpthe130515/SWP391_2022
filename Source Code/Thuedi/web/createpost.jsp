@@ -20,7 +20,7 @@
                 <label for="title">Tiêu đề</label>
                 <input type="text" id="title" name="title">
                 <label for="detail">Thân bài đăng</label>
-                <input type="text" id="detail" name="detaik">
+                <input type="text" id="detail" name="detail">
                 <label for="price">Giá</label>
                 <input type="number" id="price" name="price">
                 <label for="Area">Diện tích</label>
