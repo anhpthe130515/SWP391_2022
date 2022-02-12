@@ -19,18 +19,12 @@ import javax.servlet.http.HttpSession;
  *
  * @author Admin
  */
-@WebServlet(name = "RequireLandlordController", urlPatterns = {"/RequireLandlordController"})
 public abstract class RequireLandlordController extends HttpServlet {
 
     private boolean isLandlord(HttpServletRequest request) {
         HttpSession session = request.getSession();
         User account = (User) session.getAttribute("user");
-        if (account != null && account.getRoleId() == 3)
-        {
-            return true;
-        } else {
-            return false;
-        }
+        return account != null && account.getRoleId() == 3;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
