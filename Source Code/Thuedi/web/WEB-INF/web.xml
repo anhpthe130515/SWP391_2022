@@ -4,9 +4,33 @@
         <filter-name>UnicodeFilter</filter-name>
         <filter-class>Filter.UnicodeFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>RequireUserFilter</filter-name>
+        <filter-class>Filter.RequireUserFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>RequireLandlordFilter</filter-name>
+        <filter-class>Filter.RequireLandlordFilter</filter-class>
+    </filter>
+    <filter>
+        <filter-name>RequireAdminFilter</filter-name>
+        <filter-class>Filter.RequireAdminFilter</filter-class>
+    </filter>
     <filter-mapping>
         <filter-name>UnicodeFilter</filter-name>
         <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RequireAdminFilter</filter-name>
+        <url-pattern>/Admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RequireLandlordFilter</filter-name>
+        <url-pattern>/Landlord/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>RequireUserFilter</filter-name>
+        <url-pattern>/User/*</url-pattern>
     </filter-mapping>
     <session-config>
         <session-timeout>
