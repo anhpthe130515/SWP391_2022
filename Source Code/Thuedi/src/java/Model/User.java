@@ -11,7 +11,7 @@ import java.sql.Date;
  *
  * @author TuanLA
  */
-public class Account {
+public class User {
     private int id;
     private String email;
     private String password;
@@ -19,10 +19,10 @@ public class Account {
     private Date createDate;
     private boolean isDeleted;
 
-    public Account() {
+    public User() {
     }
 
-    public Account(int id, String email, String password, int roleId, Date createDate, boolean isDeleted) {
+    public User(int id, String email, String password, int roleId, Date createDate, boolean isDeleted) {
         this.id = id;
         this.email = email;
         this.password = password;
