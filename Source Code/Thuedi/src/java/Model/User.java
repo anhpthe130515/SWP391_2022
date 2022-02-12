@@ -30,7 +30,7 @@ public class User {
         this.createDate = createDate;
         this.isDeleted = isDeleted;
     }
-
+    
     public int getId() {
         return id;
     }
