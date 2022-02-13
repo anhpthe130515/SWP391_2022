@@ -20,12 +20,12 @@ import java.util.logging.Logger;
  */
 public class UserDao extends DBContext {
 
-    public User login(String user, String pass) {
+    public static User login(String user, String pass) {
         String sql = "select * from [User]\n"
                 + "where Email = ?\n"
                 + "and [Password] = ?";
         try {
-            PreparedStatement st = con.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, user);
             st.setString(2, pass);
             ResultSet rs = st.executeQuery();
