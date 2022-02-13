@@ -58,7 +58,7 @@ public class UserDao extends DBContext {
         String sql = "INSERT INTO [User]([Email],[Password],[Role_id],[Create_date],[Is_deleted]) VALUES (?,?,?,?,?)";
         int id = 0;
         try {
-            PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, user.getEmail());
             st.setString(2, user.getPassword());
             st.setInt(3, user.getRoleId());
@@ -95,7 +95,7 @@ public class UserDao extends DBContext {
     public void insertUserDetail(UserDetail userDetail) {
         String sql = "INSERT INTO [User_detail] VALUES (?,?,?,?,?,?)";
         try {
-            PreparedStatement st = con.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, userDetail.getUserId());
             st.setString(2, userDetail.getName());
             st.setString(3, userDetail.getPhone());
@@ -120,7 +120,7 @@ public class UserDao extends DBContext {
         String sql = "SELECT * FROM [User]\n"
                 + "WHERE Email = ?\n";
         try {
-            PreparedStatement st = con.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
