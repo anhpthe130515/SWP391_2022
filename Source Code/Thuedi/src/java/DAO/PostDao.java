@@ -8,6 +8,7 @@ package DAO;
 import Model.Post;
 import Model.User;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -89,11 +90,31 @@ public class PostDao extends DBContext{
             st.setString(1, postId+"");
             st.setBlob(2, image);
             
-            st.execute();
+            st.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
-    
+    public static byte[] selectImage(int id) {
+        String sql = "SELECT [Image_link]\n"
+                + "  FROM [dbo].[Post_image]\n"
+                + "  WHERE [Id] = ?";
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, id+"");
+            
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                Blob image = rs.getBlob(1);
+                return image.getBytes(1, (int) image.length());
+            } else {
+                throw new SQLException("Id not found");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }
