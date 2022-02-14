@@ -39,7 +39,7 @@ public class PostImageController extends HttpServlet {
             String[] params = request.getRequestURI().split("/");
             int id = Integer.parseInt(params[params.length -1]);
 
-            o.write(PostDao.selectImage(id)); 
+            o.write(new PostDao().selectImage(id)); 
             o.flush(); 
             o.close(); 
         }
