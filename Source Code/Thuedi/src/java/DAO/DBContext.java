@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public class DBContext {
     protected static Connection connection;
-    public DBContext()
-    {
+    
+    static {
         try {
             // Edit URL , username, password to authenticate with your MS SQL Server
             String url = "jdbc:sqlserver://localhost:1433;databaseName= thuedi";
@@ -18,5 +18,10 @@ public class DBContext {
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }
+    }
+    
+    protected DBContext()
+    {
+        
     }
 }

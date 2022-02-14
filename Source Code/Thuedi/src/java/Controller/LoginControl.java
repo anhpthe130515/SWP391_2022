@@ -38,8 +38,7 @@ public class LoginControl extends HttpServlet {
         String username = request.getParameter("email");
         String password = request.getParameter("password");
         
-        UserDao dao = new UserDao();
-        User a = dao.login(username, password);
+        User a = UserDao.login(username, password);
         if(a == null){
             String ms = "Sai tài khoản hoặc mật khẩu!";
             request.setAttribute("error", ms);
