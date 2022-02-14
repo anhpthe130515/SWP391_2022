@@ -50,18 +50,18 @@ public class PostDao extends DBContext{
                 + "           ,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            st.setString(1, post.getUserId()+"");
-            st.setString(2, post.getCreateDate().toString());
+            st.setInt(1, post.getUserId());
+            st.setDate(2, post.getCreateDate());
             st.setString(3, post.getTitle());
             st.setString(4, post.getDetail());
-            st.setString(5, post.getPrice()+"");
-            st.setString(6, post.getArea()+"");
-            st.setString(7, post.getNumberOfBedrooms()+"");
-            st.setString(8, post.getNumberOfRestrooms()+"");
+            st.setInt(5, post.getPrice());
+            st.setFloat(6, post.getArea());
+            st.setInt(7, post.getNumberOfBedrooms());
+            st.setInt(8, post.getNumberOfRestrooms());
             st.setString(9, post.getDirection());
-            st.setString(10, post.getAddress()+"");
+            st.setInt(10, post.getAddress());
             st.setString(11, post.getAddressDetail());
-            st.setString(12, post.getPropertyType()+"");
+            st.setInt(12, post.getPropertyType());
             
             st.executeUpdate();
             
