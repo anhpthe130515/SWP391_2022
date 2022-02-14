@@ -60,14 +60,13 @@ public class PaymentController extends HttpServlet {
             response.sendRedirect("CreatePost");
             return;
         }
-        
-        int id = PostDao.insert((Post)request.getSession().getAttribute("post"));
+        int id = new PostDao().insert((Post)request.getSession().getAttribute("post"));
         request.getSession().removeAttribute("post");
         
         if(id != -1) {
             ArrayList<InputStream> images = (ArrayList<InputStream>)request.getSession().getAttribute("images");
             for (InputStream image : images) {
-                PostDao.insertImage(image, id);
+                new PostDao().insertImage(image, id);
             }
         }
         request.getSession().removeAttribute("images");

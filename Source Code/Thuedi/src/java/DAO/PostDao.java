@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class PostDao extends DBContext{
-    public static int insert(Post post) {
+    public int insert(Post post) {
         String sql = "INSERT INTO [dbo].[Post]\n"
                 + "           ([User_id]\n"
                 + "           ,[Create_date]\n"
@@ -74,10 +74,16 @@ public class PostDao extends DBContext{
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             
             return -1;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
-    public static void insertImage(InputStream image, int postId) {
+    public void insertImage(InputStream image, int postId) {
         String sql = "INSERT INTO [dbo].[Post_image]\n"
                 + "           ([Post_id]\n"
                 + "           ,[Image_link])\n"
@@ -96,7 +102,7 @@ public class PostDao extends DBContext{
         }
     }
     
-    public static byte[] selectImage(int id) {
+    public byte[] selectImage(int id) {
         String sql = "SELECT [Image_link]\n"
                 + "  FROM [dbo].[Post_image]\n"
                 + "  WHERE [Id] = ?";
@@ -115,6 +121,12 @@ public class PostDao extends DBContext{
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

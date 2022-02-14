@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class UserDao extends DBContext {
 
-    public static User login(String user, String pass) {
+    public User login(String user, String pass) {
         String sql = "select * from [User]\n"
                 + "where Email = ?\n"
                 + "and [Password] = ?";
@@ -41,6 +41,13 @@ public class UserDao extends DBContext {
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
 
         return null;
@@ -54,7 +61,7 @@ public class UserDao extends DBContext {
     * @param  user   object
     * @return id of the user just inserted into the database
     */
-    public static int insertUser(User user) {
+    public int insertUser(User user) {
         String sql = "INSERT INTO [User]([Email],[Password],[Role_id],[Create_date],[Is_deleted]) VALUES (?,?,?,?,?)";
         int id = 0;
         try {
@@ -80,6 +87,13 @@ public class UserDao extends DBContext {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         return id;
     }
@@ -92,7 +106,7 @@ public class UserDao extends DBContext {
     * @param  userDetail   object
     * @return 
     */
-    public static void insertUserDetail(UserDetail userDetail) {
+    public void insertUserDetail(UserDetail userDetail) {
         String sql = "INSERT INTO [User_detail] VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -105,6 +119,13 @@ public class UserDao extends DBContext {
             st.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
     }
 
@@ -116,7 +137,7 @@ public class UserDao extends DBContext {
     * @param  email   email of user to check
     * @return         true if user exist, false if not
     */
-    public static boolean checkUserExist(String email) {
+    public boolean checkUserExist(String email) {
         String sql = "SELECT * FROM [User]\n"
                 + "WHERE Email = ?\n";
         try {
@@ -128,7 +149,15 @@ public class UserDao extends DBContext {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
+        
         return false;
     }
 }
