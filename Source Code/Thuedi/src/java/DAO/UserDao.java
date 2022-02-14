@@ -54,7 +54,7 @@ public class UserDao extends DBContext {
     * @param  user   object
     * @return id of the user just inserted into the database
     */
-    public int insertUser(User user) {
+    public static int insertUser(User user) {
         String sql = "INSERT INTO [User]([Email],[Password],[Role_id],[Create_date],[Is_deleted]) VALUES (?,?,?,?,?)";
         int id = 0;
         try {
@@ -92,7 +92,7 @@ public class UserDao extends DBContext {
     * @param  userDetail   object
     * @return 
     */
-    public void insertUserDetail(UserDetail userDetail) {
+    public static void insertUserDetail(UserDetail userDetail) {
         String sql = "INSERT INTO [User_detail] VALUES (?,?,?,?,?,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -116,7 +116,7 @@ public class UserDao extends DBContext {
     * @param  email   email of user to check
     * @return         true if user exist, false if not
     */
-    public boolean checkUserExist(String email) {
+    public static boolean checkUserExist(String email) {
         String sql = "SELECT * FROM [User]\n"
                 + "WHERE Email = ?\n";
         try {
