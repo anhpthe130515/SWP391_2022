@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class PropertyTypeDao extends DBContext {
     public Collection<PropertyType> select() {
-        String sql = "SELECT * FROM [thuedi].[dbo].[Sub_district]";
+        String sql = "SELECT * FROM [thuedi].[dbo].[Property_type]";
         Collection<PropertyType> propertyType = new ArrayList<>();
         
         try {
