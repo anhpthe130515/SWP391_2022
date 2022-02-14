@@ -54,8 +54,10 @@ public class CreatePostController extends HttpServlet {
         ArrayList<InputStream> images = new ArrayList<>();
         
         for (Part part : request.getParts()) {
-            if(part.getContentType() != null && part.getContentType().contains("image")) { 
-                images.add(part.getInputStream());
+            if(part.getContentType() != null) { 
+                if (("image/png").equals(part.getContentType()) || ("image/jpeg").equals(part.getContentType())) {
+                    images.add(part.getInputStream());
+                }
             }
         }
         request.getSession().setAttribute("images", images);
