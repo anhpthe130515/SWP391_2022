@@ -7,18 +7,25 @@ package Controller;
 
 import Model.Post;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author Admin
  */
 @WebServlet(name = "CreatePostControl", urlPatterns = {"/Landlord/CreatePost"})
+@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
+                 maxFileSize=1024*1024*50,      	// 50 MB
+                 maxRequestSize=1024*1024*100)          // 100 MB
 public class CreatePostController extends HttpServlet {
 
     @Override
@@ -43,6 +50,15 @@ public class CreatePostController extends HttpServlet {
         post.setPropertyType(Integer.parseInt(request.getParameter("property_type")));
         
         request.getSession().setAttribute("post", post);
+        
+        ArrayList<InputStream> images = new ArrayList<>();
+        
+        for (Part part : request.getParts()) {
+            if(part.getContentType() != null && part.getContentType().contains("image")) { 
+                images.add(part.getInputStream());
+            }
+        }
+        request.getSession().setAttribute("images", images);
         
         response.sendRedirect("Payment");
     }

@@ -15,8 +15,10 @@
         <div class="login-section">
             <h5>Tạo bài đăng</h5>
 
-            <form action="CreatePost" method="post">
+            <form action="CreatePost" enctype="multipart/form-data" method="post">
                 <input value="3" type="text" style="visibility: hidden" id="user_id" name="user_id">
+                <label for="image">Image</label>
+                <input type="file" multiple id="image" name="image">
                 <label for="title">Tiêu đề</label>
                 <input type="text" id="title" name="title">
                 <label for="detail">Thân bài đăng</label>

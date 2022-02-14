@@ -7,9 +7,11 @@ package DAO;
 
 import Model.Post;
 import Model.User;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +20,7 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class PostDao extends DBContext{
-    public static void insert(Post post) {
+    public static int insert(Post post) {
         String sql = "INSERT INTO [dbo].[Post]\n"
                 + "           ([User_id]\n"
                 + "           ,[Create_date]\n"
@@ -46,7 +48,7 @@ public class PostDao extends DBContext{
                 + "           ,?\n"
                 + "           ,?)";
         try {
-            PreparedStatement st = connection.prepareStatement(sql);
+            PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, post.getUserId()+"");
             st.setString(2, post.getCreateDate().toString());
             st.setString(3, post.getTitle());
@@ -60,9 +62,38 @@ public class PostDao extends DBContext{
             st.setString(11, post.getAddressDetail());
             st.setString(12, post.getPropertyType()+"");
             
+            st.executeUpdate();
+            
+            if(st.getGeneratedKeys().next()) {
+                return st.getGeneratedKeys().getInt(1);
+            } else {
+                throw new SQLException("Cannot get generated keys");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            
+            return -1;
+        }
+    }
+    
+    public static void insertImage(InputStream image, int postId) {
+        String sql = "INSERT INTO [dbo].[Post_image]\n"
+                + "           ([Post_id]\n"
+                + "           ,[Image_link])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?)";
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, postId+"");
+            st.setBlob(2, image);
+            
             st.execute();
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 }
