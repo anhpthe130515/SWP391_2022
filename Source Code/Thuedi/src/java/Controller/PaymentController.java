@@ -58,8 +58,7 @@ public class PaymentController extends HttpServlet {
             response.sendRedirect("CreatePost");
             return;
         }
-        
-        PostDao.insert((Post)request.getSession().getAttribute("post"));
+        new PostDao().insert((Post)request.getSession().getAttribute("post"));
         request.getSession().removeAttribute("post");
         response.sendRedirect("/list");
     }

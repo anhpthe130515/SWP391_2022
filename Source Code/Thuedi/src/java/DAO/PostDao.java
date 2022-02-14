@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class PostDao extends DBContext{
-    public static void insert(Post post) {
+    public void insert(Post post) {
         String sql = "INSERT INTO [dbo].[Post]\n"
                 + "           ([User_id]\n"
                 + "           ,[Create_date]\n"
@@ -63,6 +63,13 @@ public class PostDao extends DBContext{
             st.execute();
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
     }
 }

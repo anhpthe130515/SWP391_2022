@@ -81,7 +81,7 @@ public class RegisterControl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String email = request.getParameter("email");
-        if (UserDao.checkUserExist(email)) {
+        if (new UserDao().checkUserExist(email)) {
             String ms = "Tài khoản đã tồn tại";
             request.setAttribute("error", ms);
             request.getRequestDispatcher("/register.jsp").forward(request, response);
@@ -92,10 +92,10 @@ public class RegisterControl extends HttpServlet {
             Date createDate = new Date(System.currentTimeMillis());
 
             User user = new User(0, email, password, Role.USER.getId(), createDate, false);
-            int userId = UserDao.insertUser(user);
+            int userId = new UserDao().insertUser(user);
 
             UserDetail userDetail = new UserDetail(userId, name, phone, "", "", "");
-            UserDao.insertUserDetail(userDetail);
+            new UserDao().insertUserDetail(userDetail);
 
             response.sendRedirect("login");
         }
