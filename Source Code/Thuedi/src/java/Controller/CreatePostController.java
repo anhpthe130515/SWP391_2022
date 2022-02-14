@@ -5,6 +5,9 @@
  */
 package Controller;
 
+import DAO.DistrictDao;
+import DAO.PropertyTypeDao;
+import DAO.SubdistrictDao;
 import Model.Post;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +33,10 @@ public class CreatePostController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("propertyType", new PropertyTypeDao().select());
+        request.setAttribute("district", new DistrictDao().select());
+        request.setAttribute("subdistrict", new SubdistrictDao().select());
+        
         request.getRequestDispatcher("/createpost.jsp").forward(request, response);
     }
 
