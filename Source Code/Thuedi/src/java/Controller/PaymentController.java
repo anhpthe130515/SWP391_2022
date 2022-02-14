@@ -8,6 +8,8 @@ package Controller;
 import DAO.PostDao;
 import Model.Post;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -58,8 +60,17 @@ public class PaymentController extends HttpServlet {
             response.sendRedirect("CreatePost");
             return;
         }
-        new PostDao().insert((Post)request.getSession().getAttribute("post"));
+        int id = new PostDao().insert((Post)request.getSession().getAttribute("post"));
         request.getSession().removeAttribute("post");
+        
+        if(id != -1) {
+            ArrayList<InputStream> images = (ArrayList<InputStream>)request.getSession().getAttribute("images");
+            for (InputStream image : images) {
+                new PostDao().insertImage(image, id);
+            }
+        }
+        request.getSession().removeAttribute("images");
+        
         response.sendRedirect("/list");
     }
 
