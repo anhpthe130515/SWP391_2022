@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class UserDao extends DBContext {
 
-    public static User login(String user, String pass) {
+    public User login(String user, String pass) {
         String sql = "select * from [User]\n"
                 + "where Email = ?\n"
                 + "and [Password] = ?";
@@ -41,6 +41,13 @@ public class UserDao extends DBContext {
 
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
 
         return null;
@@ -80,6 +87,13 @@ public class UserDao extends DBContext {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         return id;
     }
@@ -105,6 +119,13 @@ public class UserDao extends DBContext {
             st.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
     }
 
@@ -128,7 +149,15 @@ public class UserDao extends DBContext {
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
+        
         return false;
     }
 }
