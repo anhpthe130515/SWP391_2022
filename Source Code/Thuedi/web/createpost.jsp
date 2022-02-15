@@ -7,13 +7,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-
-<<<<<<< HEAD
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="Styles/style.css" />
+    <link rel="stylesheet" href="../Styles/style.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <script src="https://kit.fontawesome.com/e3a507881a.js" crossorigin="anonymous"></script>
@@ -23,7 +21,7 @@
     <div class="createpost-section">
         <h4>Tạo bài đăng</h4>
 
-        <form class="createpost-form" action="CreatePost" method="post">
+        <form action="CreatePost" method="post" class="createpost-form" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
@@ -34,13 +32,13 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="address">Địa chỉ</label>
-                        <input type="text" class="createpost-form-control" id="address" name="address" required/>
+                        <input type="text" class="createpost-form-control" id="" name=""/>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="address"></label>
-                        <input type="text" class="createpost-form-control" id="address" name="address"/>
+                        <input type="text" class="createpost-form-control" id="address" name="address" required/>
                     </div>
                 </div>
                 <div class="col-md-12">

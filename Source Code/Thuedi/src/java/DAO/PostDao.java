@@ -86,7 +86,7 @@ public class PostDao extends DBContext{
     public void insertImage(InputStream image, int postId) {
         String sql = "INSERT INTO [dbo].[Post_image]\n"
                 + "           ([Post_id]\n"
-                + "           ,[Image_link])\n"
+                + "           ,[Image])\n"
                 + "     VALUES\n"
                 + "           (?\n"
                 + "           ,?)";
@@ -109,7 +109,7 @@ public class PostDao extends DBContext{
     }
     
     public byte[] selectImage(int id) {
-        String sql = "SELECT [Image_link]\n"
+        String sql = "SELECT [Image]\n"
                 + "  FROM [dbo].[Post_image]\n"
                 + "  WHERE [Id] = ?";
         
