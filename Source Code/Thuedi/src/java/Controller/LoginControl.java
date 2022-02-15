@@ -41,8 +41,8 @@ public class LoginControl extends HttpServlet {
         
         User a = new UserDao().login(username, password);
         if(a == null){
-            String ms = "Sai tài khoản hoặc mật khẩu!";
-            request.setAttribute("error", ms);
+//            String ms = "Sai tài khoản hoặc mật khẩu!";
+//            request.setAttribute("error", ms);
             request.getRequestDispatcher("/login.jsp").forward(request, response);
         }else{
             HttpSession session = request.getSession();
