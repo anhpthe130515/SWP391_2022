@@ -5,9 +5,6 @@
  */
 package Controller;
 
-import DAO.UserDao;
-import Model.Role;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -15,14 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author TuanLA
  */
-@WebServlet(name = "LoginControl", urlPatterns = {"/login"})
-public class LoginControl extends HttpServlet {
+@WebServlet(name = "ListControl", urlPatterns = {"/list"})
+public class ListController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,22 +32,18 @@ public class LoginControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String username = request.getParameter("email");
-        String password = request.getParameter("password");
-        
-        User a = new UserDao().login(username, password);
-        if(a == null){
-            String ms = "Sai tài khoản hoặc mật khẩu!";
-            request.setAttribute("error", ms);
-            request.getRequestDispatcher("/login.jsp").forward(request, response);
-        }else{
-            HttpSession session = request.getSession();
-            session.setAttribute("user", a);
-            if(a.getRoleId() == Role.ADMIN.getId()){
-                response.sendRedirect("admin");
-            } else {
-                response.sendRedirect("list");
-            }
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ListControl</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ListControl at " + request.getContextPath() + "</h1>");
+            out.println("Day la Servlet List");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
