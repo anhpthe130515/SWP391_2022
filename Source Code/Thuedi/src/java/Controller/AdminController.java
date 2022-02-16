@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author TuanLA
  */
-@WebServlet(name = "AdminControl", urlPatterns = {"/admin"})
+@WebServlet(name = "AdminControl", urlPatterns = {"/Admin/dashboard"})
 public class AdminController extends HttpServlet {
 
     /**

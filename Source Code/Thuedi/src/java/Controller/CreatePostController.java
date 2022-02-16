@@ -5,7 +5,12 @@
  */
 package Controller;
 
+import DAO.DistrictDao;
+import DAO.PropertyTypeDao;
+import DAO.SubdistrictDao;
 import Model.Post;
+import Model.User;
+import Model.PropertyType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -30,13 +35,18 @@ public class CreatePostController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("propertyType", new PropertyTypeDao().select());
+        request.setAttribute("district", new DistrictDao().select());
+        request.setAttribute("subdistrict", new SubdistrictDao().select());
+       
         request.getRequestDispatcher("/createpost.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Post post = new Post();
-        post.setUserId(Integer.parseInt(request.getParameter("user_id")));
+        User user = (User)request.getSession().getAttribute("user");
+        post.setUserId(user.getId());
         post.setCreateDate(new Date(System.currentTimeMillis()));
         post.setTitle(request.getParameter("title"));
         post.setDetail(request.getParameter("detail"));
