@@ -74,5 +74,71 @@ public class PaymentController extends HttpServlet {
         response.sendRedirect("/list");
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     * @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (checkPostExist(request)) {
+            response.sendRedirect("CreatePost");
+            return;
+        }
+        int id = new PostDao().insert((Post)request.getSession().getAttribute("post"));
+        request.getSession().removeAttribute("post");
+        
+        if(id != -1) {
+            ArrayList<InputStream> images = (ArrayList<InputStream>)request.getSession().getAttribute("images");
+            for (InputStream image : images) {
+                new PostDao().insertImage(image, id);
+            }
+        }
+        request.getSession().removeAttribute("images");
+        
+        response.sendRedirect("/list");
+    }@Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (checkPostExist(request)) {
+            response.sendRedirect("CreatePost");
+            return;
+        }
+        int id = new PostDao().insert((Post)request.getSession().getAttribute("post"));
+        request.getSession().removeAttribute("post");
+        
+        if(id != -1) {
+            ArrayList<InputStream> images = (ArrayList<InputStream>)request.getSession().getAttribute("images");
+            for (InputStream image : images) {
+                new PostDao().insertImage(image, id);
+            }
+        }
+        request.getSession().removeAttribute("images");
+        
+        response.sendRedirect("/list");
+    }@Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        if (checkPostExist(request)) {
+            response.sendRedirect("CreatePost");
+            return;
+        }
+        int id = new PostDao().insert((Post)request.getSession().getAttribute("post"));
+        request.getSession().removeAttribute("post");
+        
+        if(id != -1) {
+            ArrayList<InputStream> images = (ArrayList<InputStream>)request.getSession().getAttribute("images");
+            for (InputStream image : images) {
+                new PostDao().insertImage(image, id);
+            }
+        }
+        request.getSession().removeAttribute("images");
+        
+        response.sendRedirect("/list");
+    }
+     */
 
 }
