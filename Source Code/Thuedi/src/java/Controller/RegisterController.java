@@ -11,6 +11,7 @@ import Model.User;
 import Model.UserDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigInteger;
 import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,13 +21,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import java.security.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author pinkd
  */
 @WebServlet(name = "RegisterControl", urlPatterns = {"/register"})
-public class RegisterControl extends HttpServlet {
+public class RegisterController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -87,11 +91,30 @@ public class RegisterControl extends HttpServlet {
             request.getRequestDispatcher("/register.jsp").forward(request, response);
         } else {
             String password = request.getParameter("password");
+            String hashText = null;
+            try {
+                MessageDigest md = MessageDigest.getInstance("MD5");
+
+                // digest() method is called to calculate message digest
+                //  of an input digest() return array of byte
+                byte[] messageDigest = md.digest(password.getBytes());
+
+                // Convert byte array into signum representation
+                BigInteger no = new BigInteger(1, messageDigest);
+
+                // Convert message digest into hex value
+                hashText = no.toString(16);
+                while (hashText.length() < 32) {
+                    hashText = "0" + hashText;
+                }
+            } catch (NoSuchAlgorithmException ex) {
+                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+            }
             String name = request.getParameter("name");
             String phone = request.getParameter("phone");
             Date createDate = new Date(System.currentTimeMillis());
 
-            User user = new User(0, email, password, Role.USER.getId(), createDate, false);
+            User user = new User(0, email, hashText, Role.USER.getId(), createDate, false);
             int userId = new UserDao().insertUser(user);
 
             UserDetail userDetail = new UserDetail(userId, name, phone, "", "", "");

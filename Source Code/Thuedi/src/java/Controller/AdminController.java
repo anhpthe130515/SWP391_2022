@@ -19,7 +19,7 @@ import javax.servlet.http.HttpSession;
  * @author TuanLA
  */
 @WebServlet(name = "AdminControl", urlPatterns = {"/Admin/dashboard"})
-public class AdminControl extends HttpServlet {
+public class AdminController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
