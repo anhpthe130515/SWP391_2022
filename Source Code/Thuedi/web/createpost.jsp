@@ -27,7 +27,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="property_type">Loại bất động sản</label>
-                            <select name="property_type" id="property_type" class="createpost-form-control required">
+                            <select name="property_type" id="property_type" class="createpost-form-control" required>
                                 <c:forEach items="${requestScope.propertyType}" var="o">
                                     <option value="${o.getId()}">${o.getName()}</option>
                                 </c:forEach>
@@ -37,7 +37,7 @@
                     <div class="col-md-6">
                         <div class="form-group" class>
                             <label for="district">Địa chỉ</label>
-                            <select class="createpost-form-control" name="district" id="district required">
+                            <select class="createpost-form-control" name="district" id="district">
                                 <!--<option>Quận, Huyện</option>-->
                                  <c:forEach items="${requestScope.district}" var="o">
                                     <option value="${o.getId()}">${o.getName()}</option>
@@ -48,7 +48,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="address"></label>
-                            <select name="address" class="createpost-form-control" id="address required">
+                            <select name="address" class="createpost-form-control" id="address" required>
                                 <c:forEach items="${requestScope.subdistrict}" var="o">
                                 <option value="${o.getId()}">${o.getName()}</option>
                                 </c:forEach>
@@ -64,7 +64,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="direction">Hướng</label>
-                            <select class="createpost-form-control" id=" direction " name="direction " required >
+                            <select class="createpost-form-control" id="direction" name="direction" required >
                                 <option value="bac">Bắc</option>
                                 <option value="dongbac">Đông Bắc</option>
                                 <option value="dong">Đông</option>
@@ -79,43 +79,43 @@
                     <div class="col-md-6 ">
                         <div class="form-group ">
                             <label for="nob ">Số phòng ngủ</label>
-                            <input type="text " class="createpost-form-control " id="nob " name="nob " required/>
+                            <input type="text " class="createpost-form-control " id="nob" name="nob" required/>
                         </div>
                     </div>
                     <div class="col-md-6 ">
                         <div class="form-group ">
                             <label for="nor ">Số phòng vệ sinh</label>
-                            <input type="text " class="createpost-form-control " id="nor " name="nor " required/>
+                            <input type="text " class="createpost-form-control " id="nor" name="nor" required/>
                         </div>
                     </div>
                     <div class="col-md-6 ">
                         <div class="form-group ">
                             <label for="Area ">Diện tích</label>
-                            <input type="text " class="createpost-form-control " id="area " name="area " required/>
+                            <input type="text " class="createpost-form-control " id="area" name="area" required/>
                         </div>
                     </div>
                     <div class="col-md-12 ">
                         <div class="form-group ">
                             <label for="price ">Giá</label>
-                            <input type="number " class="createpost-form-control " id="price " name="price " required/>
+                            <input type="number " class="createpost-form-control " id="price" name="price" required/>
                         </div>
                     </div>
                     <div class="col-md-12 ">
                         <div class="form-group ">
                             <label for="title ">Tiêu đề</label>
-                            <input type="text " class="createpost-form-control " id="title " name="title " required/>
+                            <input type="text " class="createpost-form-control " id="title" name="title" required/>
                         </div>
                     </div>
                     <div class="col-md-12 ">
                         <div class="form-group ">
                             <label for="detail ">Nội dung</label>
-                            <textarea type="text " class="createpost-form-control " id="detail " name="detail " placeholder="Mô tả thêm thông tin" required></textarea>
+                            <textarea type="text " class="createpost-form-control " id="detail" name="detail" placeholder="Mô tả thêm thông tin" required></textarea>
                         </div>
                     </div>
                     <div class="col-md-12 ">
                         <div class="form-group ">
                             <label for="image ">Image</label>
-                            <input type="file" multiple id="image " name="image " required/>
+                            <input type="file" multiple id="image" name="image" required/>
                         </div>
                     </div>
 
