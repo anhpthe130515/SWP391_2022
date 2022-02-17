@@ -83,7 +83,7 @@ public class PostDao extends DBContext{
         }
     }
     
-    public void insertImage(InputStream image, int postId) {
+    public int insertImage(InputStream image, int postId) {
         String sql = "INSERT INTO [dbo].[Post_image]\n"
                 + "           ([Post_id]\n"
                 + "           ,[Image])\n"
@@ -97,8 +97,16 @@ public class PostDao extends DBContext{
             st.setBlob(2, image);
             
             st.executeUpdate();
+            
+            if(st.getGeneratedKeys().next()) {
+                return st.getGeneratedKeys().getInt(1);
+            } else {
+                throw new SQLException("Cannot get generated keys");
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            
+            return -1;
         } finally {
             try {
                 connection.close();

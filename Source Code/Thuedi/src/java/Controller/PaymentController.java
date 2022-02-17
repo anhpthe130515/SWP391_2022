@@ -63,15 +63,30 @@ public class PaymentController extends HttpServlet {
         int id = new PostDao().insert((Post)request.getSession().getAttribute("post"));
         request.getSession().removeAttribute("post");
         
-        if(id != -1) {
-            ArrayList<InputStream> images = (ArrayList<InputStream>)request.getSession().getAttribute("images");
-            for (InputStream image : images) {
+        if(id == -1) {
+            request.setAttribute("errorms", "Có lỗi xảy ra trong quá trình tạo bài đăng. Xin hãy vui lòng liên hệ admin");
+            new CreatePostController().doGet(request, response);
+            return;
+        }
+        
+        int flag = 0;
+        ArrayList<InputStream> images = (ArrayList<InputStream>)request.getSession().getAttribute("images");
+        for (InputStream image : images) {
+            if(flag != -1) {
+                flag = new PostDao().insertImage(image, id);
+            } else {
                 new PostDao().insertImage(image, id);
             }
         }
         request.getSession().removeAttribute("images");
         
-        response.sendRedirect("/list");
+        if(id == -1) {
+            request.setAttribute("erorms", "Có lỗi xảy ra trong quá trình đăng tải ảnh. Xin hãy vui lòng cập nhật lại bài đăng");
+            new CreatePostController().doGet(request, response);
+            return;
+        }
+        
+        response.sendRedirect("../list");
     }
 
 
