@@ -19,6 +19,9 @@
     </head>
 
     <body class="createpost-body">
+        <c:if test="${requestScope.errorms != null}">
+            <h1>${requestScope.errorms}</h1>
+        </c:if>
         <div class="createpost-section">
             <h4>Tạo bài đăng</h4>
 
