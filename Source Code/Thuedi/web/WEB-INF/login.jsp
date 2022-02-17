@@ -26,7 +26,7 @@
             <div>
                 <h4 class="hello">Xin chào!</h4>
                 <h4 id="says">Buổi sáng tốt lành</h4>
-                <a href="register.jsp">Đăng ký tài khoản</a>
+                <a href="register">Đăng ký tài khoản</a>
             </div>
         </div>
         <div class="login-left">

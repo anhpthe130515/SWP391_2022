@@ -70,7 +70,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/register.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
     /**
@@ -88,7 +88,7 @@ public class RegisterController extends HttpServlet {
         if (new UserDao().checkUserExist(email)) {
             String ms = "Tài khoản đã tồn tại";
             request.setAttribute("error", ms);
-            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         } else {
             String password = request.getParameter("password");
             String hashText = null;

@@ -10,7 +10,6 @@ import DAO.PropertyTypeDao;
 import DAO.SubdistrictDao;
 import Model.Post;
 import Model.User;
-import Model.PropertyType;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -39,7 +38,7 @@ public class CreatePostController extends HttpServlet {
         request.setAttribute("district", new DistrictDao().select());
         request.setAttribute("subdistrict", new SubdistrictDao().select());
        
-        request.getRequestDispatcher("/createpost.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/createpost.jsp").forward(request, response);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class PaymentController extends HttpServlet {
             return;
         }
         
-        request.getRequestDispatcher("/payment.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/payment.jsp").forward(request, response);
     }
 
     /**

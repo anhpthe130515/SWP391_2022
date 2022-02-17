@@ -43,14 +43,6 @@ public class AdminController extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             HttpSession session = request.getSession();
-            int roleId = (int) session.getValue("roleId");
-            if (roleId != 1) {
-                out.println("<h2>Ban khong co quyen truy cap</h2>");
-            } else {
-                out.println("<h1>Servlet AdminControl at " + request.getContextPath() + "</h1>");
-                out.println("<h2>Day la trang admin " + roleId + "</h2>");
-
-            }
             out.println("</body>");
             out.println("</html>");
         }
