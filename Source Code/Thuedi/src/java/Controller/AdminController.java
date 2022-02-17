@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Control;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,13 +12,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author TuanLA
  */
-@WebServlet(name = "ListControl", urlPatterns = {"/list"})
-public class ListControl extends HttpServlet {
+@WebServlet(name = "AdminControl", urlPatterns = {"/Admin/dashboard"})
+public class AdminController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,14 +35,14 @@ public class ListControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ListControl</title>");            
+            out.println("<title>Servlet AdminControl</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ListControl at " + request.getContextPath() + "</h1>");
-            out.println("Day la Servlet List");
+            HttpSession session = request.getSession();
             out.println("</body>");
             out.println("</html>");
         }

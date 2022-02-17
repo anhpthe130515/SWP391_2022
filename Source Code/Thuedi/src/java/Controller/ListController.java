@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package Controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,14 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author TuanLA
  */
-@WebServlet(name = "AdminControl", urlPatterns = {"/Admin/dashboard"})
-public class AdminControl extends HttpServlet {
+@WebServlet(name = "ListControl", urlPatterns = {"/list"})
+public class ListController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,22 +34,14 @@ public class AdminControl extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminControl</title>");
+            out.println("<title>Servlet ListControl</title>");            
             out.println("</head>");
             out.println("<body>");
-            HttpSession session = request.getSession();
-            int roleId = (int) session.getValue("roleId");
-            if (roleId != 1) {
-                out.println("<h2>Ban khong co quyen truy cap</h2>");
-            } else {
-                out.println("<h1>Servlet AdminControl at " + request.getContextPath() + "</h1>");
-                out.println("<h2>Day la trang admin " + roleId + "</h2>");
-
-            }
+            out.println("<h1>Servlet ListControl at " + request.getContextPath() + "</h1>");
+            out.println("Day la Servlet List");
             out.println("</body>");
             out.println("</html>");
         }

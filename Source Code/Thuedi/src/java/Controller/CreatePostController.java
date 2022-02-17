@@ -37,8 +37,8 @@ public class CreatePostController extends HttpServlet {
         request.setAttribute("propertyType", new PropertyTypeDao().select());
         request.setAttribute("district", new DistrictDao().select());
         request.setAttribute("subdistrict", new SubdistrictDao().select());
-        
-        request.getRequestDispatcher("/createpost.jsp").forward(request, response);
+       
+        request.getRequestDispatcher("/WEB-INF/createpost.jsp").forward(request, response);
     }
 
     @Override
