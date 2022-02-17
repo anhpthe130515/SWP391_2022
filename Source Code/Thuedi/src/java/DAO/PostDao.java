@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,6 +23,62 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class PostDao extends DBContext{
+    public Collection<Post> selectByUserId(int id) {
+        String sql = "SELECT [Id]\n"
+                + "      ,[User_id]\n"
+                + "      ,[Create_date]\n"
+                + "      ,[Title]\n"
+                + "      ,[Detail]\n"
+                + "      ,[Price]\n"
+                + "      ,[Area]\n"
+                + "      ,[Number_of_bedrooms]\n"
+                + "      ,[Number_of_restrooms]\n"
+                + "      ,[Direction]\n"
+                + "      ,[Address]\n"
+                + "      ,[Address_detail]\n"
+                + "      ,[Property_type_id]\n"
+                + "  FROM [dbo].[Post] \n"
+                + "  WHERE [User_id] = ?";
+        
+        Collection<Post> posts = new ArrayList<>();
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                posts.add(
+                        new Post(
+                                rs.getInt("Id"),
+                                rs.getInt("User_id"),
+                                rs.getDate("Create_date"),
+                                rs.getString("Title"),
+                                rs.getString("Detail"),
+                                rs.getInt("Price"),
+                                rs.getFloat("Area"),
+                                rs.getInt("Number_of_bedrooms"),
+                                rs.getInt("Number_of_restrooms"),
+                                rs.getString("Direction"),
+                                rs.getInt("Address"),
+                                rs.getString("Address_detail"),
+                                rs.getInt("Property_type_id"))
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return posts;
+    }
+    
     public int insert(Post post) {
         String sql = "INSERT INTO [dbo].[Post]\n"
                 + "           ([User_id]\n"
@@ -93,7 +151,7 @@ public class PostDao extends DBContext{
         
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, postId+"");
+            st.setInt(1, postId);
             st.setBlob(2, image);
             
             st.executeUpdate();
@@ -115,7 +173,7 @@ public class PostDao extends DBContext{
         
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, id+"");
+            st.setInt(1, id);
             
             ResultSet rs = st.executeQuery();
             if(rs.next()) {
