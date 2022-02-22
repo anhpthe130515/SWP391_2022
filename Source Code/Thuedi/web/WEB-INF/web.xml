@@ -16,6 +16,14 @@
         <filter-name>RequireAdminFilter</filter-name>
         <filter-class>Filter.RequireAdminFilter</filter-class>
     </filter>
+    <filter>
+        <filter-name>PostAuthorizeFilter</filter-name>
+        <filter-class>Filter.PostAuthorizeFilter</filter-class>
+    </filter>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/WEB-INF/403.html</location>
+    </error-page>
     <filter-mapping>
         <filter-name>UnicodeFilter</filter-name>
         <url-pattern>/*</url-pattern>
@@ -32,10 +40,10 @@
         <filter-name>RequireUserFilter</filter-name>
         <url-pattern>/User/*</url-pattern>
     </filter-mapping>
-    <error-page>
-        <error-code>403</error-code>
-        <location>/WEB-INF/403.html</location>
-    </error-page>
+    <filter-mapping>
+        <filter-name>PostAuthorizeFilter</filter-name>
+        <url-pattern>/Landlord/DeletePost</url-pattern>
+    </filter-mapping>
     <session-config>
         <session-timeout>
             30
