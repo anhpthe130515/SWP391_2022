@@ -91,36 +91,43 @@ public class RegisterController extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         } else {
             String password = request.getParameter("password");
-            String hashText = null;
-            try {
-                MessageDigest md = MessageDigest.getInstance("MD5");
+            String rePassword = request.getParameter("repassword");
+            if (password.equals(rePassword) == false) {
+                String ms = "Mật khẩu không trùng khớp";
+                request.setAttribute("error", ms);
+                request.getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+            } else {
+                String hashText = null;
+                try {
+                    MessageDigest md = MessageDigest.getInstance("MD5");
 
-                // digest() method is called to calculate message digest
-                //  of an input digest() return array of byte
-                byte[] messageDigest = md.digest(password.getBytes());
+                    // digest() method is called to calculate message digest
+                    //  of an input digest() return array of byte
+                    byte[] messageDigest = md.digest(password.getBytes());
 
-                // Convert byte array into signum representation
-                BigInteger no = new BigInteger(1, messageDigest);
+                    // Convert byte array into signum representation
+                    BigInteger no = new BigInteger(1, messageDigest);
 
-                // Convert message digest into hex value
-                hashText = no.toString(16);
-                while (hashText.length() < 32) {
-                    hashText = "0" + hashText;
+                    // Convert message digest into hex value
+                    hashText = no.toString(16);
+                    while (hashText.length() < 32) {
+                        hashText = "0" + hashText;
+                    }
+                } catch (NoSuchAlgorithmException ex) {
+                    Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+                String name = request.getParameter("name");
+                String phone = request.getParameter("phone");
+                Date createDate = new Date(System.currentTimeMillis());
+
+                User user = new User(0, email, hashText, Role.USER.getId(), createDate, false);
+                int userId = new UserDao().insertUser(user);
+
+                UserDetail userDetail = new UserDetail(userId, name, phone, "", "", "");
+                new UserDao().insertUserDetail(userDetail);
+
+                response.sendRedirect("login");
             }
-            String name = request.getParameter("name");
-            String phone = request.getParameter("phone");
-            Date createDate = new Date(System.currentTimeMillis());
-
-            User user = new User(0, email, hashText, Role.USER.getId(), createDate, false);
-            int userId = new UserDao().insertUser(user);
-
-            UserDetail userDetail = new UserDetail(userId, name, phone, "", "", "");
-            new UserDao().insertUserDetail(userDetail);
-
-            response.sendRedirect("login");
         }
     }
 
