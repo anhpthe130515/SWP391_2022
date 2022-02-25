@@ -34,6 +34,8 @@
                 <input type="email" id="email" name="email" required />
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required />
+                <label for="password">Nhập lại Password</label>
+                <input type="password" id="repassword" name="repassword" required />
                 <label for="name">Họ tên</label>
                 <input type="text" id="name" name="name" required />
                 <label for="phone">Số điện thoại</label>
@@ -42,7 +44,7 @@
                     <input class="mr-2" type="checkbox" required />
                     <p>Tôi đồng ý với các điều khoản sử dụng dịch vụ</p>
                 </div>
-                <!-- <p style="color: red">${requestScope.error}</p> -->
+                <p style="color: red">${requestScope.error}</p>
                 <button class="submit register-submit">Đăng ký</button>
 
             </form>
