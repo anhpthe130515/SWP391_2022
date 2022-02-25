@@ -21,10 +21,11 @@
         <c:if test="${requestScope.errorms != null}">
             <h1>${requestScope.errorms}</h1>
         </c:if>
+        <c:set var="post" value="${requestScope.post}"/>
         <div class="createpost-section">
             <h4>Sửa bài đăng</h4>
 
-            <form action="CreatePost" method="post" class="createpost-form" enctype="multipart/form-data">
+            <form action="updatePost" class="createpost-form" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -41,7 +42,7 @@
                             <label for="district">Địa chỉ</label>
                             <select class="createpost-form-control" name="district" id="district">
                                 <!--<option>Quận, Huyện</option>-->
-                                 <c:forEach items="${requestScope.district}" var="o">
+                                <c:forEach items="${requestScope.district}" var="o">
                                     <option value="${o.getId()}">${o.getName()}</option>
                                 </c:forEach>
                             </select>
@@ -52,7 +53,7 @@
                             <label for="address"></label>
                             <select name="address" class="createpost-form-control" id="address" required>
                                 <c:forEach items="${requestScope.subdistrict}" var="o">
-                                <option value="${o.getId()}">${o.getName()}</option>
+                                    <option value="${o.getId()}">${o.getName()}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -60,7 +61,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="address_detail">Địa chỉ chi tiết</label>
-                            <input type="text" class="createpost-form-control" id="address_detail" name="address_detail" placeholder="Phường/Ngõ/Ngách" required/>
+                            <input type="text" class="createpost-form-control" id="address_detail" name="address_detail" value="${post.getAddressDetail()}" required/>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -81,37 +82,37 @@
                     <div class="col-md-6 ">
                         <div class="form-group ">
                             <label for="nob ">Số phòng ngủ</label>
-                            <input type="text " class="createpost-form-control " id="nob" name="nob" required/>
+                            <input type="text " class="createpost-form-control " id="nob" name="nob" value="${post.getNumberOfBedrooms()}" required/>
                         </div>
                     </div>
                     <div class="col-md-6 ">
                         <div class="form-group ">
                             <label for="nor ">Số phòng vệ sinh</label>
-                            <input type="text " class="createpost-form-control " id="nor" name="nor" required/>
+                            <input type="text " class="createpost-form-control " id="nor" name="nor" value="${post.getNumberOfRestrooms()}" required/>
                         </div>
                     </div>
                     <div class="col-md-6 ">
                         <div class="form-group ">
                             <label for="Area ">Diện tích</label>
-                            <input type="text " class="createpost-form-control " id="area" name="area" required/>
+                            <input type="text " class="createpost-form-control " id="area" name="area" value="${post.getArea()}" required/>
                         </div>
                     </div>
                     <div class="col-md-12 ">
                         <div class="form-group ">
                             <label for="price ">Giá</label>
-                            <input type="number " class="createpost-form-control " id="price" name="price" required/>
+                            <input type="number " class="createpost-form-control " id="price" name="price" value="${post.getPrice()}" required/>
                         </div>
                     </div>
                     <div class="col-md-12 ">
                         <div class="form-group ">
                             <label for="title ">Tiêu đề</label>
-                            <input type="text " class="createpost-form-control " id="title" name="title" required/>
+                            <input type="text " class="createpost-form-control " id="title" name="title" value="${post.getTitle()}" required/>
                         </div>
                     </div>
                     <div class="col-md-12 ">
                         <div class="form-group ">
                             <label for="detail ">Nội dung</label>
-                            <textarea type="text " class="createpost-form-control " id="detail" name="detail" placeholder="Mô tả thêm thông tin" required></textarea>
+                            <textarea type="text " class="createpost-form-control " id="detail" name="detail" required>${post.getDetail()}</textarea>
                         </div>
                     </div>
                     <div class="col-md-12 ">
@@ -126,5 +127,16 @@
                 <button class="submit createpost-submit" type="submit " name=" " id=" ">Đăng bài</button>
             </form>
         </div>
+
+        <script>
+            function selectDirection(_direction) {
+                [...direction.options].forEach((option, index) => {
+                    if (option.value === _direction)
+                        direction.selectedIndex = index
+                })
+            }
+
+            selectDirection('${requestScope.post.getDirection()}')
+        </script>
     </body>
 </html>
