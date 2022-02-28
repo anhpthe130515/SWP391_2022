@@ -5,8 +5,13 @@
  */
 package Controller;
 
+import DAO.ListDao;
+import Model.District;
+import Model.Post;
+import Model.PropertyType;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -31,20 +36,25 @@ public class ListControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ListControl</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ListControl at " + request.getContextPath() + "</h1>");
-            out.println("Day la Servlet List");
-            out.println("</body>");
-            out.println("</html>");
+        String page = request.getParameter("page");
+        if(page==null){
+            page = "1";
         }
+        int indexPage = Integer.parseInt(page);
+        int numPage = new ListDao().getNumPage();
+        ArrayList<Post> lst = new ListDao().getItems(indexPage);
+        ArrayList<District> listDistricts = new ListDao().getDistrict();
+        ArrayList<PropertyType> listPropertyTypes = new ListDao().getPropertyType();
+        Integer districtId = request.getParameter("district") == null || request.getParameter("district").equals("") ? null : Integer.parseInt(request.getParameter("district"));
+        Integer propertyTypeId = request.getParameter("propertyType") == null || request.getParameter("propertyType").equals("") ? null : Integer.parseInt(request.getParameter("propertyType"));
+        
+        request.setAttribute("lst", lst);
+        request.setAttribute("numPage", numPage);
+        request.setAttribute("listDistricts", listDistricts);
+        request.setAttribute("listPropertyTypes", listPropertyTypes);
+        request.setAttribute("district", districtId);
+        request.setAttribute("propertyType", propertyTypeId);
+        request.getRequestDispatcher("list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
