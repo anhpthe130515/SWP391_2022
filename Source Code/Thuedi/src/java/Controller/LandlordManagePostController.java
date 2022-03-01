@@ -42,7 +42,7 @@ public class LandlordManagePostController extends HttpServlet {
         
         request.setAttribute("posts", new PostDao().selectByUserId(user.getId()));
         
-        request.getRequestDispatcher("/WEB-INF/LandlordManagePost").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/landlordmanagepost.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
