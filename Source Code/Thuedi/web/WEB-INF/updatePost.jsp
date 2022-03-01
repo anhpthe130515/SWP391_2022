@@ -31,8 +31,8 @@
                         <div class="form-group">
                             <label for="property_type">Loại bất động sản</label>
                             <select name="property_type" id="property_type" class="createpost-form-control" required>
-                                <c:forEach items="${requestScope.propertyType}" var="o">
-                                    <option value="${o.getId()}">${o.getName()}</option>
+                                <c:forEach items="${requestScope.propertyType}" var="propertyType">
+                                    <option value="${propertyType.getId()}">${propertyType.getName()}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -42,8 +42,8 @@
                             <label for="district">Địa chỉ</label>
                             <select class="createpost-form-control" name="district" id="district">
                                 <!--<option>Quận, Huyện</option>-->
-                                <c:forEach items="${requestScope.district}" var="o">
-                                    <option value="${o.getId()}">${o.getName()}</option>
+                                <c:forEach items="${requestScope.districtList}" var="district">
+                                    <option value="${district.getId()}">${district.getName()}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -51,9 +51,9 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="address"></label>
-                            <select name="address" class="createpost-form-control" id="address" required>
-                                <c:forEach items="${requestScope.subdistrict}" var="o">
-                                    <option value="${o.getId()}">${o.getName()}</option>
+                            <select name="address" class="createpost-form-control" id="subdistrict" required>
+                                <c:forEach items="${requestScope.subdistrictList}" var="subdistrict">
+                                    <option value="${subdistrict.getId()}">${subdistrict.getName()}</option>
                                 </c:forEach>
                             </select>
                         </div>
@@ -118,7 +118,7 @@
                     <div class="col-md-12 ">
                         <div class="form-group ">
                             <label for="image ">Image</label>
-                            <input type="file" multiple id="image" name="image" required/>
+                            <input type="file" multiple id="image" name="image" />
                         </div>
                     </div>
 
@@ -135,8 +135,33 @@
                         direction.selectedIndex = index
                 })
             }
+            
+            function selectSubDistrict(id) {
+                [...subdistrict.options].forEach((option, index) => {
+                    if (option.value == id)
+                        subdistrict.selectedIndex = index
+                })
+            }
+            
+            function selectDistrict(id) {
+                [...district.options].forEach((option, index) => {
+                    if (option.value == id)
+                        district.selectedIndex = index
+                })
+            }
+            
+            function selectPropertyType(id) {
+                [...property_type.options].forEach((option, index) => {
+                    if (option.value == id)
+                        property_type.selectedIndex = index
+                })
+            }
 
-            selectDirection('${requestScope.post.getDirection()}')
+            selectDirection('${requestScope.post.getDirection()}');
+            selectSubDistrict('${requestScope.post.getAddress()}');
+            selectDistrict('${requestScope.district.getId()}');
+            selectPropertyType('${requestScope.post.getPropertyType()}');
+            
         </script>
     </body>
 </html>

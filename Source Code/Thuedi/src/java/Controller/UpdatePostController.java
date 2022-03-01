@@ -9,13 +9,16 @@ import DAO.DistrictDao;
 import DAO.PostDao;
 import DAO.PropertyTypeDao;
 import DAO.SubdistrictDao;
+import Model.District;
 import Model.Post;
+import Model.Subdistrict;
 import Model.User;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -69,24 +72,30 @@ public class UpdatePostController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // set default values
-        request.setAttribute("propertyType", new PropertyTypeDao().select());
-        request.setAttribute("district", new DistrictDao().select());
-        request.setAttribute("subdistrict", new SubdistrictDao().select());
+        Collection<District> districtList = new DistrictDao().select();
+        Collection<Subdistrict> subdistrictList = new SubdistrictDao().select();
+        
         // get post by id 
         int id = Integer.parseInt(request.getParameter("id"));
         Post post = new PostDao().select(id);
+        
+        Subdistrict subdistrict = subdistrictList.stream()
+                .filter(predicate -> post.getAddress() == predicate.getId())
+                .findAny()
+                .orElse(null);
+        
+        District district = districtList.stream()
+                .filter(predicate -> subdistrict.getDistrictId() == predicate.getId())
+                .findAny()
+                .orElse(null);
+        
         // set value of post update
-        request.setAttribute("property_type", new PropertyTypeDao().selectById(post.getPropertyType()));
-        request.setAttribute("district", new DistrictDao().selectById(post.getAddress()));
-        request.setAttribute("address", new DistrictDao().selectById(post.getAddress()));
-        request.setAttribute("address_detail", post.getAddressDetail());
-        request.setAttribute("nob", post.getNumberOfBedrooms());
-        request.setAttribute("nor", post.getNumberOfRestrooms());
-        request.setAttribute("area", post.getArea());
-        request.setAttribute("price", post.getPrice());
-        request.setAttribute("title", post.getTitle());
-        request.setAttribute("detail", post.getDetail());
-
+        request.setAttribute("post", post);
+        request.setAttribute("propertyType", new PropertyTypeDao().select());
+        request.setAttribute("districtList", districtList);
+        request.setAttribute("subdistrictList", subdistrictList);
+        request.setAttribute("district", district);
+        
         request.getRequestDispatcher("/WEB-INF/updatePost.jsp").forward(request, response);
     }
 
