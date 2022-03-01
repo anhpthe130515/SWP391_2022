@@ -20,6 +20,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +32,9 @@ import javax.servlet.http.Part;
  * @author pinkd
  */
 @WebServlet(name = "UpdatePostController", urlPatterns = {"/Landlord/updatePost"})
+@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
+                 maxFileSize=1024*1024*50,      	// 50 MB
+                 maxRequestSize=1024*1024*100)          // 100 MB
 public class UpdatePostController extends HttpServlet {
 
     /**
@@ -74,7 +78,7 @@ public class UpdatePostController extends HttpServlet {
         // set default values
         Collection<District> districtList = new DistrictDao().select();
         Collection<Subdistrict> subdistrictList = new SubdistrictDao().select();
-        
+
         // get post by id 
         int id = Integer.parseInt(request.getParameter("id"));
         Post post = new PostDao().select(id);
@@ -88,13 +92,16 @@ public class UpdatePostController extends HttpServlet {
                 .filter(predicate -> subdistrict.getDistrictId() == predicate.getId())
                 .findAny()
                 .orElse(null);
-        
+
         // set value of post update
         request.setAttribute("post", post);
         request.setAttribute("propertyType", new PropertyTypeDao().select());
         request.setAttribute("districtList", districtList);
         request.setAttribute("subdistrictList", subdistrictList);
         request.setAttribute("district", district);
+        request.setAttribute("listImageId", new PostDao().getAllImageId(id));
+        
+        request.getSession().setAttribute("post", post);
         
         request.getRequestDispatcher("/WEB-INF/updatePost.jsp").forward(request, response);
     }
@@ -110,10 +117,8 @@ public class UpdatePostController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Post post = new Post();
-        User user = (User)request.getSession().getAttribute("user");
-        post.setUserId(user.getId());
-        post.setCreateDate(new Date(System.currentTimeMillis()));
+        int id = Integer.parseInt(request.getParameter("id"));
+        Post post = new PostDao().select(id);
         post.setTitle(request.getParameter("title"));
         post.setDetail(request.getParameter("detail"));
         post.setPrice(Integer.parseInt(request.getParameter("price")));
@@ -125,20 +130,19 @@ public class UpdatePostController extends HttpServlet {
         post.setAddressDetail(request.getParameter("address_detail"));
         post.setPropertyType(Integer.parseInt(request.getParameter("property_type")));
         
-        request.getSession().setAttribute("post", post);
-        
         ArrayList<InputStream> images = new ArrayList<>();
         
         for (Part part : request.getParts()) {
-            if(part.getContentType() != null) { 
+            if (part.getContentType() != null) {                
                 if (("image/png").equals(part.getContentType()) || ("image/jpeg").equals(part.getContentType())) {
                     images.add(part.getInputStream());
                 }
             }
         }
         request.getSession().setAttribute("images", images);
-        
-        response.sendRedirect("/Thuedi/home");
+        PostDao dao = new PostDao();
+        dao.update(post);
+        response.sendRedirect("/Thuedi/list");
     }
 
     /**

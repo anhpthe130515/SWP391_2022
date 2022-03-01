@@ -25,7 +25,7 @@
         <div class="createpost-section">
             <h4>Sửa bài đăng</h4>
 
-            <form action="updatePost" class="createpost-form" enctype="multipart/form-data">
+            <form method="POST" class="createpost-form" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -100,7 +100,7 @@
                     <div class="col-md-12 ">
                         <div class="form-group ">
                             <label for="price ">Giá</label>
-                            <input type="number " class="createpost-form-control " id="price" name="price" value="${post.getPrice()}" required/>
+                            <input type="number" class="createpost-form-control " id="price" name="price" value="${post.getPrice()}" required/>
                         </div>
                     </div>
                     <div class="col-md-12 ">
@@ -120,6 +120,12 @@
                             <label for="image ">Image</label>
                             <input type="file" multiple id="image" name="image" />
                         </div>
+
+                        <div>
+                            <c:forEach items="${requestScope.listImageId}" var="imageId">
+                                <image class="img-fluid" src="/Thuedi/PostImage/${imageId}" />
+                            </c:forEach>
+                        </div>
                     </div>
 
                 </div>
@@ -135,21 +141,21 @@
                         direction.selectedIndex = index
                 })
             }
-            
+
             function selectSubDistrict(id) {
                 [...subdistrict.options].forEach((option, index) => {
                     if (option.value == id)
                         subdistrict.selectedIndex = index
                 })
             }
-            
+
             function selectDistrict(id) {
                 [...district.options].forEach((option, index) => {
                     if (option.value == id)
                         district.selectedIndex = index
                 })
             }
-            
+
             function selectPropertyType(id) {
                 [...property_type.options].forEach((option, index) => {
                     if (option.value == id)
@@ -161,7 +167,7 @@
             selectSubDistrict('${requestScope.post.getAddress()}');
             selectDistrict('${requestScope.district.getId()}');
             selectPropertyType('${requestScope.post.getPropertyType()}');
-            
+
         </script>
     </body>
 </html>
