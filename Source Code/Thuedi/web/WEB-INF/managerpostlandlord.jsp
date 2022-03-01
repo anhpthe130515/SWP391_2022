@@ -1,0 +1,818 @@
+<%-- 
+    Document   : managerpostlandlord
+    Created on : Mar 1, 2022, 9:22:59 AM
+    Author     : TuanLA
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <title>Thuedi</title>
+  </head>
+
+  <body>
+    <section class="header" id="navbar">
+      <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">THUEDI</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#"
+                >Home <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link disabled"
+                href="#"
+                tabindex="-1"
+                aria-disabled="true"
+                >Disabled</a
+              >
+            </li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <button
+              class="btn btn-outline-success my-2 my-sm-0 ml-3"
+              type="submit"
+            >
+              Post
+            </button>
+          </form>
+        </div>
+      </nav>
+    </section>
+
+    <section class="main-content">
+      <h5 class="mb-2">Quản Lý Bài Đăng</h5>
+      <section class="manager-post">
+        <!-- SIDEBAR -->
+        <div class="landlord-side-bar">
+          <div class="widget-item">
+            <div class="avatar">
+              <img
+                src="https://www.nj.gov/njgf/assets/images/EC_Members_Default.jpg"
+                class="rounded-circle mb-2"
+                width="125px"
+                height="125px"
+                alt=""
+              />
+              <span class="font-weight-bold h5">Lê Anh Tuấn</span>
+              <span>Tổng số bài đăng: 20</span>
+              <span>Ngày tham gia: 20/02/2022</span>
+            </div>
+          </div>
+        </div>
+        <div class="manager-post-list">
+          <ul>
+            <!-- ITEMS LIST -->
+            <li class="property-list-items">
+              <a href="#">
+                <ul class="item">
+                  <div class="item-img"><img src="images/item1.jpg" /></div>
+
+                  <ul class="item-infor">
+                    <li class="item-infor-title">
+                      Phòng trọ đẹp quá trời, mới xây, cam kết giống hình 100%
+                    </li>
+                    <li class="font-weight-light">Hoàn Kiếm, Hà Nội</li>
+                    <ul class="item-attr">
+                      <li><b>20m2</b></li>
+                      <li>1 VS</li>
+                      <li>2 PN</li>
+                    </ul>
+                    <li class="price">4 triệu</li>
+                    <li class="item-date">Hôm nay</li>
+                  </ul>
+                </ul>
+              </a>
+              <!-- EDIT BUTTON -->
+              <button
+                type="button"
+                class="btn-edit"
+                data-bs-toggle="modal"
+                data-bs-target="#editModal"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
+                  class="bi bi-pencil-square"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                  />
+                </svg>
+              </button>
+              <div
+                class="modal fade"
+                id="editModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Cập nhật bài viết
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-x-lg"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form
+                        class="createpost-form"
+                        action="CreatePost"
+                        method="post"
+                      >
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="property_type"
+                                >Loại bất động sản</label
+                              >
+                              <input
+                                type="text"
+                                class="createpost-form-control"
+                                id="property_type"
+                                name="property_type"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="address">Địa chỉ</label>
+                              <input
+                                type="text"
+                                class="createpost-form-control"
+                                id="address"
+                                name="address"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="address"></label>
+                              <input
+                                type="text"
+                                class="createpost-form-control"
+                                id="address"
+                                name="address"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="address_detail"
+                                >Địa chỉ chi tiết</label
+                              >
+                              <input
+                                type="text"
+                                class="createpost-form-control"
+                                id="address_detail"
+                                name="address_detail"
+                                placeholder="Phường/Ngõ/Ngách"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="direction">Hướng</label>
+                              <input
+                                type="text"
+                                class="createpost-form-control"
+                                id=" direction "
+                                name="direction "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="nob ">Số phòng ngủ</label>
+                              <input
+                                type="text "
+                                class="createpost-form-control"
+                                id="nob "
+                                name="nob "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="nor ">Số phòng vệ sinh</label>
+                              <input
+                                type="text "
+                                class="createpost-form-control"
+                                id="nor "
+                                name="nor "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="Area ">Diện tích</label>
+                              <input
+                                type="text "
+                                class="createpost-form-control"
+                                id="area "
+                                name="area "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="price ">Giá</label>
+                              <input
+                                type="number "
+                                class="createpost-form-control"
+                                id="price "
+                                name="price "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="title ">Tiêu đề</label>
+                              <input
+                                type="text "
+                                class="createpost-form-control"
+                                id="title "
+                                name="title "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="detail ">Nội dung</label>
+                              <textarea
+                                type="text "
+                                class="createpost-form-control"
+                                id="detail "
+                                name="detail "
+                                placeholder="Mô tả thêm thông tin"
+                                required
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="image ">Image</label>
+                              <input
+                                type="file"
+                                multiple
+                                id="image "
+                                name="image "
+                                required
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <!-- 
+              <button
+                class="submit createpost-submit"
+                type="submit"
+                name=" "
+                id=" "
+              >
+                Đăng bài
+              </button> -->
+                        <div class="modal-footer mt-5">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Thoát
+                          </button>
+                          <button type="submit" class="btn btn-primary">
+                            Cập nhật
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- DELETE BUTTON -->
+              <button
+                type="button"
+                class="btn-delete"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
+                  class="bi bi-trash"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                  />
+                </svg>
+              </button>
+              <!-- DELETE-MODAL -->
+              <div
+                class="modal fade"
+                id="deleteModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Thông báo
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-x-lg"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Bạn có muốn xóa bài viết này không ?
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Thoát
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        Đồng ý
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="property-list-items">
+              <a href="#">
+                <ul class="item">
+                  <div class="item-img"><img src="images/item1.jpg" /></div>
+
+                  <ul class="item-infor">
+                    <li class="item-infor-title">
+                      Phòng trọ đẹp quá trời, mới xây, cam kết giống hình 100%
+                    </li>
+                    <li class="font-weight-light">Hoàn Kiếm, Hà Nội</li>
+                    <ul class="item-attr">
+                      <li><b>20m2</b></li>
+                      <li>1 VS</li>
+                      <li>2 PN</li>
+                    </ul>
+                    <li class="price">4 triệu</li>
+                    <li class="item-date">Hôm nay</li>
+                  </ul>
+                </ul>
+              </a>
+              <!-- EDIT BUTTON -->
+              <button
+                type="button"
+                class="btn-edit"
+                data-bs-toggle="modal"
+                data-bs-target="#editModal"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
+                  class="bi bi-pencil-square"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+                  />
+                </svg>
+              </button>
+              <div
+                class="modal fade"
+                id="editModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Cập nhật bài viết
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-x-lg"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form
+                        class="createpost-form"
+                        action="CreatePost"
+                        method="post"
+                      >
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="property_type"
+                                >Loại bất động sản</label
+                              >
+                              <input
+                                type="text"
+                                class="createpost-form-control"
+                                id="property_type"
+                                name="property_type"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="address">Địa chỉ</label>
+                              <input
+                                type="text"
+                                class="createpost-form-control"
+                                id="address"
+                                name="address"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="address"></label>
+                              <input
+                                type="text"
+                                class="createpost-form-control"
+                                id="address"
+                                name="address"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="address_detail"
+                                >Địa chỉ chi tiết</label
+                              >
+                              <input
+                                type="text"
+                                class="createpost-form-control"
+                                id="address_detail"
+                                name="address_detail"
+                                placeholder="Phường/Ngõ/Ngách"
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="direction">Hướng</label>
+                              <input
+                                type="text"
+                                class="createpost-form-control"
+                                id=" direction "
+                                name="direction "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="nob ">Số phòng ngủ</label>
+                              <input
+                                type="text "
+                                class="createpost-form-control"
+                                id="nob "
+                                name="nob "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="nor ">Số phòng vệ sinh</label>
+                              <input
+                                type="text "
+                                class="createpost-form-control"
+                                id="nor "
+                                name="nor "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="Area ">Diện tích</label>
+                              <input
+                                type="text "
+                                class="createpost-form-control"
+                                id="area "
+                                name="area "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="price ">Giá</label>
+                              <input
+                                type="number "
+                                class="createpost-form-control"
+                                id="price "
+                                name="price "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="title ">Tiêu đề</label>
+                              <input
+                                type="text "
+                                class="createpost-form-control"
+                                id="title "
+                                name="title "
+                                required
+                              />
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="detail ">Nội dung</label>
+                              <textarea
+                                type="text "
+                                class="createpost-form-control"
+                                id="detail "
+                                name="detail "
+                                placeholder="Mô tả thêm thông tin"
+                                required
+                              ></textarea>
+                            </div>
+                          </div>
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label for="image ">Image</label>
+                              <input
+                                type="file"
+                                multiple
+                                id="image "
+                                name="image "
+                                required
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <!-- 
+              <button
+                class="submit createpost-submit"
+                type="submit"
+                name=" "
+                id=" "
+              >
+                Đăng bài
+              </button> -->
+                        <div class="modal-footer mt-5">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                          >
+                            Thoát
+                          </button>
+                          <button type="submit" class="btn btn-primary">
+                            Cập nhật
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- DELETE BUTTON -->
+              <button
+                type="button"
+                class="btn-delete"
+                data-bs-toggle="modal"
+                data-bs-target="#deleteModal"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  fill="currentColor"
+                  class="bi bi-trash"
+                  viewBox="0 0 16 16"
+                >
+                  <path
+                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"
+                  />
+                  <path
+                    fill-rule="evenodd"
+                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"
+                  />
+                </svg>
+              </button>
+              <!-- DELETE-MODAL -->
+              <div
+                class="modal fade"
+                id="deleteModal"
+                tabindex="-1"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+              >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">
+                        Thông báo
+                      </h5>
+                      <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          class="bi bi-x-lg"
+                          viewBox="0 0 16 16"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
+                          />
+                          <path
+                            fill-rule="evenodd"
+                            d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Bạn có muốn xóa bài viết này không ?
+                    </div>
+                    <div class="modal-footer">
+                      <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Thoát
+                      </button>
+                      <button type="button" class="btn btn-primary">
+                        Đồng ý
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </section>
+    <section class="footer">Footer demo</section>
+
+    <!-- JAVASCRIPT -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
