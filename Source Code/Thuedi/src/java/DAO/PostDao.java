@@ -24,6 +24,59 @@ import java.util.logging.Logger;
  * @author Admin
  */
 public class PostDao extends DBContext{
+    public Post select(int id) {
+        String sql = "SELECT [Id]\n"
+                + "      ,[User_id]\n"
+                + "      ,[Create_date]\n"
+                + "      ,[Title]\n"
+                + "      ,[Detail]\n"
+                + "      ,[Price]\n"
+                + "      ,[Area]\n"
+                + "      ,[Number_of_bedrooms]\n"
+                + "      ,[Number_of_restrooms]\n"
+                + "      ,[Direction]\n"
+                + "      ,[Address]\n"
+                + "      ,[Address_detail]\n"
+                + "      ,[Property_type_id]\n"
+                + "  FROM [dbo].[Post] \n"
+                + "  WHERE [Id] = ?";
+        
+        Post post = null;
+        
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                post = new Post(
+                    rs.getInt("Id"),
+                    rs.getInt("User_id"),
+                    rs.getDate("Create_date"),
+                    rs.getString("Title"),
+                    rs.getString("Detail"),
+                    rs.getInt("Price"),
+                    rs.getFloat("Area"),
+                    rs.getInt("Number_of_bedrooms"),
+                    rs.getInt("Number_of_restrooms"),
+                    rs.getString("Direction"),
+                    rs.getInt("Address"),
+                    rs.getString("Address_detail"),
+                    rs.getInt("Property_type_id"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return post;
+    }
     public Collection<Post> selectByUserId(int id) {
         String sql = "SELECT [Id]\n"
                 + "      ,[User_id]\n"
