@@ -23,9 +23,8 @@ import java.util.logging.Logger;
  *
  * @author Admin
  */
-public class PostDao extends DBContext {
-
-    public Post select(int id) {
+public class PostDao extends DBContext{
+    public Collection<Post> selectByUserId(int id) {
         String sql = "SELECT [Id]\n"
                 + "      ,[User_id]\n"
                 + "      ,[Create_date]\n"
@@ -40,30 +39,32 @@ public class PostDao extends DBContext {
                 + "      ,[Address_detail]\n"
                 + "      ,[Property_type_id]\n"
                 + "  FROM [dbo].[Post] \n"
-                + "  WHERE [Id] = ?";
-
-        Post post = null;
-
+                + "  WHERE [User_id] = ?";
+        
+        Collection<Post> posts = new ArrayList<>();
+        
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
-
+            
             ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                post = new Post(
-                        rs.getInt("Id"),
-                        rs.getInt("User_id"),
-                        rs.getDate("Create_date"),
-                        rs.getString("Title"),
-                        rs.getString("Detail"),
-                        rs.getInt("Price"),
-                        rs.getFloat("Area"),
-                        rs.getInt("Number_of_bedrooms"),
-                        rs.getInt("Number_of_restrooms"),
-                        rs.getString("Direction"),
-                        rs.getInt("Address"),
-                        rs.getString("Address_detail"),
-                        rs.getInt("Property_type_id"));
+            while(rs.next()) {
+                posts.add(
+                        new Post(
+                                rs.getInt("Id"),
+                                rs.getInt("User_id"),
+                                rs.getDate("Create_date"),
+                                rs.getString("Title"),
+                                rs.getString("Detail"),
+                                rs.getInt("Price"),
+                                rs.getFloat("Area"),
+                                rs.getInt("Number_of_bedrooms"),
+                                rs.getInt("Number_of_restrooms"),
+                                rs.getString("Direction"),
+                                rs.getInt("Address"),
+                                rs.getString("Address_detail"),
+                                rs.getInt("Property_type_id"))
+                );
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -75,10 +76,10 @@ public class PostDao extends DBContext {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        return post;
+        
+        return posts;
     }
-
+    
     public int insert(Post post) {
         String sql = "INSERT INTO [dbo].[Post]\n"
                 + "           ([User_id]\n"
@@ -151,7 +152,7 @@ public class PostDao extends DBContext {
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, postId + "");
+            st.setInt(1, postId);
             st.setBlob(2, image);
 
             st.executeUpdate();
@@ -181,8 +182,8 @@ public class PostDao extends DBContext {
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setString(1, id + "");
-
+            st.setInt(1, id);
+            
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Blob image = rs.getBlob(1);
