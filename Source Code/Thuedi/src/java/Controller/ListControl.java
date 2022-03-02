@@ -42,6 +42,7 @@ public class ListControl extends HttpServlet {
         }
         int indexPage = Integer.parseInt(page);
         int numPage = new ListDao().getNumPage();
+        int numPost = new ListDao().getNumPost();
         ArrayList<Post> lst = new ListDao().getItems(indexPage);
         ArrayList<District> listDistricts = new ListDao().getDistrict();
         ArrayList<PropertyType> listPropertyTypes = new ListDao().getPropertyType();
@@ -50,6 +51,7 @@ public class ListControl extends HttpServlet {
         
         request.setAttribute("lst", lst);
         request.setAttribute("numPage", numPage);
+        request.setAttribute("numPost", numPost);
         request.setAttribute("listDistricts", listDistricts);
         request.setAttribute("listPropertyTypes", listPropertyTypes);
         request.setAttribute("district", districtId);

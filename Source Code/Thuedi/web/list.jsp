@@ -177,7 +177,7 @@
             <div class="property-list">
                 <h5>Phòng Trọ Sinh Viên Giá Hạt Ngô</h5>
                 <div class="property-list-result">
-                    <b>1-10</b> trong <b>từng ấy kết quả</b>
+                    <b>2</b> trong <b>${requestScope.numPost} kết quả</b>
                 </div>
                 <ul>
                     <!-- ITEMS LIST -->

@@ -82,7 +82,7 @@ public class ListDao {
 
     public int getNumPage() {
 
-        String sql = "SELECT count(*) FROM Property_type";
+        String sql = "SELECT count(*) FROM Post";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -94,6 +94,23 @@ public class ListDao {
                     countPage++;
                 }
                 return countPage;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ListDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public int getNumPost() {
+
+        String sql = "SELECT count(id) FROM Post";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int total = rs.getInt(1);
+                int num = 0;
+                return num = total;
             }
         } catch (SQLException ex) {
             Logger.getLogger(ListDao.class.getName()).log(Level.SEVERE, null, ex);
