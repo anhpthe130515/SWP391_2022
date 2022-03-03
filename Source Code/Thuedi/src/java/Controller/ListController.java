@@ -54,6 +54,7 @@ public class ListController extends HttpServlet {
         request.setAttribute("lst", lst);
         request.setAttribute("numPage", numPage);
         request.setAttribute("numPost", numPost);
+        request.setAttribute("page", page);
         request.setAttribute("listDistricts", listDistricts);
         request.setAttribute("listPropertyTypes", listPropertyTypes);
         request.setAttribute("district", districtId);

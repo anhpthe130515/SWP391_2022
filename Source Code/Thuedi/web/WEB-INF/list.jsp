@@ -88,16 +88,15 @@
                                     Khu vực
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <c:forEach items="${requestScope.listDistricts}" var="listDis">
-                                        <a class="dropdown-item" href="#" id="${listDis.id}">${listDis.name}</a>
-                                    </c:forEach>
-                                </div>
-                            </div>-->
+            <c:forEach items="${requestScope.listDistricts}" var="listDis">
+                <a class="dropdown-item" href="#" id="${listDis.id}">${listDis.name}</a>
+            </c:forEach>
+        </div>
+    </div>-->
 
-            <div class="w3-half w3-margin-bottom">
-                <label><i class="fa fa-tag"></i> Khu vực</label>
-                <select class="w3-select w3-border"  name="district">
-                    <option value="">Tất Cả</option>
+            <div class="w3-half w3-margin-bottom" >
+                <select class="btn btn-secondary dropdown-toggle"  name="district">
+                    <option value="">Khu vực</option>
                     <c:forEach items="${requestScope.listDistricts}" var="listDis">
                         <option value="${listDis.id}" <c:if test="${listDis.id == requestScope.district}">selected="selected"</c:if>>${listDis.name}</option>
                     </c:forEach>
@@ -105,21 +104,20 @@
                 </select>
             </div>
 
-<!--            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                    Loại bất động sản
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
-                        <a class="dropdown-item" href="#">${listPro.name}</a>
-                    </c:forEach>
-                </div>
-            </div>-->
-            
+            <!--            <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                                Loại bất động sản
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
+                <a class="dropdown-item" href="#">${listPro.name}</a>
+            </c:forEach>
+        </div>
+    </div>-->
+
             <div class="w3-half w3-margin-bottom">
-                <label><i class="fa fa-tag"></i> Loại bất động sản</label>
-                <select class="w3-select w3-border"  name="propertyType">
-                    <option value="">Tất Cả</option>
+                <select class="btn btn-secondary dropdown-toggle">
+                    <option value="">Loại bất động sản</option>
                     <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
                         <option value="${listPro.id}" <c:if test="${listPro.id == requestScope.propertyType}">selected="selected"</c:if>>${listPro.name}</option>
                     </c:forEach>
@@ -127,22 +125,21 @@
                 </select>
             </div>
 
-<!--            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                    Giá thuê
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">< 3 Triệu</a>
-                    <a class="dropdown-item" href="#">3 - 5 Triệu</a>
-                    <a class="dropdown-item" href="#">5 - 7 Triệu</a>
-                    <a class="dropdown-item" href="#">> 7 Triệu</a>
-                </div>
-            </div>-->
+            <!--            <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+                                Giá thuê
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">< 3 Triệu</a>
+                                <a class="dropdown-item" href="#">3 - 5 Triệu</a>
+                                <a class="dropdown-item" href="#">5 - 7 Triệu</a>
+                                <a class="dropdown-item" href="#">> 7 Triệu</a>
+                            </div>
+                        </div>-->
 
             <div class="w3-half w3-margin-bottom">
-                <label><i class="fa fa-tag"></i> Giá thuê</label>
-                <select class="w3-select w3-border"  name="propertyType">
-                    <option value="">Tất Cả</option>
+                <select class="btn btn-secondary dropdown-toggle"  name="propertyType">
+                    <option value="">Giá thuê</option>
                     <option value="">< 3 Triệu</option>
                     <option value="">3 - 7 Triệu</option>
                     <option value="">> 7 Triệu</option>
@@ -150,15 +147,10 @@
                 </select>
             </div>
 
-<!--            <div class="dropdown">
+            <div class="dropdown">
                 <button class="btn btn-secondary" type="button">Lọc thêm</button>
-            </div>-->
-            
-            <div class="w3-half w3-margin-bottom">
-                <label><i class="fa fa-tag"></i> Lọc thêm</label>
-                
             </div>
-            
+
             </div>
         </section>
 
@@ -178,15 +170,17 @@
             <div class="property-list">
                 <h5>Phòng Trọ Sinh Viên Giá Hạt Ngô</h5>
                 <div class="property-list-result">
-                    <b>2</b> trong <b>${requestScope.numPost} kết quả</b>
+                    <b>${requestScope.page*8-7} - <c:out default="None" value="${requestScope.page*8 > numPost ? numPost : page*8}"/> trong ${requestScope.numPost} kết quả</b>
                 </div>
                 <ul>
                     <!-- ITEMS LIST -->
                     <c:forEach items="${requestScope.lst}" var="a" varStatus="loop">
                         <li class="property-list-items">
-                            <a href="">
+                            <a href="" >
                                 <ul class="item">
-                                    <div class="item-img"><img src="/Thuedi/PostImage/${a.id}"/></div>
+                                    <div class="item-img">
+                                        <img src="/Thuedi/PostImage/${a.id}" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/>
+                                    </div>
                                     <ul class="item-infor">
                                         <li class="item-infor-title">${a.title}</li>
                                         <li class="font-weight-light">${a.addressDetail}</li>
@@ -225,9 +219,9 @@
                             <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
                         </li>
                         <li class="page-item" aria-current="page"></li>
-                        <c:forEach var="counter" begin="1" end="${requestScope.numPage}">
+                            <c:forEach var="counter" begin="1" end="${requestScope.numPage}">
                             <li class="page-item"><a class="page-link" <c:if test="${param.page eq counter}">style="font-weight: 800;"</c:if> href="list?page=${counter}">${counter}</a></li>    
-                        </c:forEach>
+                            </c:forEach>
                         <li class="page-item">
                             <a class="page-link" href="#">Next</a>
                         </li>

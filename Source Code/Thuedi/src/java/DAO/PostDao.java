@@ -349,12 +349,12 @@ public class PostDao extends DBContext{
         ArrayList<Post> lst = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Post\n"
-                    + "ORDER BY Create_date\n"
+                    + "ORDER BY Id DESC\n"
                     + "OFFSET ? ROWS\n"
                     + "FETCH FIRST 8 ROWS ONLY";
 
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, (page-1)*2);
+            ps.setInt(1, (page-1)*8);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 lst.add(new Post(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getFloat(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getInt(11), rs.getString(12), rs.getInt(13)));
