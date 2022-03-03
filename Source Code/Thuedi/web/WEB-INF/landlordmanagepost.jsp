@@ -121,11 +121,9 @@
                                     </ul>
                                 </a>
                                 <!-- EDIT BUTTON -->
-                                <button
-                                    type="button"
+                                <a
+                                    href="updatePost?id=${o.getId()}"
                                     class="btn-edit"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#editModal"
                                     >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -143,229 +141,7 @@
                                         d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
                                         />
                                     </svg>
-                                </button>
-                                <div
-                                    class="modal fade"
-                                    id="editModal"
-                                    tabindex="-1"
-                                    aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true"
-                                    >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                    Cập nhật bài viết
-                                                </h5>
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-light"
-                                                    data-bs-dismiss="modal"
-                                                    aria-label="Close"
-                                                    >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="16"
-                                                        height="16"
-                                                        fill="currentColor"
-                                                        class="bi bi-x-lg"
-                                                        viewBox="0 0 16 16"
-                                                        >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
-                                                        />
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
-                                                        />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form
-                                                    class="createpost-form"
-                                                    action="CreatePost"
-                                                    method="post"
-                                                    >
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="property_type"
-                                                                       >Loại bất động sản</label
-                                                                >
-                                                                <input
-                                                                    type="text"
-                                                                    class="createpost-form-control"
-                                                                    id="property_type"
-                                                                    name="property_type"
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="address">Địa chỉ</label>
-                                                                <input
-                                                                    type="text"
-                                                                    class="createpost-form-control"
-                                                                    id="address"
-                                                                    name="address"
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="address"></label>
-                                                                <input
-                                                                    type="text"
-                                                                    class="createpost-form-control"
-                                                                    id="address"
-                                                                    name="address"
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="address_detail"
-                                                                       >Địa chỉ chi tiết</label
-                                                                >
-                                                                <input
-                                                                    type="text"
-                                                                    class="createpost-form-control"
-                                                                    id="address_detail"
-                                                                    name="address_detail"
-                                                                    placeholder="Phường/Ngõ/Ngách"
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="direction">Hướng</label>
-                                                                <input
-                                                                    type="text"
-                                                                    class="createpost-form-control"
-                                                                    id=" direction "
-                                                                    name="direction "
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="nob ">Số phòng ngủ</label>
-                                                                <input
-                                                                    type="text "
-                                                                    class="createpost-form-control"
-                                                                    id="nob "
-                                                                    name="nob "
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="nor ">Số phòng vệ sinh</label>
-                                                                <input
-                                                                    type="text "
-                                                                    class="createpost-form-control"
-                                                                    id="nor "
-                                                                    name="nor "
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <label for="Area ">Diện tích</label>
-                                                                <input
-                                                                    type="text "
-                                                                    class="createpost-form-control"
-                                                                    id="area "
-                                                                    name="area "
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="price ">Giá</label>
-                                                                <input
-                                                                    type="number "
-                                                                    class="createpost-form-control"
-                                                                    id="price "
-                                                                    name="price "
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="title ">Tiêu đề</label>
-                                                                <input
-                                                                    type="text "
-                                                                    class="createpost-form-control"
-                                                                    id="title "
-                                                                    name="title "
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="detail ">Nội dung</label>
-                                                                <textarea
-                                                                    type="text "
-                                                                    class="createpost-form-control"
-                                                                    id="detail "
-                                                                    name="detail "
-                                                                    placeholder="Mô tả thêm thông tin"
-                                                                    required
-                                                                    ></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="image ">Image</label>
-                                                                <input
-                                                                    type="file"
-                                                                    multiple
-                                                                    id="image "
-                                                                    name="image "
-                                                                    required
-                                                                    />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- 
-                                          <button
-                                            class="submit createpost-submit"
-                                            type="submit"
-                                            name=" "
-                                            id=" "
-                                          >
-                                            Đăng bài
-                                          </button> -->
-                                                    <div class="modal-footer mt-5">
-                                                        <button
-                                                            type="button"
-                                                            class="btn btn-secondary"
-                                                            data-bs-dismiss="modal"
-                                                            >
-                                                            Thoát
-                                                        </button>
-                                                        <button type="submit" class="btn btn-primary">
-                                                            Cập nhật
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </a>
                                 <!-- DELETE BUTTON -->
                                 <button
                                     type="button"
@@ -440,9 +216,9 @@
                                                     >
                                                     Thoát
                                                 </button>
-                                                <button type="button" class="btn btn-primary">
+                                                <a href="DeletePost?id=${o.getId()}" class="btn btn-primary">
                                                     Đồng ý
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>

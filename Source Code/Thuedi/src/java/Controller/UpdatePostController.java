@@ -140,9 +140,8 @@ public class UpdatePostController extends HttpServlet {
             }
         }
         request.getSession().setAttribute("images", images);
-        PostDao dao = new PostDao();
-        dao.update(post);
-        response.sendRedirect("/Thuedi/list");
+        new PostDao().update(post);
+        response.sendRedirect("ManagePost");
     }
 
     /**
