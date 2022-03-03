@@ -3,23 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package Controller;
 
+import DAO.ListDao;
+import Model.District;
+import Model.Post;
+import Model.PropertyType;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author TuanLA
  */
-@WebServlet(name = "AdminControl", urlPatterns = {"/admin"})
-public class AdminControl extends HttpServlet {
+@WebServlet(name = "ListControl", urlPatterns = {"/list"})
+public class ListController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,28 +36,27 @@ public class AdminControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminControl</title>");
-            out.println("</head>");
-            out.println("<body>");
-            HttpSession session = request.getSession();
-            int roleId = (int) session.getValue("roleId");
-            if (roleId != 1) {
-                out.println("<h2>Ban khong co quyen truy cap</h2>");
-            } else {
-                out.println("<h1>Servlet AdminControl at " + request.getContextPath() + "</h1>");
-                out.println("<h2>Day la trang admin " + roleId + "</h2>");
-
-            }
-            out.println("</body>");
-            out.println("</html>");
+        String page = request.getParameter("page");
+        if(page==null){
+            page = "1";
         }
+        int indexPage = Integer.parseInt(page);
+        int numPage = new ListDao().getNumPage();
+        int numPost = new ListDao().getNumPost();
+        ArrayList<Post> lst = new ListDao().getItems(indexPage);
+        ArrayList<District> listDistricts = new ListDao().getDistrict();
+        ArrayList<PropertyType> listPropertyTypes = new ListDao().getPropertyType();
+        Integer districtId = request.getParameter("district") == null || request.getParameter("district").equals("") ? null : Integer.parseInt(request.getParameter("district"));
+        Integer propertyTypeId = request.getParameter("propertyType") == null || request.getParameter("propertyType").equals("") ? null : Integer.parseInt(request.getParameter("propertyType"));
+        
+        request.setAttribute("lst", lst);
+        request.setAttribute("numPage", numPage);
+        request.setAttribute("numPost", numPost);
+        request.setAttribute("listDistricts", listDistricts);
+        request.setAttribute("listPropertyTypes", listPropertyTypes);
+        request.setAttribute("district", districtId);
+        request.setAttribute("propertyType", propertyTypeId);
+        request.getRequestDispatcher("list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

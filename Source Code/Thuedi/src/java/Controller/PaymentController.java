@@ -8,6 +8,8 @@ package Controller;
 import DAO.PostDao;
 import Model.Post;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +42,7 @@ public class PaymentController extends HttpServlet {
             return;
         }
         
-        request.getRequestDispatcher("/payment.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/payment.jsp").forward(request, response);
     }
 
     /**
@@ -58,10 +60,33 @@ public class PaymentController extends HttpServlet {
             response.sendRedirect("CreatePost");
             return;
         }
-        
-        PostDao.insert((Post)request.getSession().getAttribute("post"));
+        int id = new PostDao().insert((Post)request.getSession().getAttribute("post"));
         request.getSession().removeAttribute("post");
-        response.sendRedirect("/list");
+        
+        if(id == -1) {
+            request.setAttribute("errorms", "Có lỗi xảy ra trong quá trình tạo bài đăng. Xin hãy vui lòng liên hệ admin");
+            new CreatePostController().doGet(request, response);
+            return;
+        }
+        
+        int flag = 0;
+        ArrayList<InputStream> images = (ArrayList<InputStream>)request.getSession().getAttribute("images");
+        for (InputStream image : images) {
+            if(flag != -1) {
+                flag = new PostDao().insertImage(image, id);
+            } else {
+                new PostDao().insertImage(image, id);
+            }
+        }
+        request.getSession().removeAttribute("images");
+        
+        if(id == -1) {
+            request.setAttribute("erorms", "Có lỗi xảy ra trong quá trình đăng tải ảnh. Xin hãy vui lòng cập nhật lại bài đăng");
+            new CreatePostController().doGet(request, response);
+            return;
+        }
+        
+        response.sendRedirect("../list");
     }
 
 

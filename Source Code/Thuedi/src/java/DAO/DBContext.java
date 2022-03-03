@@ -5,9 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBContext {
-    protected static Connection connection;
+    protected Connection connection;
     
-    static {
+    protected DBContext()
+    {
         try {
             // Edit URL , username, password to authenticate with your MS SQL Server
             String url = "jdbc:sqlserver://DESKTOP-N2IDGT8:1433;databaseName= thuedi";
@@ -18,10 +19,5 @@ public class DBContext {
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }
-    }
-    
-    protected DBContext()
-    {
-        
     }
 }

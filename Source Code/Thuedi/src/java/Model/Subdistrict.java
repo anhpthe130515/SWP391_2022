@@ -9,20 +9,20 @@ package Model;
  *
  * @author Admin
  */
-public class District {
+public class Subdistrict {
     private int Id;
     private String Name;
+    private int DistrictId;
     private String AreaReview;
-    private String ImageUrl;
 
-    public District() {
+    public Subdistrict() {
     }
 
-    public District(int Id, String Name, String AreaReview, String ImageUrl) {
+    public Subdistrict(int Id, String Name, int DistrictId, String AreaReview) {
         this.Id = Id;
         this.Name = Name;
+        this.DistrictId = DistrictId;
         this.AreaReview = AreaReview;
-        this.ImageUrl = ImageUrl;
     }
 
     public int getId() {
@@ -41,6 +41,14 @@ public class District {
         this.Name = Name;
     }
 
+    public int getDistrictId() {
+        return DistrictId;
+    }
+
+    public void setDistrictId(int DistrictId) {
+        this.DistrictId = DistrictId;
+    }
+
     public String getAreaReview() {
         return AreaReview;
     }
@@ -49,16 +57,8 @@ public class District {
         this.AreaReview = AreaReview;
     }
 
-    public String getImageUrl() {
-        return ImageUrl;
-    }
-
-    public void setImageUrl(String ImageUrl) {
-        this.ImageUrl = ImageUrl;
-    }
-
     @Override
     public String toString() {
-        return "District{" + "Id=" + Id + ", Name=" + Name + ", AreaReview=" + AreaReview + ", ImageUrl=" + ImageUrl + '}';
+        return "Subdistrict{" + "Id=" + Id + ", Name=" + Name + ", DistrictId=" + DistrictId + ", AreaReview=" + AreaReview + '}';
     }
 }

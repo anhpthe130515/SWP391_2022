@@ -5,25 +5,29 @@
  */
 package Controller;
 
-import DAO.ListDao;
-import Model.District;
-import Model.Post;
-import Model.PropertyType;
+import DAO.UserDao;
+import Model.Role;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author TuanLA
  */
-@WebServlet(name = "ListControl", urlPatterns = {"/list"})
-public class ListControl extends HttpServlet {
+@WebServlet(name = "LoginControl", urlPatterns = {"/login"})
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,27 +40,6 @@ public class ListControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String page = request.getParameter("page");
-        if(page==null){
-            page = "1";
-        }
-        int indexPage = Integer.parseInt(page);
-        int numPage = new ListDao().getNumPage();
-        int numPost = new ListDao().getNumPost();
-        ArrayList<Post> lst = new ListDao().getItems(indexPage);
-        ArrayList<District> listDistricts = new ListDao().getDistrict();
-        ArrayList<PropertyType> listPropertyTypes = new ListDao().getPropertyType();
-        Integer districtId = request.getParameter("district") == null || request.getParameter("district").equals("") ? null : Integer.parseInt(request.getParameter("district"));
-        Integer propertyTypeId = request.getParameter("propertyType") == null || request.getParameter("propertyType").equals("") ? null : Integer.parseInt(request.getParameter("propertyType"));
-        
-        request.setAttribute("lst", lst);
-        request.setAttribute("numPage", numPage);
-        request.setAttribute("numPost", numPost);
-        request.setAttribute("listDistricts", listDistricts);
-        request.setAttribute("listPropertyTypes", listPropertyTypes);
-        request.setAttribute("district", districtId);
-        request.setAttribute("propertyType", propertyTypeId);
-        request.getRequestDispatcher("list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,7 +54,7 @@ public class ListControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
     /**
@@ -85,7 +68,43 @@ public class ListControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        String username = request.getParameter("email");
+        String password = request.getParameter("password");
+        String hashText = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+
+            // digest() method is called to calculate message digest
+            //  of an input digest() return array of byte
+            byte[] messageDigest = md.digest(password.getBytes());
+
+            // Convert byte array into signum representation
+            BigInteger number = new BigInteger(1, messageDigest);
+
+            // Convert message digest into hex value
+            hashText = number.toString(16);
+            while (hashText.length() < 32) {
+                hashText = "0" + hashText;
+            }
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        User user = new UserDao().login(username, hashText);
+        if (user == null) {
+            String ms = "Sai tài khoản hoặc mật khẩu!";
+            request.setAttribute("error", ms);
+            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            if (user.getRoleId() == Role.ADMIN.getId()) {
+                response.sendRedirect("admin");
+            } else {
+                response.sendRedirect("list");
+            }
+        }
     }
 
     /**

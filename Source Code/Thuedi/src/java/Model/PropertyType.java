@@ -7,35 +7,38 @@ package Model;
 
 /**
  *
- * @author AnhPT
+ * @author Admin
  */
 public class PropertyType {
-    private int id;
-    private String name;
+    private int Id;
+    private String Name;
 
     public PropertyType() {
     }
 
-    public PropertyType(int id, String name) {
-        this.id = id;
-        this.name = name;
+    public PropertyType(int Id, String Name) {
+        this.Id = Id;
+        this.Name = Name;
     }
 
     public int getId() {
-        return id;
+        return Id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int Id) {
+        this.Id = Id;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String Name) {
+        this.Name = Name;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "PropertyType{" + "Id=" + Id + ", Name=" + Name + '}';
+    }
 }

@@ -5,8 +5,9 @@ and open the template in the editor.
 */
 /* 
     Created on : Feb 11, 2022, 2:52:59 PM
-    Author     : timla
+    Author     : TuanLA
 */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&family=Pacifico&family=Roboto+Slab:wght@300&display=swap");
 * {
     padding: 0;
     margin: 0;
@@ -179,7 +180,7 @@ a:hover {
 .item-infor {
     display: flex;
     flex-direction: column;
-    justify-content: space-between
+    justify-content: space-between;
 }
 
 .page-item.active .page-link {
@@ -194,6 +195,19 @@ a:hover {
 } */
 
 .footer {
+    /* position: absolute;
+    width: 100%;
+    bottom: 0; */
+    margin-top: 48px;
+    padding: 20px;
+    height: 200px;
+    background-color: #ffb0bd;
+}
+
+.footer-2 {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
     margin-top: 48px;
     padding: 20px;
     height: 200px;
@@ -201,31 +215,71 @@ a:hover {
 }
 
 
-/* LOGIN-REGISTER */
-
-.login-section {
-    width: 500px;
-    margin: 0 auto;
-}
+/* LOGIN */
 
 label {
     margin: 0 !important;
 }
 
-.login-section>form {
+
+/* 
+.login {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+} */
+
+.login-section {
+    margin: 0 auto;
+    width: 45%;
+    height: 400px;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-top: 20vh;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 10px;
+}
+
+.login-left {
+    width: 100%;
+    padding: 35px;
+    background-color: #fff;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.login-right {
+    width: 90%;
+    background-color: rgba(235, 71, 153, 0.198);
+    background-color: #ffb0bd;
+    /* background-image: url(https://i.pinimg.com/474x/b8/83/59/b88359f7c449e1fc11a26b304fd8706f.jpg); */
+    padding-top: 20px;
+    /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.login-right>div {
     display: flex;
     flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    margin-top: 80px;
+}
+
+.login-left>form {
+    display: flex;
+    flex-direction: column;
+    /* margin-top: 20px; */
 }
 
 .forget-password {
     margin-left: auto;
-    margin-top: 12px;
-    margin-bottom: 12px;
-}
-
-a:last-child {
-    margin: auto;
-    margin-top: 24px;
+    margin-top: 6px;
+    margin-bottom: 36px;
+    font-style: italic;
 }
 
 input[name="email"],
@@ -235,15 +289,224 @@ input[name="phone"] {
     margin-bottom: 12px;
 }
 
-button.submit{
-    width: 35%;
-    padding: 10px;
-    margin: auto;
+input[name="email"],
+input[name="password"],
+input[name="name"],
+input[name="phone"] {
+    border: none;
+    border-bottom: 1px solid black;
+    /* border: 1px solid black; */
 }
 
-form div {
+input[name="email"],
+input[name="password"],
+input[name="name"],
+input[name="phone"] :focus {
+    outline: none;
+}
+
+button.submit {
+    width: 60%;
+    padding: 9px;
+    margin: auto;
+    border: none;
+    outline: none;
+    background-color: #ffb0bd;
+    border-radius: 20px;
+    /* margin-top: 16px; */
+}
+
+.register-form div {
     display: flex;
     justify-content: center;
     align-items: baseline;
     font-style: italic;
 }
+
+.login-left h5 {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 35px;
+}
+
+.login-right h4 {
+    text-align: center;
+}
+
+.hello {
+    font-family: "Pacifico", cursive;
+    font-size: 2rem;
+}
+
+.login-right div :nth-child(2) {
+    font-family: "Roboto Slab", serif;
+    font-size: 1.2rem;
+    letter-spacing: 1.5px;
+}
+
+.login-right div a {
+    /* text-decoration: dotted; */
+}
+
+.login-body {
+    background-color: #f6f6f6;
+    /* background-image: url(https://www.pixelstalk.net/wp-content/uploads/images5/Aesthetic-Pink-Cloud-HD-Wallpaper-Free-download.jpg); */
+    /* background-image: url(https://wallpapercave.com/wp/wp9291153.jpg); */
+}
+
+.register-section {
+    height: 510px;
+    margin-top: 10vh;
+    flex-direction: row;
+}
+
+.register-right {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.register-left {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.createpost-section {
+    margin: 0 auto;
+    width: 30%;
+    /* height: 400px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 10px;
+    padding: 30px 30px;
+    background-color: #fff;
+}
+
+.createpost-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.createpost-form-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.createpost-form-control {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+.form-group {
+    margin-bottom: 6px !important;
+    /* height: 28px; */
+}
+
+.form-group :focus {
+    outline: none;
+}
+
+.createpost-body {
+    background-color: #f6f6f6;
+}
+
+textarea {
+    height: 100px;
+}
+
+.createpost-submit {
+    margin-top: 20px !important;
+}
+
+.createpost-section h4 {
+    margin-bottom: 20px;
+}
+
+::placeholder {
+    color: rgba(149, 157, 165, 0.822);
+}
+
+
+/* LANDLORD-MANAGERPOST */
+
+.landlord-side-bar {
+    width: 250px;
+    margin-right: 30px;
+}
+
+.manager-post {
+    display: flex;
+}
+
+.manager-post-list {
+    width: calc(100% - 250px);
+}
+
+.avatar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar>img {
+    /* box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px; */
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
+    border: 3px solid #ffb0bd;
+}
+
+.btn-edit,
+.btn-delete {
+    display: flex;
+    vertical-align: middle;
+    position: absolute;
+    bottom: 20px;
+    left: 714px;
+    background-color: #65778625;
+    padding: 16px;
+    border-radius: 1000px;
+    border: none;
+    outline: none;
+}
+
+.btn-edit:focus,
+.btn-delete:focus {
+    border: none;
+    outline: none;
+}
+
+.btn-edit {
+    bottom: 20px;
+    left: 648px;
+}
+
+.btn-primary {
+    background-color: #ffb0bd !important;
+    color: black !important;
+    outline: none;
+    border-color: #ffb0bd !important;
+}
+
+.btn-primary:focus {
+    outline: none;
+}
+
+
+/* EFFECTS */
+
+.btn-edit:hover,
+.btn-delete:hover {
+    background-color: #ffb0bd;
+    transition: 0.3s;
+}
+
