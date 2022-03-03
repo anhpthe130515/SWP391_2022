@@ -155,7 +155,7 @@
         </section>
 
         <!-- BREADCRUMB -->
-        <section class="breadcrumb-nav">
+<!--        <section class="breadcrumb-nav">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#">Thuedi</a></li>
@@ -165,7 +165,7 @@
                     </li>
                 </ol>
             </nav>
-        </section>
+        </section>-->
         <section class="property">
             <div class="property-list">
                 <h5>Phòng Trọ Sinh Viên Giá Hạt Ngô</h5>
@@ -241,16 +241,7 @@
                         <li>Mặt bằng</li>
                     </ul>
                 </div>
-                <div class="widget-item">
-                    <p>Loại bất động sản</p>
-                    <ul>
-                        <li>Phòng trọ</li>
-                        <li>Chung cư</li>
-                        <li>Nhà</li>
-                        <li>Văn Phòng</li>
-                        <li>Mặt bằng</li>
-                    </ul>
-                </div>
+                
             </div>
         </section>
     </section>
