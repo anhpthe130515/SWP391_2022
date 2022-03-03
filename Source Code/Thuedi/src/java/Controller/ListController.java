@@ -5,7 +5,9 @@
  */
 package Controller;
 
-import DAO.ListDao;
+import DAO.DistrictDao;
+import DAO.PostDao;
+import DAO.PropertyTypeDao;
 import Model.District;
 import Model.Post;
 import Model.PropertyType;
@@ -41,11 +43,11 @@ public class ListController extends HttpServlet {
             page = "1";
         }
         int indexPage = Integer.parseInt(page);
-        int numPage = new ListDao().getNumPage();
-        int numPost = new ListDao().getNumPost();
-        ArrayList<Post> lst = new ListDao().getItems(indexPage);
-        ArrayList<District> listDistricts = new ListDao().getDistrict();
-        ArrayList<PropertyType> listPropertyTypes = new ListDao().getPropertyType();
+        int numPage = new PostDao().getNumPage();
+        int numPost = new PostDao().getNumPost();
+        ArrayList<Post> lst = new PostDao().getItems(indexPage);
+        ArrayList<District> listDistricts = (ArrayList<District>) new DistrictDao().select();
+        ArrayList<PropertyType> listPropertyTypes = (ArrayList<PropertyType>) new PropertyTypeDao().select();
         Integer districtId = request.getParameter("district") == null || request.getParameter("district").equals("") ? null : Integer.parseInt(request.getParameter("district"));
         Integer propertyTypeId = request.getParameter("propertyType") == null || request.getParameter("propertyType").equals("") ? null : Integer.parseInt(request.getParameter("propertyType"));
         
@@ -56,7 +58,7 @@ public class ListController extends HttpServlet {
         request.setAttribute("listPropertyTypes", listPropertyTypes);
         request.setAttribute("district", districtId);
         request.setAttribute("propertyType", propertyTypeId);
-        request.getRequestDispatcher("list.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

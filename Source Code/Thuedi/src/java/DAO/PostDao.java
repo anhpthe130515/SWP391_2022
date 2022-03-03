@@ -343,4 +343,64 @@ public class PostDao extends DBContext{
             }
         }
     }
+    
+    // List Post
+    public ArrayList<Post> getItems(int page) {
+        ArrayList<Post> lst = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Post\n"
+                    + "ORDER BY Create_date\n"
+                    + "OFFSET ? ROWS\n"
+                    + "FETCH FIRST 8 ROWS ONLY";
+
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, (page-1)*2);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                lst.add(new Post(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getFloat(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getInt(11), rs.getString(12), rs.getInt(13)));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lst;
+    }
+    
+    public int getNumPage() {
+
+        String sql = "SELECT count(*) FROM Post";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int total = rs.getInt(1);
+                int countPage = 0;
+                countPage = total / 8;
+                if (total % 8 != 0) {
+                    countPage++;
+                }
+                return countPage;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
+    public int getNumPost() {
+
+        String sql = "SELECT count(id) FROM Post";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int total = rs.getInt(1);
+                int num = 0;
+                return num = total;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    
 }

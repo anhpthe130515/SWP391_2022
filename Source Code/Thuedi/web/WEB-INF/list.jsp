@@ -6,6 +6,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 
@@ -185,17 +186,17 @@
                         <li class="property-list-items">
                             <a href="">
                                 <ul class="item">
-                                    <div class="item-img"><img src="images/item1.jpg" /></div>
+                                    <div class="item-img"><img src="/Thuedi/PostImage/${a.id}"/></div>
                                     <ul class="item-infor">
                                         <li class="item-infor-title">${a.title}</li>
                                         <li class="font-weight-light">${a.addressDetail}</li>
                                         <ul class="item-attr">
-                                            <li><b>${a.area}</b></li>
+                                            <li><b><fmt:formatNumber pattern="#####">${a.area}</fmt:formatNumber>m2</b></li>
                                             <li>${a.numberOfRestrooms} VS</li>
                                             <li>${a.numberOfBedrooms} PN</li>
                                         </ul>
                                         <li class="price">${a.price} triệu</li>
-                                        <li class="item-date">${a.createDate}</li>
+                                        <li class="item-date"><fmt:formatDate pattern = "dd/MM/yyyy" value = "${a.createDate}" /></li>
                                     </ul>
                                 </ul>
                             </a>
