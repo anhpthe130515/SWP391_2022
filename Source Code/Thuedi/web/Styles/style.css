@@ -285,14 +285,16 @@ label {
 input[name="email"],
 input[name="password"],
 input[name="name"],
-input[name="phone"] {
+input[name="phone"], 
+input[name="repassword"]{
     margin-bottom: 12px;
 }
 
 input[name="email"],
 input[name="password"],
 input[name="name"],
-input[name="phone"] {
+input[name="phone"],
+input[name="repassword"]{
     border: none;
     border-bottom: 1px solid black;
     /* border: 1px solid black; */
@@ -301,7 +303,8 @@ input[name="phone"] {
 input[name="email"],
 input[name="password"],
 input[name="name"],
-input[name="phone"] :focus {
+input[name="phone"], 
+input[name="repassword"]:focus {
     outline: none;
 }
 
@@ -355,7 +358,7 @@ button.submit {
 }
 
 .register-section {
-    height: 510px;
+    height: 560px;
     margin-top: 10vh;
     flex-direction: row;
 }
