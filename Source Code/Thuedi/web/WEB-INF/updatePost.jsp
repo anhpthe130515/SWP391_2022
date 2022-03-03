@@ -123,8 +123,10 @@
 
                         <div>
                             <c:forEach items="${requestScope.listImageId}" var="imageId">
-                                <image class="img-fluid" src="/Thuedi/PostImage/${imageId}" />
+                                <image class="img-fluid mt-3" src="/Thuedi/PostImage/${imageId}" />
                             </c:forEach>
+                                
+                                
                         </div>
                     </div>
 

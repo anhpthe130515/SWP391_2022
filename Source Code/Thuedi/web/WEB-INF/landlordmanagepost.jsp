@@ -63,12 +63,13 @@
                         </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
-                        <button
+                        <a
                             class="btn btn-outline-success my-2 my-sm-0 ml-3"
                             type="submit"
+                            href="/Thuedi/Landlord/CreatePost"
                             >
                             Post
-                        </button>
+                        </a>
                     </form>
                 </div>
             </nav>
@@ -101,7 +102,9 @@
                             <li class="property-list-items">
                                 <a href="#">
                                     <ul class="item">
-                                        <div class="item-img"><img src="/Thuedi/PostImage/${o.getId()}"/></div>
+                                        <div class="item-img">
+                                            <img src="/Thuedi/PostImage/${o.getId()}" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/>
+                                        </div>
 
                                         <ul class="item-infor">
                                             <li class="item-infor-title">
@@ -147,7 +150,7 @@
                                     type="button"
                                     class="btn-delete"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal"
+                                    data-bs-target="#deleteModal${o.getId()}"
                                     >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -169,7 +172,7 @@
                                 <!-- DELETE-MODAL -->
                                 <div
                                     class="modal fade"
-                                    id="deleteModal"
+                                    id="deleteModal${o.getId()}"
                                     tabindex="-1"
                                     aria-labelledby="exampleModalLabel"
                                     aria-hidden="true"
