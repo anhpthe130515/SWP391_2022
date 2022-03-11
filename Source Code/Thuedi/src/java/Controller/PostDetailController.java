@@ -15,6 +15,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 /**
  *
@@ -46,6 +49,11 @@ public class PostDetailController extends HttpServlet {
         
         request.setAttribute("post", new PostDao().select(id));
         request.setAttribute("listImageId", new PostDao().getAllImageId(id));
+        
+        Document doc = Jsoup.connect("https://covidmaps.hanoi.gov.vn").ignoreHttpErrors(true).get();
+        Elements covidStatus = doc.select(".text-covid-high");
+        
+        request.setAttribute("covidstatus", covidStatus);
         
         request.getRequestDispatcher("/WEB-INF/postdetail.jsp").forward(request, response);
     }

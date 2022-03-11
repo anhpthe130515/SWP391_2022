@@ -33,6 +33,7 @@
             <br>
             ${requestScope.post.getCreateDate()}
             <br>
+            ${requestScope.covidstatus}
         </h1>
     </body>
 </html>
