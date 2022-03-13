@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -34,5 +35,16 @@
             ${requestScope.post.getCreateDate()}
             <br>
         </h1>
-    </body>
+        <form method="POST" action="CreateComment?id=${requestScope.post.getId()}">
+            <textarea name="content"></textarea>
+            <button>Comment</button>
+
+        </form>
+    <c:forEach items="${requestScope.comments}" var="comment">
+        <div>
+            <h5>${comment.getComment()}</h5>
+            <h5>${comment.getUserId()}</h5>
+        </div>
+    </c:forEach>
+</body>
 </html>

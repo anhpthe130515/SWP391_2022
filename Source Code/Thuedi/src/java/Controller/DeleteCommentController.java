@@ -32,10 +32,9 @@ public class DeleteCommentController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+        int id = Integer.parseInt(request.getParameter("commentId"));
         int delete = new CommentDao().deleteComment(id);
-        response.sendRedirect("CreateComment");
-        
+        response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

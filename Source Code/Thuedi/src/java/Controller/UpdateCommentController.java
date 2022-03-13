@@ -6,6 +6,7 @@
 package Controller;
 
 import DAO.CommentDao;
+import DAO.UserDao;
 import Model.Comment;
 import Model.User;
 import java.io.IOException;
@@ -41,7 +42,7 @@ public class UpdateCommentController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UpdateCommentController</title>");            
+            out.println("<title>Servlet UpdateCommentController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UpdateCommentController at " + request.getContextPath() + "</h1>");
@@ -62,9 +63,7 @@ public class UpdateCommentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int commentId = Integer.parseInt(request.getParameter("id"));
-        Comment comment = new CommentDao().selectById(commentId);
-        request.setAttribute("comment", comment);
+        processRequest(request, response);
     }
 
     /**
@@ -78,13 +77,21 @@ public class UpdateCommentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Comment comment = new Comment();
-        comment.setPostId(Integer.parseInt(request.getParameter("id")));
-        comment.setComment(request.getParameter("comment"));
+        int id = Integer.parseInt(request.getParameter("commentId"));
+        Comment comment = new CommentDao().selectById(id);
         User user = (User) request.getSession().getAttribute("user");
-        comment.setUserId(user.getId());
-        new CommentDao().updateComment(comment);
-        response.sendRedirect("CreateComment");
+        if (user == null) {
+            String ms = "Bạn cần phải đăng nhập";
+            request.setAttribute("error", ms);
+        } else if (user.getId() != comment.getUserId()) {
+            String ms = "Bạn không có quyền chỉnh sửa";
+            request.setAttribute("error", ms);
+        } else {
+            comment.setComment(request.getParameter("content"));
+            new CommentDao().updateComment(comment);
+            response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
+        }
+
     }
 
     /**

@@ -41,7 +41,7 @@ public class CreateCommentController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateCommentController</title>");            
+            out.println("<title>Servlet CreateCommentController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CreateCommentController at " + request.getContextPath() + "</h1>");
@@ -62,9 +62,7 @@ public class CreateCommentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Collection<Comment> comments = new CommentDao().selectByPostId(id);
-        request.setAttribute("comments", comments);
+        processRequest(request, response);
     }
 
     /**
@@ -80,11 +78,16 @@ public class CreateCommentController extends HttpServlet {
             throws ServletException, IOException {
         Comment comment = new Comment();
         comment.setPostId(Integer.parseInt(request.getParameter("id")));
-        comment.setComment(request.getParameter("comment"));
+        comment.setComment(request.getParameter("content"));
         User user = (User) request.getSession().getAttribute("user");
-        comment.setUserId(user.getId());
-        int id = new CommentDao().insertComment(comment);
-        response.sendRedirect("CreateComment");
+        if (user == null) {
+            String ms = "Bạn cần phải đăng nhập để bình luận";
+            request.setAttribute("error", ms);
+        } else {
+            comment.setUserId(user.getId());
+            int id = new CommentDao().insertComment(comment);
+            response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
+        }
     }
 
     /**
