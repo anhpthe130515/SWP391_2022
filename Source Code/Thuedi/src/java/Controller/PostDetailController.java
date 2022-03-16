@@ -9,6 +9,8 @@ import DAO.DistrictDao;
 import DAO.PostDao;
 import DAO.PropertyTypeDao;
 import DAO.SubdistrictDao;
+import DAO.UserDao;
+import Model.Post;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,7 +46,9 @@ public class PostDetailController extends HttpServlet {
         request.setAttribute("district", new DistrictDao().select());
         request.setAttribute("subdistrict", new SubdistrictDao().select());
         
-        request.setAttribute("post", new PostDao().select(id));
+        Post post = new PostDao().select(id);
+        request.setAttribute("post", post);
+        request.setAttribute("author", new UserDao().select(post.getUserId()));
         request.setAttribute("listImageId", new PostDao().getAllImageId(id));
         
         request.getRequestDispatcher("/WEB-INF/postdetail.jsp").forward(request, response);
