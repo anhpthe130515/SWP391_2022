@@ -35,6 +35,8 @@ public class LogoutController extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
+        
+        response.sendRedirect("home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
