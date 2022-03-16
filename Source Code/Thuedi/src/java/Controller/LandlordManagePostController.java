@@ -9,6 +9,7 @@ import DAO.DistrictDao;
 import DAO.PostDao;
 import DAO.PropertyTypeDao;
 import DAO.SubdistrictDao;
+import DAO.UserDao;
 import Model.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -41,8 +42,7 @@ public class LandlordManagePostController extends HttpServlet {
         request.setAttribute("subdistrict", new SubdistrictDao().select());
         
         request.setAttribute("posts", new PostDao().selectByUserId(user.getId()));
-        
-        
+        request.setAttribute("userDetail", new UserDao().selectUserDetail(user.getId()));
         
         request.getRequestDispatcher("/WEB-INF/landlordmanagepost.jsp").forward(request, response);
     }

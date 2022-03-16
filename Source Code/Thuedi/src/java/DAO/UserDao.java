@@ -19,7 +19,6 @@ import java.util.logging.Logger;
  * @author TuanLA
  */
 public class UserDao extends DBContext {
-
     public User login(String user, String pass) {
         String sql = "select * from [User]\n"
                 + "where Email = ?\n"
@@ -127,6 +126,43 @@ public class UserDao extends DBContext {
             }
             
         }
+    }
+    
+    public UserDetail selectUserDetail(int id) {
+        String sql = "SELECT [User_Id]\n"
+                + "      ,[Name]\n"
+                + "      ,[Phone]\n"
+                + "      ,[Image_link]\n"
+                + "      ,[Personal_id]\n"
+                + "      ,[Contacts]\n"
+                + "  FROM [thuedi].[dbo].[User_detail]\n"
+                + "  WHERE [User_Id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new UserDetail(rs.getInt("User_id"),
+                        rs.getString("Name"),
+                        rs.getString("Phone"),
+                        rs.getString("Image_link"),
+                        rs.getString("Personal_id"),
+                        rs.getString("Contacts")
+                );
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+
+        return null;
     }
 
     /**
