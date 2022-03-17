@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
         <script src="https://kit.fontawesome.com/e3a507881a.js" crossorigin="anonymous"></script>
     </head>
-
+    
     <body class="createpost-body">
         <c:if test="${requestScope.errorms != null}">
             <h1>${requestScope.errorms}</h1>
@@ -42,7 +42,7 @@
                             <label for="district">Địa chỉ</label>
                             <select class="createpost-form-control" name="district" id="district">
                                 <!--<option>Quận, Huyện</option>-->
-                                 <c:forEach items="${requestScope.district}" var="o">
+                                <c:forEach items="${requestScope.district}" var="o">
                                     <option value="${o.getId()}">${o.getName()}</option>
                                 </c:forEach>
                             </select>
@@ -53,7 +53,7 @@
                             <label for="address"></label>
                             <select name="address" class="createpost-form-control" id="address" required>
                                 <c:forEach items="${requestScope.subdistrict}" var="o">
-                                <option value="${o.getId()}">${o.getName()}</option>
+                                    <option value="${o.getId()}">${o.getName()}</option>
                                 </c:forEach>
                             </select>
                         </div>

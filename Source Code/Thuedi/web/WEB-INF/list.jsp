@@ -20,43 +20,9 @@
 </head>
 
 <body>
-    <section class="header">
-        <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="#">THUEDI</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <%@include file="navbar.jsp" %>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a
-                        >
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a
-                        >
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <button
-                        class="btn btn-outline-success my-2 my-sm-0 ml-3"
-                        type="submit"
-                        >
-                        Post
-                    </button>
-                </form>
-            </div>
-        </nav>
-    </section>
-
-    <section class="main-content">
+    <section class="main-content mt-4">
         <section class="search-filter-section">
             <div class="search">
                 <div class="input-group mb-3">
@@ -154,19 +120,7 @@
             </div>
         </section>
 
-        <!-- BREADCRUMB -->
-<!--        <section class="breadcrumb-nav">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Thuedi</a></li>
-                    <li class="breadcrumb-item"><a href="#">Phòng trọ</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        Phòng trọ sinh viên
-                    </li>
-                </ol>
-            </nav>
-        </section>-->
-        <section class="property">
+        <section class="property mt-3">
             <div class="property-list">
                 <h5>Phòng Trọ Sinh Viên Giá Hạt Ngô</h5>
                 <div class="property-list-result">
@@ -241,13 +195,11 @@
                         <li>Mặt bằng</li>
                     </ul>
                 </div>
-                
+
             </div>
         </section>
     </section>
-    <section class="footer">
-        Footer demo
-    </section>
+    <%@include file="footer.jsp" %>
 
     <!-- JAVASCRIPT -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
