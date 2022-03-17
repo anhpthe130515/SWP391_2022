@@ -13,6 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <h1>${requestScope.error}</h1>
         <h1>
             ${requestScope.post.getTitle()}
             <br>
@@ -35,15 +36,15 @@
             ${requestScope.post.getCreateDate()}
             <br>
         </h1>
-        <form method="POST" action="CreateComment?id=${requestScope.post.getId()}">
+            <form method="post" action="create?id=${requestScope.post.getId()}">
             <textarea name="content"></textarea>
             <button>Comment</button>
-
         </form>
     <c:forEach items="${requestScope.comments}" var="comment">
         <div>
             <h5>${comment.getComment()}</h5>
             <h5>${comment.getUserId()}</h5>
+            <a href="delete?commentId=${comment.getId()}">Delete</a>
         </div>
     </c:forEach>
 </body>

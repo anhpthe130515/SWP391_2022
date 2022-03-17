@@ -6,8 +6,11 @@
 package Controller;
 
 import DAO.CommentDao;
+import Model.Comment;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pinkd
  */
-@WebServlet(name = "DeleteCommentController", urlPatterns = {"/DeleteComment"})
-public class DeleteCommentController extends HttpServlet {
+@WebServlet(name = "CommentController", urlPatterns = {"/"})
+public class CommentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,9 +35,45 @@ public class DeleteCommentController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getServletPath();
+        System.out.println(action);
+        switch (action) {
+            case "/create":
+                createComment(request, response);
+                break;
+            case "/delete":
+                deleteComment(request, response);
+                break;
+        }
+    }
+
+    private void createComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Comment comment = new Comment();
+        comment.setPostId(Integer.parseInt(request.getParameter("id")));
+        comment.setComment(request.getParameter("content"));
+        comment.setCreateDate(new Date(System.currentTimeMillis()));
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            String ms = "Ban phai dang nhap de binh luan";
+            response.sendRedirect("PostDetail?id=" + request.getParameter("id") + "&error=" + ms);
+        } else {
+            comment.setUserId(user.getId());
+            int id = new CommentDao().insertComment(comment);
+            response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
+        }
+    }
+
+    private void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int id = Integer.parseInt(request.getParameter("commentId"));
-        int delete = new CommentDao().deleteComment(id);
-        response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
+        User user = (User) request.getSession().getAttribute("user");
+        Comment comment = new CommentDao().selectById(id);
+        if (comment.getUserId() == user.getId()) {
+            int delete = new CommentDao().deleteComment(id);
+            response.sendRedirect("PostDetail?id=" + comment.getPostId());
+        } else {
+            String ms = "Ban khong co quyen xoa binh luan nay";
+            response.sendRedirect("PostDetail?id=" + comment.getPostId() + "&error=" + ms);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -5,6 +5,8 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author pinkd
@@ -15,15 +17,17 @@ public class Comment {
     private int postId;
     private int userId;
     private String comment;
+    private Date createDate;
 
     public Comment() {
     }
 
-    public Comment(int id, int postId, int userId, String comment) {
+    public Comment(int id, int postId, int userId, String comment, Date createDate) {
         this.id = id;
         this.postId = postId;
         this.userId = userId;
         this.comment = comment;
+        this.createDate = createDate;
     }
 
     public int getId() {
@@ -58,9 +62,17 @@ public class Comment {
         this.comment = comment;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     @Override
     public String toString() {
-        return "Id: " + id + " - PostId: " + postId + " - UserId: " + userId + " - Comment: " + comment;
+        return "Id: " + id + " - PostId: " + postId + " - UserId: " + userId + " - Comment: " + comment + " - Date: " + createDate;
     }
 
 }

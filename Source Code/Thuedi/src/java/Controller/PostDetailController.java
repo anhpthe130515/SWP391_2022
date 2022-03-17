@@ -40,6 +40,8 @@ public class PostDetailController extends HttpServlet {
         if (request.getParameter("id") == null) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
+        
+        request.setAttribute("error", request.getParameter("error"));
 
         int id = Integer.parseInt(request.getParameter("id"));
 
@@ -51,7 +53,6 @@ public class PostDetailController extends HttpServlet {
         request.setAttribute("listImageId", new PostDao().getAllImageId(id));
 
         Collection<Comment> comments = new CommentDao().selectByPostId(id);
-        System.out.println(comments.size());
         request.setAttribute("comments", comments);
 
         request.getRequestDispatcher("/WEB-INF/postdetail.jsp").forward(request, response);

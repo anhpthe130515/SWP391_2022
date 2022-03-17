@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 public class CommentDao extends DBContext {
 
     public Comment selectById(int id) {
-        String sql = "SELECT [Id], [Post_id], [Comment], [User_id]\n"
+        String sql = "SELECT [Id], [Post_id], [Comment], [User_id], [Create_date]\n"
                 + "  FROM [Post_comment]\n"
                 + "  WHERE Id = ?";
         Comment comment = null;
@@ -33,7 +33,7 @@ public class CommentDao extends DBContext {
 
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                comment = new Comment(rs.getInt("Id"), rs.getInt("Post_id"), rs.getInt("User_id"), rs.getString("Comment"));
+                comment = new Comment(rs.getInt("Id"), rs.getInt("Post_id"), rs.getInt("User_id"), rs.getString("Comment"), rs.getDate("Create_date"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -50,7 +50,7 @@ public class CommentDao extends DBContext {
     }
 
     public Collection<Comment> selectByPostId(int id) {
-        String sql = "SELECT [Id], [Post_id], [Comment], [User_id]\n"
+        String sql = "SELECT [Id], [Post_id], [Comment], [User_id], [Create_date]\n"
                 + "  FROM [Post_comment]\n"
                 + "  WHERE Post_id = ?";
         Collection<Comment> comments = new ArrayList<>();
@@ -60,7 +60,7 @@ public class CommentDao extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                comments.add(new Comment(rs.getInt("Id"), rs.getInt("Post_id"), rs.getInt("User_id"), rs.getString("Comment")));
+                comments.add(new Comment(rs.getInt("Id"), rs.getInt("Post_id"), rs.getInt("User_id"), rs.getString("Comment"), rs.getDate("Create_date")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -77,13 +77,14 @@ public class CommentDao extends DBContext {
     }
 
     public int insertComment(Comment comment) {
-        String sql = "INSERT INTO [Post_comment]([Post_id],[Comment],[User_id]) VALUES (?,?,?)";
+        String sql = "INSERT INTO [Post_comment]([Post_id],[Comment],[User_id],[Create_date]) VALUES (?,?,?,?)";
         int id = 0;
         try {
             PreparedStatement st = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setInt(1, comment.getPostId());
             st.setString(2, comment.getComment());
             st.setInt(3, comment.getUserId());
+            st.setDate(4, comment.getCreateDate());
             int affectedRows = st.executeUpdate();
             if (affectedRows > 0) {
                 try (ResultSet rs = st.getGeneratedKeys()) {
