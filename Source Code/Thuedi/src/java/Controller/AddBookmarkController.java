@@ -5,15 +5,10 @@
  */
 package Controller;
 
-import DAO.DistrictDao;
-import DAO.PostDao;
-import DAO.PropertyTypeDao;
-import Model.District;
-import Model.Post;
-import Model.PropertyType;
+import DAO.BookmarkDao;
+import Model.Bookmark;
+import Model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,10 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author TuanLA
+ * @author Admin
  */
-@WebServlet(name = "ListControl", urlPatterns = {"/list"})
-public class ListController extends HttpServlet {
+@WebServlet(name = "AddBookmarkController", urlPatterns = {"/User/AddBookmark"})
+public class AddBookmarkController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,28 +33,17 @@ public class ListController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String page = request.getParameter("page");
-        if(page==null){
-            page = "1";
-        }
-        int indexPage = Integer.parseInt(page);
-        int numPage = new PostDao().getNumPage();
-        int numPost = new PostDao().getNumPost();
-        ArrayList<Post> lst = new PostDao().getItems(indexPage);
-        ArrayList<District> listDistricts = (ArrayList<District>) new DistrictDao().select();
-        ArrayList<PropertyType> listPropertyTypes = (ArrayList<PropertyType>) new PropertyTypeDao().select();
-        Integer districtId = request.getParameter("district") == null || request.getParameter("district").equals("") ? null : Integer.parseInt(request.getParameter("district"));
-        Integer propertyTypeId = request.getParameter("propertyType") == null || request.getParameter("propertyType").equals("") ? null : Integer.parseInt(request.getParameter("propertyType"));
-        
-        request.setAttribute("lst", lst);
-        request.setAttribute("numPage", numPage);
-        request.setAttribute("numPost", numPost);
-        request.setAttribute("page", page);
-        request.setAttribute("listDistricts", listDistricts);
-        request.setAttribute("listPropertyTypes", listPropertyTypes);
-        request.setAttribute("district", districtId);
-        request.setAttribute("propertyType", propertyTypeId);
-        request.getRequestDispatcher("/WEB-INF/list.jsp").forward(request, response);
+        String url = request.getHeader("referer");
+
+        User account = (User) request.getSession().getAttribute("user");
+
+        Bookmark bookmark = new Bookmark();
+        bookmark.setPostId(Integer.parseInt(request.getParameter("id")));
+        bookmark.setUserId(account.getId());
+
+        new BookmarkDao().insert(bookmark);
+
+        response.sendRedirect(url != null ? url : "/Thuedi/home");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

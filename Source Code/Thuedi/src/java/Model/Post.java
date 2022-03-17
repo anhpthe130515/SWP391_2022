@@ -25,11 +25,12 @@ public class Post {
     private int Address;
     private String AddressDetail;
     private int PropertyType;
+    private boolean AcceptCovidPatient;
 
     public Post() {
     }
 
-    public Post(int Id, int UserId, Date CreateDate, String Title, String Detail, int Price, float Area, int NumberOfBedrooms, int NumberOfRestrooms, String Direction, int Address, String AddressDetail, int PropertyType) {
+    public Post(int Id, int UserId, Date CreateDate, String Title, String Detail, int Price, float Area, int NumberOfBedrooms, int NumberOfRestrooms, String Direction, int Address, String AddressDetail, int PropertyType, boolean AcceptCovidPatient) {
         this.Id = Id;
         this.UserId = UserId;
         this.CreateDate = CreateDate;
@@ -43,6 +44,7 @@ public class Post {
         this.Address = Address;
         this.AddressDetail = AddressDetail;
         this.PropertyType = PropertyType;
+        this.AcceptCovidPatient = AcceptCovidPatient;
     }
 
     public int getId() {
@@ -149,8 +151,16 @@ public class Post {
         this.PropertyType = PropertyType;
     }
 
+    public boolean isAcceptCovidPatient() {
+        return AcceptCovidPatient;
+    }
+
+    public void setAcceptCovidPatient(boolean AcceptCovidPatient) {
+        this.AcceptCovidPatient = AcceptCovidPatient;
+    }
+
     @Override
     public String toString() {
-        return "Post{" + "Id=" + Id + ", UserId=" + UserId + ", CreateDate=" + CreateDate + ", Title=" + Title + ", Detail=" + Detail + ", Price=" + Price + ", Area=" + Area + ", NumberOfBedrooms=" + NumberOfBedrooms + ", NumberOfRestrooms=" + NumberOfRestrooms + ", Direction=" + Direction + ", Address=" + Address + ", AddressDetail=" + AddressDetail + ", PropertyType=" + PropertyType + '}';
+        return "Post{" + "Id=" + Id + ", UserId=" + UserId + ", CreateDate=" + CreateDate + ", Title=" + Title + ", Detail=" + Detail + ", Price=" + Price + ", Area=" + Area + ", NumberOfBedrooms=" + NumberOfBedrooms + ", NumberOfRestrooms=" + NumberOfRestrooms + ", Direction=" + Direction + ", Address=" + Address + ", AddressDetail=" + AddressDetail + ", PropertyType=" + PropertyType + ", AcceptCovidPatient=" + AcceptCovidPatient + '}';
     }
 }

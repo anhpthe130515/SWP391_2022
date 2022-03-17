@@ -129,7 +129,8 @@ public class UpdatePostController extends HttpServlet {
         post.setAddress(Integer.parseInt(request.getParameter("address")));
         post.setAddressDetail(request.getParameter("address_detail"));
         post.setPropertyType(Integer.parseInt(request.getParameter("property_type")));
-        new PostDao().update(post);
+
+        post.setAcceptCovidPatient(Boolean.valueOf(request.getParameter("accept_covid_patient")));
 
         ArrayList<InputStream> images = new ArrayList<>();
 
@@ -140,7 +141,6 @@ public class UpdatePostController extends HttpServlet {
                 }
             }
         }
-
         if (images.isEmpty()) {
             System.out.println("khong co anh");
         } else {
@@ -150,7 +150,9 @@ public class UpdatePostController extends HttpServlet {
             }
         }
 
-        response.sendRedirect("/Thuedi/list");
+        new PostDao().update(post);
+        response.sendRedirect("ManagePost");
+
     }
 
     /**

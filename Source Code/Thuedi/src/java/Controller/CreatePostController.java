@@ -57,6 +57,7 @@ public class CreatePostController extends HttpServlet {
         post.setAddress(Integer.parseInt(request.getParameter("address")));
         post.setAddressDetail(request.getParameter("address_detail"));
         post.setPropertyType(Integer.parseInt(request.getParameter("property_type")));
+        post.setAcceptCovidPatient(Boolean.valueOf(request.getParameter("accept_covid_patient")));
         
         request.getSession().setAttribute("post", post);
         

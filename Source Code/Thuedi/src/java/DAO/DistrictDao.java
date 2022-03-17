@@ -44,6 +44,30 @@ public class DistrictDao extends DBContext{
         return districts;
     }
     
+    public District select(int id) {
+        String sql = "SELECT * FROM [District]"
+                + "  WHERE [Id] = ?";
+        District district = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                district = new District(rs.getInt("Id"), rs.getString("Name"), rs.getString("Area_review"), rs.getString("Image_URL"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return district;
+    }
+    
     public Collection<Subdistrict> selectSubdistrict(int id) {
         String sql = "SELECT * FROM [thuedi].[dbo].[Sub_district] WHERE District_id = ?";
         Collection<Subdistrict> subdistricts = new ArrayList<>();
@@ -67,29 +91,5 @@ public class DistrictDao extends DBContext{
         }
         
         return subdistricts;
-    }
-    
-    public District selectById(int id) {
-        String sql = "SELECT * FROM [District]"
-                + "  WHERE [Id] = ?";
-        District district = null;
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                district = new District(rs.getInt("Id"), rs.getString("Name"), rs.getString("Area_review"), rs.getString("Image_URL"));
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return district;
     }
 }

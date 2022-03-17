@@ -117,14 +117,25 @@
                     </div>
                     <div class="col-md-12 ">
                         <div class="form-group ">
+                            <label for="accept_covid_patient">Chấp nhận người thuê bị nhiễm covid</label>
+                            <select class="createpost-form-control" id="accept_covid_patient" name="accept_covid_patient" required >
+                                <option value="true">Có</option>
+                                <option value="false">Không</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 ">
+                        <div class="form-group ">
                             <label for="image ">Image</label>
                             <input type="file" multiple id="image" name="image" />
                         </div>
 
                         <div>
                             <c:forEach items="${requestScope.listImageId}" var="imageId">
-                                <image class="img-fluid" src="/Thuedi/PostImage/${imageId}" />
+                                <image class="img-fluid mt-3" src="/Thuedi/PostImage/${imageId}" />
                             </c:forEach>
+                                
+                                
                         </div>
                     </div>
 
@@ -162,11 +173,19 @@
                         property_type.selectedIndex = index
                 })
             }
+            
+            function selectAcceptCovidPatient(id) {
+                [...accept_covid_patient.options].forEach((option, index) => {
+                    if (option.value == id)
+                        accept_covid_patient.selectedIndex = index
+                })
+            }
 
             selectDirection('${requestScope.post.getDirection()}');
             selectSubDistrict('${requestScope.post.getAddress()}');
             selectDistrict('${requestScope.district.getId()}');
             selectPropertyType('${requestScope.post.getPropertyType()}');
+            selectAcceptCovidPatient('${requestScope.post.isAcceptCovidPatient()}');
 
         </script>
     </body>
