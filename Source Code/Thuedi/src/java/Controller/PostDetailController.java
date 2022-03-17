@@ -5,13 +5,16 @@
  */
 package Controller;
 
+import DAO.CommentDao;
 import DAO.DistrictDao;
 import DAO.PostDao;
 import DAO.PropertyTypeDao;
 import DAO.SubdistrictDao;
 import DAO.UserDao;
 import Model.Post;
+import Model.Comment;
 import java.io.IOException;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,18 +42,24 @@ public class PostDetailController extends HttpServlet {
         if (request.getParameter("id") == null) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
-        
+
+        request.setAttribute("error", request.getParameter("error"));
+
         int id = Integer.parseInt(request.getParameter("id"));
-        
+
         request.setAttribute("propertyType", new PropertyTypeDao().select());
         request.setAttribute("district", new DistrictDao().select());
         request.setAttribute("subdistrict", new SubdistrictDao().select());
-        
+
         Post post = new PostDao().select(id);
         request.setAttribute("post", post);
         request.setAttribute("author", new UserDao().select(post.getUserId()));
+
         request.setAttribute("listImageId", new PostDao().getAllImageId(id));
-        
+
+        Collection<Comment> comments = new CommentDao().selectByPostId(id);
+        request.setAttribute("comments", comments);
+
         request.getRequestDispatcher("/WEB-INF/postdetail.jsp").forward(request, response);
     }
 

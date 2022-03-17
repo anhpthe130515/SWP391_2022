@@ -10,7 +10,7 @@ import Model.Comment;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pinkd
  */
-@WebServlet(name = "UpdateCommentController", urlPatterns = {"/UpdateComment"})
-public class UpdateCommentController extends HttpServlet {
+@WebServlet(name = "CommentController", urlPatterns = {"/"})
+public class CommentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,18 +35,44 @@ public class UpdateCommentController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateCommentController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateCommentController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String action = request.getServletPath();
+        System.out.println(action);
+        switch (action) {
+            case "/create":
+                createComment(request, response);
+                break;
+            case "/delete":
+                deleteComment(request, response);
+                break;
+        }
+    }
+
+    private void createComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Comment comment = new Comment();
+        comment.setPostId(Integer.parseInt(request.getParameter("id")));
+        comment.setComment(request.getParameter("content"));
+        comment.setCreateDate(new Date(System.currentTimeMillis()));
+        User user = (User) request.getSession().getAttribute("user");
+        if (user == null) {
+            String ms = "Ban phai dang nhap de binh luan";
+            response.sendRedirect("PostDetail?id=" + request.getParameter("id") + "&error=" + ms);
+        } else {
+            comment.setUserId(user.getId());
+            int id = new CommentDao().insertComment(comment);
+            response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
+        }
+    }
+
+    private void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        int id = Integer.parseInt(request.getParameter("commentId"));
+        User user = (User) request.getSession().getAttribute("user");
+        Comment comment = new CommentDao().selectById(id);
+        if (comment.getUserId() == user.getId()) {
+            int delete = new CommentDao().deleteComment(id);
+            response.sendRedirect("PostDetail?id=" + comment.getPostId());
+        } else {
+            String ms = "Ban khong co quyen xoa binh luan nay";
+            response.sendRedirect("PostDetail?id=" + comment.getPostId() + "&error=" + ms);
         }
     }
 
@@ -62,9 +88,7 @@ public class UpdateCommentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int commentId = Integer.parseInt(request.getParameter("id"));
-        Comment comment = new CommentDao().selectById(commentId);
-        request.setAttribute("comment", comment);
+        processRequest(request, response);
     }
 
     /**
@@ -78,13 +102,7 @@ public class UpdateCommentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Comment comment = new Comment();
-        comment.setPostId(Integer.parseInt(request.getParameter("id")));
-        comment.setComment(request.getParameter("comment"));
-        User user = (User) request.getSession().getAttribute("user");
-        comment.setUserId(user.getId());
-        new CommentDao().updateComment(comment);
-        response.sendRedirect("CreateComment");
+        processRequest(request, response);
     }
 
     /**

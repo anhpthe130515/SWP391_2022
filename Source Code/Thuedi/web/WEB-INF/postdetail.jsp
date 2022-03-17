@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -13,6 +14,7 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEaRkuGOICP3om0r-q8qdGYqv2Ur1Wf1s&libraries=places&callback=initialize" async defer></script>
     </head>
     <body>
+        <h1>${requestScope.error}</h1>
         <h1>
             ${requestScope.post.getTitle()}
             <br>
@@ -35,7 +37,8 @@
             ${requestScope.post.getCreateDate()}
             <br>
         </h1>
-        <div id="map" style="width: 100vw; height: 100vh;"></div>
+
+        <div id="map" style="width: 50vw; height: 50vh;"></div>
 
         <script>
             var map;
@@ -72,5 +75,18 @@
                 }
             }
         </script>
+
+        <form method="post" action="create?id=${requestScope.post.getId()}">
+            <textarea name="content"></textarea>
+            <button>Comment</button>
+        </form>
+        <c:forEach items="${requestScope.comments}" var="comment">
+            <div>
+                <h5>${comment.getComment()}</h5>
+                <h5>${comment.getUserId()}</h5>
+                <h5>${comment.getCreateDate()}</h5>
+                <a href="delete?commentId=${comment.getId()}">Delete</a>
+            </div>
+        </c:forEach>
     </body>
 </html>
