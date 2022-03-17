@@ -234,6 +234,27 @@ public class PostDao extends DBContext{
             }
         }
     }
+    
+    public int DeleteImages(int postId) {
+        String sql = "DELETE FROM [dbo].[Post_image]\n"
+                + "      WHERE Post_id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, postId);
+
+            return st.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return 0;
+    }
 
     public byte[] selectImage(int id) {
         String sql = "SELECT [Image]\n"
