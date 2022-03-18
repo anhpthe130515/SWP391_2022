@@ -508,6 +508,42 @@
             }
         </script>
 
+<<<<<<< HEAD
+=======
+        <form method="post" action="comment?id=${requestScope.post.getId()}">
+            <textarea name="content"></textarea>
+            <button>Comment</button>
+        </form>
+        <c:forEach items="${requestScope.comments}" var="comment">
+            <div>
+                <h5>${comment.getComment().getComment()}</h5>
+                <h5>${comment.getUserDetail().getName()}</h5>
+                <h5>${comment.getUserDetail().getImageLink()}</h5>
+                <h5>${comment.getComment().getCreateDate()}</h5>
+                <form method="post" action="comment?commentId=${comment.getId()}">
+                    <button>Delete</button>
+                </form>
+            </div>
+        </c:forEach>
+
+        <!-- JAVASCRIPT -->
+        <script>
+            let slider = document.querySelectorAll(".carousel-item");
+            let phoneNumber = document.querySelector(".phone-number");
+            let showPhoneNumber = document.querySelector(".btn-show-phone");
+            slider[0].classList.add("active");
+
+            //hidden phone number
+            let slidePhone = phoneNumber.innerHTML.slice(6);
+            let hiddenPhone = phoneNumber.innerHTML.slice(0, 6) + "****";
+            phoneNumber.innerHTML = hiddenPhone;
+            showPhoneNumber.addEventListener("click", function () {
+                phoneNumber.innerHTML = phoneNumber.innerHTML.slice(0, 6) + slidePhone;
+            })
+
+
+        </script>
+>>>>>>> 24caef562141e1162ded002f049467ffd457e579
         <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

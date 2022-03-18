@@ -37,5 +37,5 @@ public class CommentUserDetail {
     public void setUserDetail(UserDetail userDetail) {
         this.userDetail = userDetail;
     }
-
 }
+

@@ -185,20 +185,18 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }
-        
         return null;
     }
-    
-    
     public UserDetail selectUserDetail(int id) {
+
         String sql = "SELECT [User_Id]\n"
                 + "      ,[Name]\n"
                 + "      ,[Phone]\n"
                 + "      ,[Image_link]\n"
                 + "      ,[Personal_id]\n"
                 + "      ,[Contacts]\n"
+
                 + "  FROM [thuedi].[dbo].[User_detail]\n"
                 + "  WHERE [User_Id] = ?";
         try {
@@ -206,6 +204,7 @@ public class UserDao extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
+
                 return new UserDetail(rs.getInt("User_id"),
                         rs.getString("Name"),
                         rs.getString("Phone"),
@@ -214,7 +213,6 @@ public class UserDao extends DBContext {
                         rs.getString("Contacts")
                 );
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -223,9 +221,7 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }
-
         return null;
     }
 }
