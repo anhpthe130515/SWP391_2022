@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +22,14 @@ import java.util.logging.Logger;
  */
 public class UserDao extends DBContext {
 
+    /**
+     * Check email and password are correct to login
+     *
+     * @author TuanLA
+     *
+     * @param user(email) string, password string
+     * @return object User; if null, email or password incorrect
+     */
     public User login(String user, String pass) {
         String sql = "select * from [User]\n"
                 + "where Email = ?\n"
@@ -47,20 +57,97 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
 
         return null;
     }
 
     /**
-    * Insert user to database
-    * 
-    * @author pinkd
-    * 
-    * @param  user   object
-    * @return id of the user just inserted into the database
-    */
+     * Get all user for admin dashboard
+     *
+     * @author pinkd
+     *
+     * @param
+     * @return collection of all user in database
+     */
+    public Collection<User> getAllUser() {
+        String sql = "SELECT * FROM [User]\n";
+
+        Collection<User> allUser = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                allUser.add(new User(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getDate(5),
+                        rs.getBoolean(6)
+                ));
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+        return allUser;
+    }
+
+    /**
+     * Get user detail like name, phone, avatar,... by userID
+     *
+     * @author pinkd
+     *
+     * @param userId int
+     * @return object UserDetail
+     */
+    public UserDetail getUserDetail(int id) {
+        String sql = "SELECT [User_Id]\n"
+                + "      ,[Name]\n"
+                + "      ,[Phone]\n"
+                + "      ,[Image_link]\n"
+                + "      ,[Personal_id]\n"
+                + "      ,[Contacts]\n"
+                + "  FROM [dbo].[User_detail]\n"
+                + " WHERE User_Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new UserDetail(id, rs.getString("Name"), rs.getString("Phone"), rs.getString("Image_link"), rs.getString("Personal_id"), rs.getString("Contacts"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+
+    }
+
+    /**
+     * Insert user to database
+     *
+     * @author pinkd
+     *
+     * @param user object
+     * @return id of the user just inserted into the database
+     */
     public int insertUser(User user) {
         String sql = "INSERT INTO [User]([Email],[Password],[Role_id],[Create_date],[Is_deleted]) VALUES (?,?,?,?,?)";
         int id = 0;
@@ -93,19 +180,19 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
         return id;
     }
 
     /**
-    * Insert user detail to database
-    * 
-    * @author pinkd
-    * 
-    * @param  userDetail   object
-    * @return 
-    */
+     * Insert user detail to database
+     *
+     * @author pinkd
+     *
+     * @param userDetail object
+     * @return
+     */
     public void insertUserDetail(UserDetail userDetail) {
         String sql = "INSERT INTO [User_detail] VALUES (?,?,?,?,?,?)";
         try {
@@ -125,18 +212,18 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
 
     /**
-    * Check if the user exists in the database or not
-    * 
-    * @author pinkd
-    * 
-    * @param  email   email of user to check
-    * @return         true if user exist, false if not
-    */
+     * Check if the user exists in the database or not
+     *
+     * @author pinkd
+     *
+     * @param email email of user to check
+     * @return true if user exist, false if not
+     */
     public boolean checkUserExist(String email) {
         String sql = "SELECT * FROM [User]\n"
                 + "WHERE Email = ?\n";
@@ -155,9 +242,31 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
-        
+
         return false;
+    }
+
+    public void deleteUser(int id) {
+        String sql = "UPDATE [thuedi].[dbo].[User]\n"
+                + "SET [Is_deleted] = 1\n"
+                + "WHERE id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+
+            int result = st.executeUpdate();
+            System.out.println("result = " + result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
