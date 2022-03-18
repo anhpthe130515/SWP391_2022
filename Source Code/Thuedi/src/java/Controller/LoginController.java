@@ -100,7 +100,7 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             if (user.getRoleId() == Role.ADMIN.getId()) {
-                response.sendRedirect("admin");
+                response.sendRedirect("admin/dashboard");
             } else {
                 response.sendRedirect("list");
             }

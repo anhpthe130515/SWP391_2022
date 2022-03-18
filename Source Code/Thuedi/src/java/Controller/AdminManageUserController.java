@@ -7,6 +7,8 @@ package Controller;
 
 import DAO.UserDao;
 import Model.User;
+import Model.UserDetail;
+import Model.UserUserDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -20,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pinkd
  */
-@WebServlet(name = "AdminManageUserController", urlPatterns = {"/Admin/User"})
+@WebServlet(name = "AdminManageUserController", urlPatterns = {"/admin/user"})
 public class AdminManageUserController extends HttpServlet {
 
     /**
@@ -40,7 +42,7 @@ public class AdminManageUserController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminManageUserController</title>");            
+            out.println("<title>Servlet AdminManageUserController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AdminManageUserController at " + request.getContextPath() + "</h1>");
@@ -61,10 +63,13 @@ public class AdminManageUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Collection<User> allUser = new UserDao().getAllUsers();
+        Collection<UserUserDetail> allUser = new UserDao().getAllUsers();
+        User user = (User) request.getSession().getAttribute("user");
+        UserDetail userDetail = new UserDao().getUserDetail(user.getId());
 
+        request.setAttribute("userDetail", userDetail);
         request.setAttribute("allUser", allUser);
-        request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/adminUser.jsp").forward(request, response);
     }
 
     /**

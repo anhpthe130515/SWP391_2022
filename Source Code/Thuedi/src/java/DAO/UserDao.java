@@ -7,6 +7,7 @@ package DAO;
 
 import Model.User;
 import Model.UserDetail;
+import Model.UserUserDetail;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -163,22 +164,28 @@ public class UserDao extends DBContext {
         return false;
     }
 
-    public Collection<User> getAllUsers() {
-        String sql = "SELECT *"
-                + "  FROM [dbo].[User] \n";
-        Collection<User> users = new ArrayList<>();
+    public Collection<UserUserDetail> getAllUsers() {
+        String sql = "SELECT [id]\n"
+                + "      ,[Email]\n"
+                + "      ,[Password]\n"
+                + "      ,[Role_id]\n"
+                + "      ,[Create_date]\n"
+                + "      ,[Is_deleted]\n"
+                + "	  ,[Name]\n"
+                + "      ,[Phone]\n"
+                + "      ,[Image_link]\n"
+                + "      ,[Personal_id]\n"
+                + "      ,[Contacts]\n"
+                + "  FROM [thuedi].[dbo].[User]\n"
+                + "  INNER JOIN [thuedi].[dbo].[User_detail]\n"
+                + "  ON [dbo].[User].id = [dbo].[User_detail].[User_Id]";
+        Collection<UserUserDetail> users = new ArrayList<>();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                users.add(
-                        new User(rs.getInt(1),
-                                rs.getString(2),
-                                rs.getString(3),
-                                rs.getInt(4),
-                                rs.getDate(5),
-                                rs.getBoolean(6)
-                        ));
+                users.add(new UserUserDetail(new User(rs.getInt("id"), rs.getString("Email"), rs.getString("Password"), rs.getInt("Role_id"), rs.getDate("Create_date"), rs.getBoolean("Is_deleted")), 
+                        new UserDetail(rs.getInt("id"), rs.getString("Name"), rs.getString("Phone"), rs.getString("Image_link"), rs.getString("Personal_id"), rs.getString("Contacts"))));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -193,23 +200,25 @@ public class UserDao extends DBContext {
 
         return users;
     }
-    
+
     public UserDetail getUserDetail(int id) {
-        String sql = "SELECT *"
-                + "  FROM [dbo].[User_detail] \n"
-                + "WHERE User_Id = ?\n";
+        String sql = "SELECT [User_Id]\n"
+                + "      ,[Name]\n"
+                + "      ,[Phone]\n"
+                + "      ,[Image_link]\n"
+                + "      ,[Personal_id]\n"
+                + "      ,[Contacts]\n"
+                + "  FROM [dbo].[User_detail]\n"
+                + " WHERE User_Id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                return new UserDetail(
-                        
-                );
+                return new UserDetail(id, rs.getString("Name"), rs.getString("Phone"), rs.getString("Image_link"), rs.getString("Personal_id"), rs.getString("Contacts"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         } finally {
             try {
                 connection.close();
@@ -217,10 +226,10 @@ public class UserDao extends DBContext {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
         return null;
+
     }
-    
+
     public void deleteUser(int id) {
         String sql = "UPDATE [thuedi].[dbo].[User]\n"
                 + "SET [Is_deleted] = 1\n"
@@ -242,5 +251,5 @@ public class UserDao extends DBContext {
             }
         }
     }
-    
+
 }
