@@ -521,13 +521,11 @@
             var map;
 
             function initialize() {
-                // Create a map centered in Pyrmont, Sydney (Australia).
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: {lat: 21.024178, lng: 105.832500},
                     zoom: 12
                 });
 
-                // Search for Google's office in Australia.
                 var request = {
                     location: map.getCenter(),
                     radius: '500',
@@ -553,7 +551,7 @@
             }
         </script>
 
-        <form method="post" action="create?id=${requestScope.post.getId()}">
+        <form method="post" action="comment?id=${requestScope.post.getId()}">
             <textarea name="content"></textarea>
             <button>Comment</button>
         </form>
@@ -562,7 +560,9 @@
                 <h5>${comment.getComment()}</h5>
                 <h5>${comment.getUserId()}</h5>
                 <h5>${comment.getCreateDate()}</h5>
-                <a href="delete?commentId=${comment.getId()}">Delete</a>
+                <form method="post" action="comment?commentId=${comment.getId()}">
+                    <button>Delete</button>
+                </form>
             </div>
         </c:forEach>
 
