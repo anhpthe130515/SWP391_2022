@@ -3,17 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Controller;
+package Control;
 
-import DAO.PostDao;
-import DAO.ReportPostDao;
-import DAO.UserDao;
-import Model.Post;
-import Model.ReportPost;
-import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -67,15 +60,7 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Collection<Post> allPost = new PostDao().getAllPost();
-        Collection<User> allUser = new UserDao().getAllUser();
-        Collection<ReportPost> allReportPost = new ReportPostDao().select();
-        
-        request.setAttribute("numberPost", allPost.size());
-        request.setAttribute("numberUser", allUser.size());
-        request.setAttribute("numberReportPost", allReportPost.size());
-        
-        request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
