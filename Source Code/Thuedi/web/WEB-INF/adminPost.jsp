@@ -1,9 +1,9 @@
 <%-- 
-    Document   : admin
-    Created on : Mar 18, 2022, 11:56:39 PM
+    Document   : adminPost
+    Created on : Mar 19, 2022, 2:16:21 AM
     Author     : pinkd
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -155,6 +155,32 @@
                             </div>
                         </div>
                     </div>
+                    <table>
+                        <tr>
+                            <th></th>
+                            <th>Tiêu đề</th>
+                            <th>Chi tiết</th>
+                            <th>Giá</th>
+                            <th>Địa chỉ</th>
+                            <th>Loại</th>
+                            <th>Chấp nhận F0, F1</th>
+                            <th>Ngày tạo</th>
+                            <th></th>
+                        </tr>
+                        <c:forEach items="${requestScope.allPost}" var="post">
+                            <tr>
+                                <td><img src="/Thuedi/PostImage/${post.id}" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/></td>
+                                <td>${post.getTitle()}</td>
+                                <td>${post.getDetail()}</td>
+                                <td>${post.getPrice()}</td>
+                                <td>${post.getAddress()}</td>
+                                <td>${post.getPropertyType()}</td>
+                                <td>${post.isAcceptCovidPatient()}</td>
+                                <td>${post.getCreateDate()}</td>
+                                <td><a href="../Landlord/DeletePost?id=${post.getId()}">Delete</a></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </div>
             </div>
 

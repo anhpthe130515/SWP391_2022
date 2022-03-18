@@ -3,7 +3,7 @@
     Created on : Mar 19, 2022, 12:30:34 AM
     Author     : pinkd
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,16 +33,16 @@
                     <ul class="list-unstyled components">
                         <!-- <p>Dummy Heading</p> -->
                         <li>
-                            <a href="#">Dashboard</a>
+                            <a href="dashboard">Dashboard</a>
                         </li>
                         <li>
-                            <a href="#">User</a>
+                            <a href="user">User</a>
                         </li>
                         <li>
-                            <a href="#">Report</a>
+                            <a href="report">Report</a>
                         </li>
                         <li>
-                            <a href="#">Portfolio</a>
+                            <a href="post">Post</a>
                         </li>
                         <li>
                             <a href="#">Contact</a>
@@ -155,11 +155,28 @@
                             </div>
                         </div>
                     </div>
-                    <c:forEach items="${requestScope.allUser}" var="user">
-                        <h5>${user.getUser().getId()}</h5>
-                        <h5>${user.getDetail().getName()}</h5>
-                        <h2>-</h2>
-                    </c:forEach>
+
+                    <table>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Họ và Tên</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Ngày tạo</th>
+                        </tr>
+                        <c:forEach items="${requestScope.allUser}" var="user">
+                            <tr>
+                                <td>${user.getUser().getId()}</td>
+                                <td>${user.getDetail().getName()}</td>
+                                <td>${user.getDetail().getPhone()}</td>
+                                <td>${user.getUser().getEmail()}</td>
+                                <td>${user.getUser().getRoleId()}</td>
+                                <td>${user.getUser().getCreateDate()}</td>
+                                <td><a href="../DeleteUser?id=${user.getUser().getId()}">Delete</a></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </div>
             </div>
 

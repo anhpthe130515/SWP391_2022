@@ -1,9 +1,9 @@
 <%-- 
-    Document   : admin
-    Created on : Mar 18, 2022, 11:56:39 PM
+    Document   : adminReport
+    Created on : Mar 19, 2022, 2:33:55 AM
     Author     : pinkd
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -155,6 +155,22 @@
                             </div>
                         </div>
                     </div>
+                    <table>
+                        <tr>
+                            <th>Người báo cáo</th>
+                            <th>Bài viết báo cáo</th>
+                            <th>Lý do</th>
+                            <th></th>
+                        </tr>
+                        <c:forEach items="${requestScope.allReportPost}" var="post">
+                            <tr>
+                                <td>${post.getUserId()}</td>
+                                <td>${post.getPostId()}</td>
+                                <td>${post.getDetail()}</td>
+                                <td><a href="../Landlord/DeletePost?id=${post.getId()}">Delete</a></td>
+                            </tr>
+                        </c:forEach>
+                    </table>
                 </div>
             </div>
 

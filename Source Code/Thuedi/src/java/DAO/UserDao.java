@@ -178,7 +178,8 @@ public class UserDao extends DBContext {
                 + "      ,[Contacts]\n"
                 + "  FROM [thuedi].[dbo].[User]\n"
                 + "  INNER JOIN [thuedi].[dbo].[User_detail]\n"
-                + "  ON [dbo].[User].id = [dbo].[User_detail].[User_Id]";
+                + "  ON [dbo].[User].id = [dbo].[User_detail].[User_Id]"
+                + " WHERE Is_deleted = 0";
         Collection<UserUserDetail> users = new ArrayList<>();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
