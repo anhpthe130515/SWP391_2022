@@ -51,6 +51,7 @@ public class ListController extends HttpServlet {
         Integer districtId = request.getParameter("district") == null || request.getParameter("district").equals("") ? null : Integer.parseInt(request.getParameter("district"));
         Integer propertyTypeId = request.getParameter("propertyType") == null || request.getParameter("propertyType").equals("") ? null : Integer.parseInt(request.getParameter("propertyType"));
         
+        
         request.setAttribute("lst", lst);
         request.setAttribute("numPage", numPage);
         request.setAttribute("numPost", numPost);

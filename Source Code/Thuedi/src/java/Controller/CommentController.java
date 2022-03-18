@@ -63,18 +63,7 @@ public class CommentController extends HttpServlet {
                 int id = new CommentDao().insertComment(comment);
                 response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
             }
-        } else {
-            int id = Integer.parseInt(request.getParameter("commentId"));
-            User user = (User) request.getSession().getAttribute("user");
-            Comment comment = new CommentDao().selectById(id);
-            if (comment.getUserId() == user.getId()) {
-                int delete = new CommentDao().deleteComment(id);
-                response.sendRedirect("PostDetail?id=" + comment.getPostId());
-            } else {
-                String ms = "Ban khong co quyen xoa binh luan nay";
-                response.sendRedirect("PostDetail?id=" + comment.getPostId() + "&error=" + ms);
-            }
-        }
+        } 
     }
     /**
      * Returns a short description of the servlet.

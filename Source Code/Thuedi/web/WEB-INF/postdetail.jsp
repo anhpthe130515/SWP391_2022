@@ -82,13 +82,10 @@
                         class="carousel slide"
                         data-ride="carousel"
                         >
-
-                        <img style="display:none"id="checkImage"src="/Thuedi/PostImage/${listImageId[0]}"/>
-
                         <div class="carousel-inner">
                             <c:forEach items="${listImageId}" var="o">
                                 <div class="carousel-item">
-                                    <img id="image"src="/Thuedi/PostImage/${o}" class="d-block w-100" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/>
+                                    <img id="image"src="/Thuedi/PostImage/${o}" class="d-block w-100"/>
                                 </div>
                             </c:forEach>
                         </div>
@@ -217,7 +214,38 @@
                         <h5 class="mt-4">Xung quanh</h5>
 
                         <!--MAP-->
-                        <div id="map" style="width: 50vw; height: 350px;"></div>
+                        <div id="map" style="width: 100%; height: 350px;"></div>
+
+                        <div class="mt-3">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Báo cáo bài viết
+                            </button>
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                 aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Báo cáo bài viết</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body modal-body-postDetail">
+                                            <form method="post" action="/Thuedi/User/ReportPost">
+                                                <input style="display:none" type="text" name="id" value="${requestScope.post.getId()}"/>
+                                                <label for="detail">Vui lòng điền nội dung bạn muốn báo cáo</label>
+                                                <input style="width:100%; margin-top:20px" type="text" name="detail"/>
+                                                <div class="modal-footer modal-footer-postDetail">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Báo cáo</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!--COMMENTS-->
                         <h5 class="mt-4">Bình Luận</h5>
@@ -232,8 +260,8 @@
                                                 <a class="pull-left" href="#"
                                                    ><img
                                                         class="media-object"
-                                                        src="https://scontent.fhan3-5.fna.fbcdn.net/v/t1.6435-9/67353113_2609163919310902_6950528713075195904_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=174925&_nc_ohc=a9G1HdxTzAMAX-Vc19d&_nc_ht=scontent.fhan3-5.fna&oh=00_AT8saWQnUl2oi1ySdngwoSZzsssCPPLiBDq-J1RZa3Z2Qw&oe=62546717"
-                                                        alt=""
+                                                        src="/Thuedi/PostImage/${comment.getUserDetail().getUserId()} "
+                                                        onError="this.onerror=null;this.src='https://scontent.fhan3-5.fna.fbcdn.net/v/t1.6435-9/67353113_2609163919310902_6950528713075195904_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=174925&_nc_ohc=-Se--Qeha08AX-xImWj&_nc_ht=scontent.fhan3-5.fna&oh=00_AT_NUcycQRrLxd5hFdmGDGs1hstNCV6RrL-50tTHcjiC5Q&oe=62585B97'"
                                                         /></a>
                                                 <div class="media-body">
                                                     <textarea
@@ -259,12 +287,12 @@
                                                     <a class="pull-left" href="#"
                                                        ><img
                                                             class="media-object"
-                                                            src="https://scontent.fhan3-5.fna.fbcdn.net/v/t1.6435-9/67353113_2609163919310902_6950528713075195904_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=174925&_nc_ohc=a9G1HdxTzAMAX-Vc19d&_nc_ht=scontent.fhan3-5.fna&oh=00_AT8saWQnUl2oi1ySdngwoSZzsssCPPLiBDq-J1RZa3Z2Qw&oe=62546717"
-                                                            alt=""
+                                                            src="/Thuedi/PostImage/${comment.getUserDetail().getUserId()}"
+                                                            onError="this.onerror=null;this.src='https://scontent.fhan3-5.fna.fbcdn.net/v/t1.6435-9/67353113_2609163919310902_6950528713075195904_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=174925&_nc_ohc=-Se--Qeha08AX-xImWj&_nc_ht=scontent.fhan3-5.fna&oh=00_AT_NUcycQRrLxd5hFdmGDGs1hstNCV6RrL-50tTHcjiC5Q&oe=62585B97'"
                                                             /></a>
                                                     <div class="media-body">
-                                                        <h4 class="media-heading">${comment.getUserId()}</h4>
-                                                        <p>${comment.getComment()}</p>
+                                                        <h4 class="media-heading">${comment.getUserDetail().getName()}</h4>
+                                                        <p>${comment.getComment().getComment()}</p>
                                                         <ul
                                                             class="list-unstyled list-inline media-detail pull-left"
                                                             >
@@ -281,7 +309,10 @@
                                                                     d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z"
                                                                     />
                                                                 </svg>
-                                                                <fmt:formatDate pattern = "dd/MM/yyyy" value = "${comment.getCreateDate()}" />
+                                                                <fmt:formatDate pattern = "dd/MM/yyyy" value = "${comment.getComment().getCreateDate()}"/>
+                                                            </li>
+                                                            <li>
+                                                                <a style="padding-right: 10px" href="DeleteComment?id=${comment.getComment().getId()}">Delete</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -308,8 +339,10 @@
                                 alt=""
                                 />
                             <div>
-                                <p class="font-weight-bold h5 mb-1">Lê Anh Tuấn</p>
-                                <p>Ngày tham gia: 20/02/2022</p>
+                                <p class="font-weight-bold h5 mb-1">${requestScope.authorDetail.getName()}</p>
+                                <p>Ngày tham gia: 
+                                    <fmt:formatDate pattern = "dd/MM/yyyy" value = "${author.getCreateDate()}" />
+                                </p>
                             </div>
                         </div>
                         <hr class="mt-15px" />
@@ -326,7 +359,7 @@
                                     d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"
                                     />
                                 </svg>
-                                <span class="h6 ml-1 phone-number">0972536780</span>
+                                <span class="h6 ml-1 phone-number">${requestScope.authorDetail.getPhone()}</span>
                             </div>
 
                             <button class="btn btn-show-phone">Bấm để hiện số</button>
@@ -334,7 +367,7 @@
 
                         <!-- EMAIL BUTTON  -->
                         <a
-                            href="mailto:abc@example.com?subject = [Thuedi] Hỏi Thêm Thông Tin Phòng Trọ"
+                            href="mailto:${requestScope.author.getEmail()}?subject = [Thuedi] Hỏi Thêm Thông Tin Phòng Trọ"
                             >
                             <div class="widget-item-contact-email">
                                 <svg
@@ -353,9 +386,63 @@
                             </div>
                         </a>
                     </div>
-                    <div class="report">
-                        <a href="#comments" >Report</a>
-                    </div>
+
+                    <div
+                        class="modal fade"
+                        id="report"
+                        tabindex="-1"
+                        aria-labelledby="exampleModalLabel"
+                        aria-hidden="true"
+                        >
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">
+                                        Thông báo
+                                    </h5>
+                                    <button
+                                        type="button"
+                                        class="btn btn-light"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                        >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            class="bi bi-x-lg"
+                                            viewBox="0 0 16 16"
+                                            >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
+                                            />
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
+                                            />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Bạn có muốn xóa bài viết này không ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button
+                                        type="button"
+                                        class="btn btn-secondary"
+                                        data-bs-dismiss="modal"
+                                        >
+                                        Thoát
+                                    </button>
+                                    <a href="DeletePost?id=${o.getId()}" class="btn btn-primary">
+                                        Đồng ý
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div
 
                 </div>
             </section>
@@ -365,20 +452,23 @@
 
         <!-- JAVASCRIPT -->
         <script>
-            let error = document.getElementById("checkImage");
-            let slider = document.querySelector(".carousel-inner");
             let image = document.getElementById("image");
-//            const add = document.createElement()
-
-
-            error.addEventListener("error", check);
-
-            if (image == null) {
-                slider.innerHTML = "<img src='https://wedo.vn/wp-content/uploads/2019/11/thiet-ke-phong-tro-dep-6.jpg' class='d-block w-100'>"
+            let caroseo = document.querySelector(".carousel-inner");
+            if (image !== null) {
+                let slider = document.querySelectorAll(".carousel-item");
+                slider[0].classList.add("active");
+            } else {
+                caroseo.innerHTML = "<div class='carousel-item active'> <img src='https://bandon.vn/resize/1000x700/a-c/zc-1/f/uploads/posts/thiet-ke-nha-tro-dep-2020-bandon-0.jpg' class='d-block w-100'/></div><div class='carousel-item'> <img src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro-co-gac-lung.jpg' class='d-block w-100'/></div>";
             }
-            function check() {
-                console.log("loi roi");
-            }
+            //hidden phone number
+            let phoneNumber = document.querySelector(".phone-number");
+            let showPhoneNumber = document.querySelector(".btn-show-phone");
+            let slidePhone = phoneNumber.innerHTML.slice(6);
+            let hiddenPhone = phoneNumber.innerHTML.slice(0, 6) + "****";
+            phoneNumber.innerHTML = hiddenPhone;
+            showPhoneNumber.addEventListener("click", function () {
+                phoneNumber.innerHTML = phoneNumber.innerHTML.slice(0, 6) + slidePhone;
+            })
 
 
         </script>
@@ -417,22 +507,7 @@
                 }
             }
         </script>
-        <script>
-            let slider = document.querySelectorAll(".carousel-item");
-            let phoneNumber = document.querySelector(".phone-number");
-            let showPhoneNumber = document.querySelector(".btn-show-phone");
-            slider[0].classList.add("active");
 
-            //hidden phone number
-            let slidePhone = phoneNumber.innerHTML.slice(6);
-            let hiddenPhone = phoneNumber.innerHTML.slice(0, 6) + "****";
-            phoneNumber.innerHTML = hiddenPhone;
-            showPhoneNumber.addEventListener("click", function () {
-                phoneNumber.innerHTML = phoneNumber.innerHTML.slice(0, 6) + slidePhone;
-            })
-
-
-        </script>
         <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
