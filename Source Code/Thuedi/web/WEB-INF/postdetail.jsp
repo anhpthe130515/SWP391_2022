@@ -4,8 +4,9 @@
     Author     : Admin
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -74,21 +75,22 @@
         <section class="main-content">
             <section class="property">
                 <div class="property-list">
+
+                    <!--CAROUSEL-->
                     <div
                         id="carouselExampleControls"
                         class="carousel slide"
                         data-ride="carousel"
                         >
+
+                        <img style="display:none"id="checkImage"src="/Thuedi/PostImage/${listImageId[0]}"/>
+
                         <div class="carousel-inner">
-                            <div class="carousel-item">
-                                <img src="/images/item1.jpg" class="d-block w-100" alt="..." />
-                            </div>
-                            <div class="carousel-item">
-                                <img src="/images/item2.jpg" class="d-block w-100" alt="..." />
-                            </div>
-                            <div class="carousel-item">
-                                <img src="/images/image3.png" class="d-block w-100" alt="..." />
-                            </div>
+                            <c:forEach items="${listImageId}" var="o">
+                                <div class="carousel-item">
+                                    <img id="image"src="/Thuedi/PostImage/${o}" class="d-block w-100" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/>
+                                </div>
+                            </c:forEach>
                         </div>
                         <a
                             class="carousel-control-prev"
@@ -117,8 +119,8 @@
                     </div>
                     <div class="main-infor">
                         <h4 class="mt-3">${requestScope.post.getTitle()}</h4>
-                        <p class="mb-0">Thôn 7 - Thạch Hòa - Thạch Thất</p>
-                        <p class="price">4 triệu</p>
+                        <p class="mb-0">${requestScope.post.getAddressDetail()}</p>
+                        <p class="price">${requestScope.post.getPrice()} VNĐ</p>
                         <h5>Thông tin chính</h5>
                         <div class="infor">
                             <div class="infor-item">
@@ -134,21 +136,23 @@
                                 </svg>
                                 Diện tích
                             </div>
-                            <div class="infor-item">20m2</div>
                             <div class="infor-item">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="25"
-                                    height="25"
-                                    fill="currentColor"
-                                    class="bi bi-dot"
-                                    viewBox="0 0 16 16"
-                                    >
-                                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
-                                </svg>
-                                Nhà tắm
-                            </div>
-                            <div class="infor-item">1</div>
+                                <fmt:formatNumber pattern="#####">${requestScope.post.getArea()}</fmt:formatNumber>m2
+                                </div>
+                                <div class="infor-item">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="25"
+                                        height="25"
+                                        fill="currentColor"
+                                        class="bi bi-dot"
+                                        viewBox="0 0 16 16"
+                                        >
+                                    <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" />
+                                    </svg>
+                                    Nhà tắm
+                                </div>
+                                <div class="infor-item">${requestScope.post.getNumberOfBedrooms()}</div>
                             <div class="infor-item">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +166,7 @@
                                 </svg>
                                 Phòng ngủ
                             </div>
-                            <div class="infor-item">1</div>
+                            <div class="infor-item">${requestScope.post.getNumberOfRestrooms()}</div>
                             <div class="infor-item">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +180,7 @@
                                 </svg>
                                 Hướng
                             </div>
-                            <div class="infor-item">Bắc</div>
+                            <div class="infor-item">${requestScope.post.getDirection()}</div>
                             <div class="infor-item">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -190,7 +194,7 @@
                                 </svg>
                                 Cho F0, F1 thuê
                             </div>
-                            <div class="infor-item">Có</div>
+                            <div class="infor-item">${post.isAcceptCovidPatient()==true?"Có":"Không"}</div>
                             <div class="infor-item">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -204,31 +208,26 @@
                                 </svg>
                                 Ngày đăng
                             </div>
-                            <div class="infor-item">12/03/2022</div>
+                            <div class="infor-item"><fmt:formatDate pattern = "dd/MM/yyyy" value = "${requestScope.post.getCreateDate()}" /></div>
                         </div>
                         <h5 class="mt-4">Giới thiệu</h5>
                         <p>
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Asperiores perferendis natus reprehenderit error, ducimus dolorem
-                            quibusdam, obcaecati optio consequatur repellat quo voluptatem
-                            voluptatum dolorum commodi eaque incidunt itaque nobis quis!
+                            ${requestScope.post.getDetail()}
                         </p>
                         <h5 class="mt-4">Xung quanh</h5>
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.56646411855!2d105.51651245313043!3d21.010008696074426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345b59dd6595c7%3A0x46465b8b95bd072d!2zTmjDoCBUcuG7jSBHw7NjIEjDoCBO4buZaQ!5e0!3m2!1svi!2s!4v1647187819991!5m2!1svi!2s"
-                            width="100%"
-                            height="350px"
-                            style="border: 0; border-radius: 8px"
-                            allowfullscreen=""
-                            loading="lazy"
-                            ></iframe>
+
+                        <!--MAP-->
+                        <div id="map" style="width: 50vw; height: 350px;"></div>
+
+                        <!--COMMENTS-->
                         <h5 class="mt-4">Bình Luận</h5>
 
                         <section class="content-item" id="comments">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm">
-                                        <form action="##">
+                                        <!--FORM-->
+                                        <form method="post" action="comment?id=${requestScope.post.getId()}">
                                             <div class="media pb-0 border-0 cmt-box">
                                                 <a class="pull-left" href="#"
                                                    ><img
@@ -239,6 +238,7 @@
                                                 <div class="media-body">
                                                     <textarea
                                                         class="form-control"
+                                                        name="content"
                                                         id="message"
                                                         placeholder="Your message"
                                                         required=""
@@ -251,171 +251,43 @@
                                         </form>
 
                                         <h3>2 Bình luận</h3>
+
                                         <ul class="cmt-list">
-                                            <!-- COMMENT 1 - START -->
-                                            <li class="media">
-                                                <a class="pull-left" href="#"
-                                                   ><img
-                                                        class="media-object"
-                                                        src="https://scontent.fhan3-5.fna.fbcdn.net/v/t1.6435-9/67353113_2609163919310902_6950528713075195904_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=174925&_nc_ohc=a9G1HdxTzAMAX-Vc19d&_nc_ht=scontent.fhan3-5.fna&oh=00_AT8saWQnUl2oi1ySdngwoSZzsssCPPLiBDq-J1RZa3Z2Qw&oe=62546717"
-                                                        alt=""
-                                                        /></a>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">TuanLA</h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                        elit. Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit. Lorem ipsum dolor sit amet,
-                                                        consectetur adipiscing elit. Lorem ipsum dolor sit
-                                                        amet, consectetur adipiscing elit. Lorem ipsum dolor
-                                                        sit amet, consectetur adipiscing elit. Lorem ipsum
-                                                        dolor sit amet, consectetur adipiscing elit.
-                                                    </p>
-                                                    <ul
-                                                        class="list-unstyled list-inline media-detail pull-left"
-                                                        >
-                                                        <li>
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                width="16"
-                                                                height="16"
-                                                                fill="currentColor"
-                                                                class="bi bi-calendar-fill mr-1"
-                                                                viewBox="0 0 16 16"
-                                                                >
-                                                            <path
-                                                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z"
-                                                                />
-                                                            </svg>
-                                                            13/03/2022
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <!-- COMMENT 1 - END -->
-                                            <!-- COMMENT 1 - START -->
-                                            <li class="media">
-                                                <a class="pull-left" href="#"
-                                                   ><img
-                                                        class="media-object"
-                                                        src="https://scontent.fhan3-5.fna.fbcdn.net/v/t1.6435-9/67353113_2609163919310902_6950528713075195904_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=174925&_nc_ohc=a9G1HdxTzAMAX-Vc19d&_nc_ht=scontent.fhan3-5.fna&oh=00_AT8saWQnUl2oi1ySdngwoSZzsssCPPLiBDq-J1RZa3Z2Qw&oe=62546717"
-                                                        alt=""
-                                                        /></a>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">TuanLA</h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                        elit. Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit. Lorem ipsum dolor sit amet,
-                                                        consectetur adipiscing elit. Lorem ipsum dolor sit
-                                                        amet, consectetur adipiscing elit. Lorem ipsum dolor
-                                                        sit amet, consectetur adipiscing elit. Lorem ipsum
-                                                        dolor sit amet, consectetur adipiscing elit.
-                                                    </p>
-                                                    <ul
-                                                        class="list-unstyled list-inline media-detail pull-left"
-                                                        >
-                                                        <li>
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                width="16"
-                                                                height="16"
-                                                                fill="currentColor"
-                                                                class="bi bi-calendar-fill mr-1"
-                                                                viewBox="0 0 16 16"
-                                                                >
-                                                            <path
-                                                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z"
-                                                                />
-                                                            </svg>
-                                                            13/03/2022
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <!-- COMMENT 1 - END -->
-                                            <!-- COMMENT 1 - START -->
-                                            <li class="media">
-                                                <a class="pull-left" href="#"
-                                                   ><img
-                                                        class="media-object"
-                                                        src="https://scontent.fhan3-5.fna.fbcdn.net/v/t1.6435-9/67353113_2609163919310902_6950528713075195904_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=174925&_nc_ohc=a9G1HdxTzAMAX-Vc19d&_nc_ht=scontent.fhan3-5.fna&oh=00_AT8saWQnUl2oi1ySdngwoSZzsssCPPLiBDq-J1RZa3Z2Qw&oe=62546717"
-                                                        alt=""
-                                                        /></a>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">TuanLA</h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                        elit. Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit. Lorem ipsum dolor sit amet,
-                                                        consectetur adipiscing elit. Lorem ipsum dolor sit
-                                                        amet, consectetur adipiscing elit. Lorem ipsum dolor
-                                                        sit amet, consectetur adipiscing elit. Lorem ipsum
-                                                        dolor sit amet, consectetur adipiscing elit.
-                                                    </p>
-                                                    <ul
-                                                        class="list-unstyled list-inline media-detail pull-left"
-                                                        >
-                                                        <li>
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                width="16"
-                                                                height="16"
-                                                                fill="currentColor"
-                                                                class="bi bi-calendar-fill mr-1"
-                                                                viewBox="0 0 16 16"
-                                                                >
-                                                            <path
-                                                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z"
-                                                                />
-                                                            </svg>
-                                                            13/03/2022
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <!-- COMMENT 1 - END -->
-                                            <!-- COMMENT 1 - START -->
-                                            <li class="media">
-                                                <a class="pull-left" href="#"
-                                                   ><img
-                                                        class="media-object"
-                                                        src="https://scontent.fhan3-5.fna.fbcdn.net/v/t1.6435-9/67353113_2609163919310902_6950528713075195904_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=174925&_nc_ohc=a9G1HdxTzAMAX-Vc19d&_nc_ht=scontent.fhan3-5.fna&oh=00_AT8saWQnUl2oi1ySdngwoSZzsssCPPLiBDq-J1RZa3Z2Qw&oe=62546717"
-                                                        alt=""
-                                                        /></a>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">TuanLA</h4>
-                                                    <p>
-                                                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                                                        elit. Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit. Lorem ipsum dolor sit amet,
-                                                        consectetur adipiscing elit. Lorem ipsum dolor sit
-                                                        amet, consectetur adipiscing elit. Lorem ipsum dolor
-                                                        sit amet, consectetur adipiscing elit. Lorem ipsum
-                                                        dolor sit amet, consectetur adipiscing elit.
-                                                    </p>
-                                                    <ul
-                                                        class="list-unstyled list-inline media-detail pull-left"
-                                                        >
-                                                        <li>
-                                                            <svg
-                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                width="16"
-                                                                height="16"
-                                                                fill="currentColor"
-                                                                class="bi bi-calendar-fill mr-1"
-                                                                viewBox="0 0 16 16"
-                                                                >
-                                                            <path
-                                                                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z"
-                                                                />
-                                                            </svg>
-                                                            13/03/2022
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </li>
-                                            <!-- COMMENT 1 - END -->
+                                            <!-- COMMENT  - START -->
+                                            <c:forEach items="${requestScope.comments}" var="comment">
+                                                <li class="media">
+                                                    <a class="pull-left" href="#"
+                                                       ><img
+                                                            class="media-object"
+                                                            src="https://scontent.fhan3-5.fna.fbcdn.net/v/t1.6435-9/67353113_2609163919310902_6950528713075195904_n.jpg?_nc_cat=109&ccb=1-5&_nc_sid=174925&_nc_ohc=a9G1HdxTzAMAX-Vc19d&_nc_ht=scontent.fhan3-5.fna&oh=00_AT8saWQnUl2oi1ySdngwoSZzsssCPPLiBDq-J1RZa3Z2Qw&oe=62546717"
+                                                            alt=""
+                                                            /></a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">${comment.getUserId()}</h4>
+                                                        <p>${comment.getComment()}</p>
+                                                        <ul
+                                                            class="list-unstyled list-inline media-detail pull-left"
+                                                            >
+                                                            <li>
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    width="16"
+                                                                    height="16"
+                                                                    fill="currentColor"
+                                                                    class="bi bi-calendar-fill mr-1"
+                                                                    viewBox="0 0 16 16"
+                                                                    >
+                                                                <path
+                                                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V5h16V4H0V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5z"
+                                                                    />
+                                                                </svg>
+                                                                <fmt:formatDate pattern = "dd/MM/yyyy" value = "${comment.getCreateDate()}" />
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <!-- COMMENT  - END -->
+                                            </c:forEach>
                                         </ul>
                                     </div>
                                 </div>
@@ -491,41 +363,36 @@
         <section class="footer">Footer demo</section>
 
 
+        <!-- JAVASCRIPT -->
+        <script>
+            let error = document.getElementById("checkImage");
+            let slider = document.querySelector(".carousel-inner");
+            let image = document.getElementById("image");
+//            const add = document.createElement()
 
-        !--        <h1>${requestScope.error}</h1>
-        <h1>
-            ${requestScope.post.getTitle()}
-            <br>
-            ${requestScope.post.getDetail()}
-            <br>
-            ${requestScope.post.getPrice()}
-            <br>
-            ${requestScope.post.getArea()}
-            <br>
-            ${requestScope.post.getNumberOfBedrooms()}
-            <br>
-            ${requestScope.post.getDirection()}
-            <br>
-            ${requestScope.post.getAddress()}
-            <br>
-            ${requestScope.post.getAddressDetail()}
-            <br>
-            ${requestScope.post.getPropertyType()}
-            <br>
-            ${requestScope.post.getCreateDate()}
-            <br>
-        </h1>-->
-        <div id="map" style="width: 50vw; height: 50vh;"></div>
 
+            error.addEventListener("error", check);
+
+            if (image == null) {
+                slider.innerHTML = "<img src='https://wedo.vn/wp-content/uploads/2019/11/thiet-ke-phong-tro-dep-6.jpg' class='d-block w-100'>"
+            }
+            function check() {
+                console.log("loi roi");
+            }
+
+
+        </script>
         <script>
             var map;
 
             function initialize() {
+                // Create a map centered in Pyrmont, Sydney (Australia).
                 map = new google.maps.Map(document.getElementById('map'), {
                     center: {lat: 21.024178, lng: 105.832500},
                     zoom: 12
                 });
 
+                // Search for Google's office in Australia.
                 var request = {
                     location: map.getCenter(),
                     radius: '500',
@@ -550,23 +417,6 @@
                 }
             }
         </script>
-
-        <form method="post" action="comment?id=${requestScope.post.getId()}">
-            <textarea name="content"></textarea>
-            <button>Comment</button>
-        </form>
-        <c:forEach items="${requestScope.comments}" var="comment">
-            <div>
-                <h5>${comment.getComment()}</h5>
-                <h5>${comment.getUserId()}</h5>
-                <h5>${comment.getCreateDate()}</h5>
-                <form method="post" action="comment?commentId=${comment.getId()}">
-                    <button>Delete</button>
-                </form>
-            </div>
-        </c:forEach>
-
-        <!-- JAVASCRIPT -->
         <script>
             let slider = document.querySelectorAll(".carousel-item");
             let phoneNumber = document.querySelector(".phone-number");

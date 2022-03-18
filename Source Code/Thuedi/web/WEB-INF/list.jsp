@@ -30,6 +30,7 @@
                         type="text"
                         class="form-control"
                         placeholder="Từ khóa, Đường, Quận"
+                        style="border: 1px solid black"
                         />
                     <div class="input-group-append">
                         <button
@@ -90,8 +91,6 @@
                     <!--load tu database ra cac category-->
                 </select>
             </div>
- púh
-
             <div class="w3-half w3-margin-bottom">
                 <select class="btn btn-secondary dropdown-toggle"  name="propertyType">
                     <option value="">Giá thuê</option>
