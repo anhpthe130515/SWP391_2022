@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,20 +49,20 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
 
         return null;
     }
 
     /**
-    * Insert user to database
-    * 
-    * @author pinkd
-    * 
-    * @param  user   object
-    * @return id of the user just inserted into the database
-    */
+     * Insert user to database
+     *
+     * @author pinkd
+     *
+     * @param user object
+     * @return id of the user just inserted into the database
+     */
     public int insertUser(User user) {
         String sql = "INSERT INTO [User]([Email],[Password],[Role_id],[Create_date],[Is_deleted]) VALUES (?,?,?,?,?)";
         int id = 0;
@@ -93,19 +95,19 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
         return id;
     }
 
     /**
-    * Insert user detail to database
-    * 
-    * @author pinkd
-    * 
-    * @param  userDetail   object
-    * @return 
-    */
+     * Insert user detail to database
+     *
+     * @author pinkd
+     *
+     * @param userDetail object
+     * @return
+     */
     public void insertUserDetail(UserDetail userDetail) {
         String sql = "INSERT INTO [User_detail] VALUES (?,?,?,?,?,?)";
         try {
@@ -125,18 +127,18 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
 
     /**
-    * Check if the user exists in the database or not
-    * 
-    * @author pinkd
-    * 
-    * @param  email   email of user to check
-    * @return         true if user exist, false if not
-    */
+     * Check if the user exists in the database or not
+     *
+     * @author pinkd
+     *
+     * @param email email of user to check
+     * @return true if user exist, false if not
+     */
     public boolean checkUserExist(String email) {
         String sql = "SELECT * FROM [User]\n"
                 + "WHERE Email = ?\n";
@@ -155,9 +157,68 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
-        
+
         return false;
     }
+
+    public Collection<User> getAllUsers() {
+        String sql = "SELECT *"
+                + "  FROM [dbo].[User] \n";
+        Collection<User> users = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                users.add(
+                        new User(rs.getInt(1),
+                                rs.getString(2),
+                                rs.getString(3),
+                                rs.getInt(4),
+                                rs.getDate(5),
+                                rs.getBoolean(6)
+                        ));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return users;
+    }
+    
+    public UserDetail getUserDetail(int id) {
+        String sql = "SELECT *"
+                + "  FROM [dbo].[User_detail] \n"
+                + "WHERE User_Id = ?\n";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new UserDetail(
+                        
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return null;
+    }
+    
 }
