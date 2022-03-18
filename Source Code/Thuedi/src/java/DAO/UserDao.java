@@ -221,4 +221,26 @@ public class UserDao extends DBContext {
         return null;
     }
     
+    public void deleteUser(int id) {
+        String sql = "UPDATE [thuedi].[dbo].[User]\n"
+                + "SET [Is_deleted] = 1\n"
+                + "WHERE id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+
+            int result = st.executeUpdate();
+            System.out.println("result = " + result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
 }

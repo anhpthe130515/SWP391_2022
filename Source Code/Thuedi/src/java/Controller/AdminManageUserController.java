@@ -3,13 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package Controller;
 
-import DAO.PostDao;
-import DAO.ReportPostDao;
 import DAO.UserDao;
-import Model.Post;
-import Model.ReportPost;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,14 +15,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author TuanLA
+ * @author pinkd
  */
-@WebServlet(name = "AdminControl", urlPatterns = {"/Admin/dashboard"})
-public class AdminController extends HttpServlet {
+@WebServlet(name = "AdminManageUserController", urlPatterns = {"/Admin/User"})
+public class AdminManageUserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,14 +37,13 @@ public class AdminController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminControl</title>");
+            out.println("<title>Servlet AdminManageUserController</title>");            
             out.println("</head>");
             out.println("<body>");
-            HttpSession session = request.getSession();
+            out.println("<h1>Servlet AdminManageUserController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,14 +61,9 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Collection<Post> allPost = new PostDao().getAllPosts();
         Collection<User> allUser = new UserDao().getAllUsers();
-        Collection<ReportPost> allReportPost = new ReportPostDao().select();
 
-        request.setAttribute("numberPost", allPost.size());
-        request.setAttribute("numberUser", allUser.size());
-        request.setAttribute("numberReportPost", allReportPost.size());
-
+        request.setAttribute("allUser", allUser);
         request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
 
@@ -89,7 +78,10 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int userId = Integer.parseInt(request.getParameter("id"));
+        new UserDao().deleteUser(userId);
+
+        response.sendRedirect("User");
     }
 
     /**
