@@ -375,32 +375,34 @@ public class PostDao extends DBContext{
     }
     
     // List Post
-    public ArrayList<Post> getItems(String district, String propertyType, int page) {
+    public ArrayList<Post> getItems(String district, String propertyType, String price, String covid, int page) {
         ArrayList<Post> lst = new ArrayList<>();
         try {
-            String sql = "SELECT T1.Id,\n" +
-                        "	T1.User_id,\n" +
-                        "	T1.Create_date,\n" +
-                        "	T1.Title,\n" +
-                        "	T1.Detail,\n" +
-                        "	T1.Price,\n" +
-                        "	T1.Area,\n" +
-                        "	T1.Number_of_bedrooms,\n" +
-                        "	T1.Number_of_restrooms,\n" +
-                        "	T1.Direction,\n" +
-                        "	T1.Address,\n" +
-                        "	T1.Address_detail,\n" +
-                        "	T1.Property_type_id,\n" +
-                        "	T1.Accept_covid_patient\n" +
-                        "FROM Post T1\n" +
-                        "LEFT JOIN Sub_district T2\n" +
-                        "	ON T1.Address = T2.Id\n" +
-                        "LEFT JOIN District T3\n" +
-                        "	ON T2.District_id = T3.Id\n" +
-                        "LEFT JOIN Property_type T4\n" +
-                        "	ON T1.Property_type_id = T4.Id\n" +
-                        "WHERE T3.Id= "+district+"\n" +
-                        "	AND T4.Id = "+propertyType+"\n" +
+            String sql = "select T3.Id,\n" +
+                        "	T3.User_id,\n" +
+                        "	T3.Create_date,\n" +
+                        "	T3.Title,\n" +
+                        "	T3.Detail,\n" +
+                        "	T3.Price,\n" +
+                        "	T3.Area,\n" +
+                        "	T3.Number_of_bedrooms,\n" +
+                        "	T3.Number_of_restrooms,\n" +
+                        "	T3.Direction,\n" +
+                        "	T3.Address,\n" +
+                        "	T3.Address_detail,\n" +
+                        "	T3.Property_type_id,\n" +
+                        "	T3.Accept_covid_patient\n" +
+                        "from District T1\n" +
+                        "join Sub_district T2\n" +
+                        "	on T1.Id = T2.District_id\n" +
+                        "join Post T3\n" +
+                        "	on T2.Id = T3.[Address]\n" +
+                        "join Property_type T4\n" +
+                        "	on T3.Property_type_id = T4.Id\n" +
+                        "where T1.Id = "+district+"\n" +
+                        "	and T4.Id = "+propertyType+"\n" +
+                        "       and T3.Price "+price+"\n" +
+                        "	and T3.Accept_covid_patient "+covid+"\n" +
                         "ORDER BY Id DESC\n" +
                         "OFFSET ? ROWS\n" +
                         "FETCH FIRST 8 ROWS ONLY";
@@ -420,9 +422,20 @@ public class PostDao extends DBContext{
         return lst;
     }
     
-    public int getNumPage() {
+    public int getNumPage(String district, String propertyType, String price, String covid) {
 
-        String sql = "SELECT count(*) FROM Post";
+        String sql = "select count(*)\n" +
+                        "from District T1\n" +
+                        "join Sub_district T2\n" +
+                        "	on T1.Id = T2.District_id\n" +
+                        "join Post T3\n" +
+                        "	on T2.Id = T3.[Address]\n" +
+                        "join Property_type T4\n" +
+                        "	on T3.Property_type_id = T4.Id\n" +
+                        "where T1.Id = "+district+"\n" +
+                        "	and T4.Id = "+propertyType+"\n" +
+                        "       and T3.Price "+price+"\n" +
+                        "	and T3.Accept_covid_patient "+covid+"\n";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -441,9 +454,20 @@ public class PostDao extends DBContext{
         return 0;
     }
     
-    public int getNumPost() {
+    public int getNumPost(String district, String propertyType, String price, String covid) {
 
-        String sql = "SELECT count(id) FROM Post";
+        String sql = "select count(*)\n" +
+                        "from District T1\n" +
+                        "join Sub_district T2\n" +
+                        "	on T1.Id = T2.District_id\n" +
+                        "join Post T3\n" +
+                        "	on T2.Id = T3.[Address]\n" +
+                        "join Property_type T4\n" +
+                        "	on T3.Property_type_id = T4.Id\n" +
+                        "where T1.Id = "+district+"\n" +
+                        "	and T4.Id = "+propertyType+"\n" +
+                        "       and T3.Price "+price+"\n" +
+                        "	and T3.Accept_covid_patient "+covid+"\n";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
