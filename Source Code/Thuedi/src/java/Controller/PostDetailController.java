@@ -54,6 +54,7 @@ public class PostDetailController extends HttpServlet {
         Post post = new PostDao().select(id);
         request.setAttribute("post", post);
         request.setAttribute("author", new UserDao().select(post.getUserId()));
+        request.setAttribute("images", new PostDao().getAllImageId(id));
 
         request.setAttribute("listImageId", new PostDao().getAllImageId(id));
 

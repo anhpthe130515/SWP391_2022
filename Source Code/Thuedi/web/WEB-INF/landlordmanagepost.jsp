@@ -100,7 +100,7 @@
                         <!-- ITEMS LIST -->
                         <c:forEach items="${requestScope.posts}" var="o">
                             <li class="property-list-items">
-                                <a href="#">
+                                <a href="../PostDetail?id=${o.getId()}">
                                     <ul class="item">
                                         <div class="item-img">
                                             <img src="/Thuedi/PostImage/${o.getId()}" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/>
