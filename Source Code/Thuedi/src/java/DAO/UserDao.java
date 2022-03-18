@@ -190,4 +190,33 @@ public class UserDao extends DBContext {
         
         return null;
     }
+    
+    public UserDetail getUserDetail(int id) {
+        String sql = "SELECT [User_Id]\n"
+                + "      ,[Name]\n"
+                + "      ,[Phone]\n"
+                + "      ,[Image_link]\n"
+                + "      ,[Personal_id]\n"
+                + "      ,[Contacts]\n"
+                + "  FROM [dbo].[User_detail]\n"
+                + " WHERE User_Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new UserDetail(id, rs.getString("Name"), rs.getString("Phone"), rs.getString("Image_link"), rs.getString("Personal_id"), rs.getString("Contacts"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+
+    }
 }

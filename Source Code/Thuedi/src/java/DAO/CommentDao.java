@@ -6,6 +6,8 @@
 package DAO;
 
 import Model.Comment;
+import Model.CommentUserDetail;
+import Model.UserDetail;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -49,18 +51,30 @@ public class CommentDao extends DBContext {
         return comment;
     }
 
-    public Collection<Comment> selectByPostId(int id) {
-        String sql = "SELECT [Id], [Post_id], [Comment], [User_id], [Create_date]\n"
-                + "  FROM [Post_comment]\n"
-                + "  WHERE Post_id = ?";
-        Collection<Comment> comments = new ArrayList<>();
+    public Collection<CommentUserDetail> selectByPostId(int id) {
+        String sql = "SELECT [Id]\n"
+                + "      ,[Post_id]\n"
+                + "      ,[Comment]\n"
+                + "      ,[dbo].[Post_comment].[User_id]\n"
+                + "      ,[Create_date]\n"
+                + "	  ,[Name]\n"
+                + "      ,[Phone]\n"
+                + "      ,[Image_link]\n"
+                + "      ,[Personal_id]\n"
+                + "      ,[Contacts]\n"
+                + "  FROM [thuedi].[dbo].[Post_comment]\n"
+                + "  INNER JOIN [thuedi].[dbo].[User_detail]\n"
+                + "  ON [dbo].[Post_comment].[User_id] = [dbo].[User_detail].[User_Id]\n"
+                + "  WHERE [Post_id] = ?";
+        Collection<CommentUserDetail> comments = new ArrayList<>();
 
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                comments.add(new Comment(rs.getInt("Id"), rs.getInt("Post_id"), rs.getInt("User_id"), rs.getString("Comment"), rs.getDate("Create_date")));
+                comments.add(new CommentUserDetail(new Comment(rs.getInt("Id"), rs.getInt("Post_id"), rs.getInt("User_id"), rs.getString("Comment"), rs.getDate("Create_date")), 
+                        new UserDetail(rs.getInt("User_Id"), rs.getString("Name"), rs.getString("Phone"), rs.getString("Image_link"), rs.getString("Personal_id"), rs.getString("Contacts"))));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);

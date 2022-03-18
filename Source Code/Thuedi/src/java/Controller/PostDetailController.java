@@ -13,6 +13,7 @@ import DAO.SubdistrictDao;
 import DAO.UserDao;
 import Model.Post;
 import Model.Comment;
+import Model.CommentUserDetail;
 import java.io.IOException;
 import java.util.Collection;
 import javax.servlet.ServletException;
@@ -53,11 +54,11 @@ public class PostDetailController extends HttpServlet {
 
         Post post = new PostDao().select(id);
         request.setAttribute("post", post);
-        request.setAttribute("author", new UserDao().select(post.getUserId()));
+//        request.setAttribute("author", new UserDao().select(post.getUserId()));
 
         request.setAttribute("listImageId", new PostDao().getAllImageId(id));
 
-        Collection<Comment> comments = new CommentDao().selectByPostId(id);
+        Collection<CommentUserDetail> comments = new CommentDao().selectByPostId(id);
         request.setAttribute("comments", comments);
 
         request.getRequestDispatcher("/WEB-INF/postdetail.jsp").forward(request, response);

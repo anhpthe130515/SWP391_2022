@@ -557,9 +557,10 @@
         </form>
         <c:forEach items="${requestScope.comments}" var="comment">
             <div>
-                <h5>${comment.getComment()}</h5>
-                <h5>${comment.getUserId()}</h5>
-                <h5>${comment.getCreateDate()}</h5>
+                <h5>${comment.getComment().getComment()}</h5>
+                <h5>${comment.getUserDetail().getName()}</h5>
+                <h5>${comment.getUserDetail().getImageLink()}</h5>
+                <h5>${comment.getComment().getCreateDate()}</h5>
                 <form method="post" action="comment?commentId=${comment.getId()}">
                     <button>Delete</button>
                 </form>
