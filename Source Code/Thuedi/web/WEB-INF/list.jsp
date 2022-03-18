@@ -14,7 +14,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="Styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="Styles/style.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <title>Thuedi</title>
 </head>
@@ -90,18 +90,7 @@
                     <!--load tu database ra cac category-->
                 </select>
             </div>
-
-            <!--            <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                                Giá thuê
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">< 3 Triệu</a>
-                                <a class="dropdown-item" href="#">3 - 5 Triệu</a>
-                                <a class="dropdown-item" href="#">5 - 7 Triệu</a>
-                                <a class="dropdown-item" href="#">> 7 Triệu</a>
-                            </div>
-                        </div>-->
+ púh
 
             <div class="w3-half w3-margin-bottom">
                 <select class="btn btn-secondary dropdown-toggle"  name="propertyType">
