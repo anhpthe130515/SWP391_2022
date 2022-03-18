@@ -160,4 +160,68 @@ public class UserDao extends DBContext {
         
         return false;
     }
+    
+    public User select(int id) {
+        String sql = "SELECT * FROM [User]\n"
+                + "WHERE id = ?\n";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new User(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getDate(5),
+                        rs.getBoolean(6)
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+    public UserDetail selectUserDetail(int id) {
+
+        String sql = "SELECT [User_Id]\n"
+                + "      ,[Name]\n"
+                + "      ,[Phone]\n"
+                + "      ,[Image_link]\n"
+                + "      ,[Personal_id]\n"
+                + "      ,[Contacts]\n"
+
+                + "  FROM [thuedi].[dbo].[User_detail]\n"
+                + "  WHERE [User_Id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+
+                return new UserDetail(rs.getInt("User_id"),
+                        rs.getString("Name"),
+                        rs.getString("Phone"),
+                        rs.getString("Image_link"),
+                        rs.getString("Personal_id"),
+                        rs.getString("Contacts")
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
 }

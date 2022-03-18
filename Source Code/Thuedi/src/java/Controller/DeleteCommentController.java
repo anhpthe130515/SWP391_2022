@@ -5,15 +5,11 @@
  */
 package Controller;
 
-import DAO.DistrictDao;
-import DAO.PostDao;
-import DAO.PropertyTypeDao;
-import Model.District;
-import Model.Post;
-import Model.PropertyType;
+import DAO.CommentDao;
+import Model.Comment;
+import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author TuanLA
  */
-@WebServlet(name = "ListControl", urlPatterns = {"/list"})
-public class ListController extends HttpServlet {
+@WebServlet(name = "DeleteCommentController", urlPatterns = {"/DeleteComment"})
+public class DeleteCommentController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,29 +34,16 @@ public class ListController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String page = request.getParameter("page");
-        if(page==null){
-            page = "1";
+        int id = Integer.parseInt(request.getParameter("id"));
+        User user = (User) request.getSession().getAttribute("user");
+        Comment comment = new CommentDao().selectById(id);
+        if (comment.getUserId() == user.getId()) {
+            int delete = new CommentDao().deleteComment(id);
+            response.sendRedirect("PostDetail?id=" + comment.getPostId());
+        } else {
+            String ms = "Ban khong co quyen xoa binh luan nay";
+            response.sendRedirect("PostDetail?id=" + comment.getPostId() + "&error=" + ms);
         }
-        int indexPage = Integer.parseInt(page);
-        int numPage = new PostDao().getNumPage();
-        int numPost = new PostDao().getNumPost();
-        ArrayList<Post> lst = new PostDao().getItems(indexPage);
-        ArrayList<District> listDistricts = (ArrayList<District>) new DistrictDao().select();
-        ArrayList<PropertyType> listPropertyTypes = (ArrayList<PropertyType>) new PropertyTypeDao().select();
-        Integer districtId = request.getParameter("district") == null || request.getParameter("district").equals("") ? null : Integer.parseInt(request.getParameter("district"));
-        Integer propertyTypeId = request.getParameter("propertyType") == null || request.getParameter("propertyType").equals("") ? null : Integer.parseInt(request.getParameter("propertyType"));
-        
-        
-        request.setAttribute("lst", lst);
-        request.setAttribute("numPage", numPage);
-        request.setAttribute("numPost", numPost);
-        request.setAttribute("page", page);
-        request.setAttribute("listDistricts", listDistricts);
-        request.setAttribute("listPropertyTypes", listPropertyTypes);
-        request.setAttribute("district", districtId);
-        request.setAttribute("propertyType", propertyTypeId);
-        request.getRequestDispatcher("/WEB-INF/list.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

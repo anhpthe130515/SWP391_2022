@@ -5,15 +5,17 @@
  */
 package Controller;
 
+import DAO.CommentDao;
 import DAO.DistrictDao;
 import DAO.PostDao;
 import DAO.PropertyTypeDao;
-import Model.District;
+import DAO.SubdistrictDao;
+import DAO.UserDao;
 import Model.Post;
-import Model.PropertyType;
+import Model.Comment;
+import Model.CommentUserDetail;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,10 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author TuanLA
+ * @author Admin
  */
-@WebServlet(name = "ListControl", urlPatterns = {"/list"})
-public class ListController extends HttpServlet {
+@WebServlet(name = "PostDetailController", urlPatterns = {"/PostDetail"})
+public class PostDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,29 +40,33 @@ public class ListController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String page = request.getParameter("page");
-        if(page==null){
-            page = "1";
+        if (request.getParameter("id") == null) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
-        int indexPage = Integer.parseInt(page);
-        int numPage = new PostDao().getNumPage();
-        int numPost = new PostDao().getNumPost();
-        ArrayList<Post> lst = new PostDao().getItems(indexPage);
-        ArrayList<District> listDistricts = (ArrayList<District>) new DistrictDao().select();
-        ArrayList<PropertyType> listPropertyTypes = (ArrayList<PropertyType>) new PropertyTypeDao().select();
-        Integer districtId = request.getParameter("district") == null || request.getParameter("district").equals("") ? null : Integer.parseInt(request.getParameter("district"));
-        Integer propertyTypeId = request.getParameter("propertyType") == null || request.getParameter("propertyType").equals("") ? null : Integer.parseInt(request.getParameter("propertyType"));
+
+        request.setAttribute("error", request.getParameter("error"));
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        request.setAttribute("propertyType", new PropertyTypeDao().select());
+        request.setAttribute("district", new DistrictDao().select());
+        request.setAttribute("subdistrict", new SubdistrictDao().select());
+
+        Post post = new PostDao().select(id);
+        request.setAttribute("post", post);
+
+        request.setAttribute("author", new UserDao().select(post.getUserId()));
         
-        
-        request.setAttribute("lst", lst);
-        request.setAttribute("numPage", numPage);
-        request.setAttribute("numPost", numPost);
-        request.setAttribute("page", page);
-        request.setAttribute("listDistricts", listDistricts);
-        request.setAttribute("listPropertyTypes", listPropertyTypes);
-        request.setAttribute("district", districtId);
-        request.setAttribute("propertyType", propertyTypeId);
-        request.getRequestDispatcher("/WEB-INF/list.jsp").forward(request, response);
+        request.setAttribute("authorDetail", new UserDao().selectUserDetail(post.getUserId()));
+
+
+        request.setAttribute("listImageId", new PostDao().getAllImageId(id));
+
+        Collection<CommentUserDetail> comments = new CommentDao().selectByPostId(id);
+        request.setAttribute("comments", comments);
+        System.out.println("comment: " + comments.size());
+
+        request.getRequestDispatcher("/WEB-INF/postdetail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

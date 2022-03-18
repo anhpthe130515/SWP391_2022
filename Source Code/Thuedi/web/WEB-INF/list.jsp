@@ -14,7 +14,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="Styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="Styles/style.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
     <title>Thuedi</title>
 </head>
@@ -30,6 +30,7 @@
                         type="text"
                         class="form-control"
                         placeholder="Từ khóa, Đường, Quận"
+                        style="border: 1px solid black"
                         />
                     <div class="input-group-append">
                         <button
@@ -90,19 +91,6 @@
                     <!--load tu database ra cac category-->
                 </select>
             </div>
-
-            <!--            <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                                Giá thuê
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">< 3 Triệu</a>
-                                <a class="dropdown-item" href="#">3 - 5 Triệu</a>
-                                <a class="dropdown-item" href="#">5 - 7 Triệu</a>
-                                <a class="dropdown-item" href="#">> 7 Triệu</a>
-                            </div>
-                        </div>-->
-
             <div class="w3-half w3-margin-bottom">
                 <select class="btn btn-secondary dropdown-toggle"  name="propertyType">
                     <option value="">Giá thuê</option>
@@ -130,7 +118,7 @@
                     <!-- ITEMS LIST -->
                     <c:forEach items="${requestScope.lst}" var="a" varStatus="loop">
                         <li class="property-list-items">
-                            <a href="" >
+                            <a href="PostDetail?id=${a.id}" >
                                 <ul class="item">
                                     <div class="item-img">
                                         <img src="/Thuedi/PostImage/${a.id}" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/>
@@ -148,7 +136,7 @@
                                     </ul>
                                 </ul>
                             </a>
-                            <button class="add-favorite">
+                                    <a class="add-favorite" href="/Thuedi/User/AddBookmark?id=${a.id}">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="18"
@@ -161,7 +149,7 @@
                                     d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
                                     />
                                 </svg>
-                            </button>
+                            </a>
                         </li>
                     </c:forEach>
                 </ul>
