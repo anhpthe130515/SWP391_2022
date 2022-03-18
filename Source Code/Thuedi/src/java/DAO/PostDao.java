@@ -38,6 +38,7 @@ public class PostDao extends DBContext{
                 + "      ,[Address]\n"
                 + "      ,[Address_detail]\n"
                 + "      ,[Property_type_id]\n"
+                + "      ,[Accept_covid_patient]\n"
                 + "  FROM [dbo].[Post] \n"
                 + "  WHERE [Id] = ?";
         
@@ -62,7 +63,8 @@ public class PostDao extends DBContext{
                     rs.getString("Direction"),
                     rs.getInt("Address"),
                     rs.getString("Address_detail"),
-                    rs.getInt("Property_type_id"));
+                    rs.getInt("Property_type_id"),
+                    rs.getBoolean("Accept_covid_patient"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -91,6 +93,7 @@ public class PostDao extends DBContext{
                 + "      ,[Address]\n"
                 + "      ,[Address_detail]\n"
                 + "      ,[Property_type_id]\n"
+                + "      ,[Accept_covid_patient]\n"
                 + "  FROM [dbo].[Post] \n"
                 + "  WHERE [User_id] = ?";
         
@@ -116,7 +119,8 @@ public class PostDao extends DBContext{
                                 rs.getString("Direction"),
                                 rs.getInt("Address"),
                                 rs.getString("Address_detail"),
-                                rs.getInt("Property_type_id"))
+                                rs.getInt("Property_type_id"),
+                                rs.getBoolean("Accept_covid_patient"))
                 );
             }
         } catch (SQLException ex) {
@@ -146,9 +150,11 @@ public class PostDao extends DBContext{
                 + "           ,[Direction]\n"
                 + "           ,[Address]\n"
                 + "           ,[Address_detail]\n"
-                + "           ,[Property_type_id])\n"
+                + "           ,[Property_type_id]\n"
+                + "           ,[Accept_covid_patient])\n"
                 + "     VALUES\n"
                 + "           (?\n"
+                + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
                 + "           ,?\n"
@@ -174,6 +180,7 @@ public class PostDao extends DBContext{
             st.setInt(10, post.getAddress());
             st.setString(11, post.getAddressDetail());
             st.setInt(12, post.getPropertyType());
+            st.setBoolean(13, post.isAcceptCovidPatient());
 
             st.executeUpdate();
 
@@ -226,6 +233,27 @@ public class PostDao extends DBContext{
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public int DeleteImages(int postId) {
+        String sql = "DELETE FROM [dbo].[Post_image]\n"
+                + "      WHERE Post_id = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, postId);
+
+            return st.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return 0;
     }
 
     public byte[] selectImage(int id) {
@@ -315,6 +343,7 @@ public class PostDao extends DBContext{
                 + "      ,[Address] = ?\n"
                 + "      ,[Address_detail] = ?\n"
                 + "      ,[Property_type_id] = ?\n"
+                + "      ,[Accept_covid_patient] = ?\n"
                 + " WHERE Id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -328,7 +357,8 @@ public class PostDao extends DBContext{
             st.setInt(8, post.getAddress());
             st.setString(9, post.getAddressDetail());
             st.setInt(10, post.getPropertyType());
-            st.setInt(11, post.getId());
+            st.setBoolean(11, post.isAcceptCovidPatient());
+            st.setInt(12, post.getId());
 
             int result = st.executeUpdate();
             System.out.println("result = " + result);
@@ -357,7 +387,7 @@ public class PostDao extends DBContext{
             ps.setInt(1, (page-1)*8);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                lst.add(new Post(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getFloat(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getInt(11), rs.getString(12), rs.getInt(13)));
+                lst.add(new Post(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getFloat(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getInt(11), rs.getString(12), rs.getInt(13), rs.getBoolean(14)));
             }
         } catch (SQLException ex) {
             Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);

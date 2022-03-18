@@ -44,7 +44,7 @@ public class PropertyTypeDao extends DBContext {
         return propertyType;
     }
 
-    public PropertyType selectById(int id) {
+    public PropertyType select(int id) {
         String sql = "SELECT * FROM [Property_type]"
                 + "  WHERE [Id] = ?";
         PropertyType propertyType = null;

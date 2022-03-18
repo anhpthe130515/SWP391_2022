@@ -32,9 +32,9 @@ import javax.servlet.http.Part;
  * @author pinkd
  */
 @WebServlet(name = "UpdatePostController", urlPatterns = {"/Landlord/updatePost"})
-@MultipartConfig(fileSizeThreshold=1024*1024*10, 	// 10 MB 
-                 maxFileSize=1024*1024*50,      	// 50 MB
-                 maxRequestSize=1024*1024*100)          // 100 MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 10, // 10 MB 
+        maxFileSize = 1024 * 1024 * 50, // 50 MB
+        maxRequestSize = 1024 * 1024 * 100)          // 100 MB
 public class UpdatePostController extends HttpServlet {
 
     /**
@@ -82,12 +82,12 @@ public class UpdatePostController extends HttpServlet {
         // get post by id 
         int id = Integer.parseInt(request.getParameter("id"));
         Post post = new PostDao().select(id);
-        
+
         Subdistrict subdistrict = subdistrictList.stream()
                 .filter(predicate -> post.getAddress() == predicate.getId())
                 .findAny()
                 .orElse(null);
-        
+
         District district = districtList.stream()
                 .filter(predicate -> subdistrict.getDistrictId() == predicate.getId())
                 .findAny()
@@ -100,9 +100,9 @@ public class UpdatePostController extends HttpServlet {
         request.setAttribute("subdistrictList", subdistrictList);
         request.setAttribute("district", district);
         request.setAttribute("listImageId", new PostDao().getAllImageId(id));
-        
+
         request.getSession().setAttribute("post", post);
-        
+
         request.getRequestDispatcher("/WEB-INF/updatePost.jsp").forward(request, response);
     }
 
@@ -129,19 +129,30 @@ public class UpdatePostController extends HttpServlet {
         post.setAddress(Integer.parseInt(request.getParameter("address")));
         post.setAddressDetail(request.getParameter("address_detail"));
         post.setPropertyType(Integer.parseInt(request.getParameter("property_type")));
-        
+
+        post.setAcceptCovidPatient(Boolean.valueOf(request.getParameter("accept_covid_patient")));
+
         ArrayList<InputStream> images = new ArrayList<>();
-        
+
         for (Part part : request.getParts()) {
-            if (part.getContentType() != null) {                
+            if (part.getContentType() != null) {
                 if (("image/png").equals(part.getContentType()) || ("image/jpeg").equals(part.getContentType())) {
                     images.add(part.getInputStream());
                 }
             }
         }
-        request.getSession().setAttribute("images", images);
+        if (images.isEmpty()) {
+            System.out.println("khong co anh");
+        } else {
+            new PostDao().DeleteImages(post.getId());
+            for (InputStream image : images) {
+                new PostDao().insertImage(image, id);
+            }
+        }
+
         new PostDao().update(post);
         response.sendRedirect("ManagePost");
+
     }
 
     /**

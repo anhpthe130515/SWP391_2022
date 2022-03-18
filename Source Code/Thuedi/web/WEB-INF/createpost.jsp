@@ -117,8 +117,17 @@
                     </div>
                     <div class="col-md-12 ">
                         <div class="form-group ">
+                            <label for="accept_covid_patient">Chấp nhận người thuê bị nhiễm covid</label>
+                            <select class="createpost-form-control" id="accept_covid_patient" name="accept_covid_patient" required >
+                                <option value="true">Có</option>
+                                <option value="false">Không</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-12 ">
+                        <div class="form-group ">
                             <label for="image ">Image</label>
-                            <input type="file" multiple id="image" name="image" required/>
+                            <input type="file" multiple id="image" name="image"/>
                         </div>
                     </div>
 

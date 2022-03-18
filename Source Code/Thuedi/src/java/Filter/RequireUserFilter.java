@@ -5,7 +5,6 @@
  */
 package Filter;
 
-import Model.Role;
 import Model.User;
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -38,7 +37,7 @@ public class RequireUserFilter implements Filter {
         if (account != null) {
             chain.doFilter(req, res);
         } else {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+            response.sendRedirect("/Thuedi/login");
         }
     }
 
