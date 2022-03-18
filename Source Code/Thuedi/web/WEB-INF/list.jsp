@@ -43,65 +43,31 @@
                 </div>
             </div>
 
-            <!--            <div class="filter">
-                            <div class="dropdown">
-                                <button
-                                    class="btn btn-secondary dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    >
-                                    Khu vực
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <c:forEach items="${requestScope.listDistricts}" var="listDis">
-                <a class="dropdown-item" href="#" id="${listDis.id}">${listDis.name}</a>
-            </c:forEach>
-        </div>
-    </div>-->
-
             <div class="w3-half w3-margin-bottom" >
-                <select class="btn btn-secondary dropdown-toggle"  name="district">
+                <select class="btn btn-secondary dropdown-toggle"  var="district">
                     <option value="">Khu vực</option>
                     <c:forEach items="${requestScope.listDistricts}" var="listDis">
-                        <option value="${listDis.id}" <c:if test="${listDis.id == requestScope.district}">selected="selected"</c:if>>${listDis.name}</option>
+                        <option value="${listDis.id}"
+                                <c:if test="${param.propertyType eq listDis}">selected="selected"</c:if>>
+                        <a href="list?district=${listDis.id}">${listDis.name}</a>
+                        </option>
                     </c:forEach>
                     <!--load tu database ra cac category-->
                 </select>
             </div>
-
-            <!--            <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                                Loại bất động sản
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
-                <a class="dropdown-item" href="#">${listPro.name}</a>
-            </c:forEach>
-        </div>
-    </div>-->
 
             <div class="w3-half w3-margin-bottom">
-                <select class="btn btn-secondary dropdown-toggle">
+                <select class="btn btn-secondary dropdown-toggle" var="propertyType">
                     <option value="">Loại bất động sản</option>
                     <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
-                        <option value="${listPro.id}" <c:if test="${listPro.id == requestScope.propertyType}">selected="selected"</c:if>>${listPro.name}</option>
+                        <option value="${listPro.id}"
+                                <c:if test="${param.propertyType eq listPro}">selected="selected"</c:if>>
+                        <a href="list?propertyType=${listPro.id}">${listPro.name}</a>
+                        </option>
                     </c:forEach>
                     <!--load tu database ra cac category-->
                 </select>
             </div>
-
-            <!--            <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                                Giá thuê
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="#">< 3 Triệu</a>
-                                <a class="dropdown-item" href="#">3 - 5 Triệu</a>
-                                <a class="dropdown-item" href="#">5 - 7 Triệu</a>
-                                <a class="dropdown-item" href="#">> 7 Triệu</a>
-                            </div>
-                        </div>-->
 
             <div class="w3-half w3-margin-bottom">
                 <select class="btn btn-secondary dropdown-toggle"  name="propertyType">
@@ -174,7 +140,13 @@
                         </li>
                         <li class="page-item" aria-current="page"></li>
                             <c:forEach var="counter" begin="1" end="${requestScope.numPage}">
-                            <li class="page-item"><a class="page-link" <c:if test="${param.page eq counter}">style="font-weight: 800;"</c:if> href="list?page=${counter}">${counter}</a></li>    
+                            <li class="page-item">
+                                <a class="page-link"
+                                   <c:if test="${param.page eq counter}">style="font-weight: 800;"</c:if>
+                                   href="list?page=${counter}">
+                                    ${counter}
+                                </a>
+                            </li>    
                             </c:forEach>
                         <li class="page-item">
                             <a class="page-link" href="#">Next</a>

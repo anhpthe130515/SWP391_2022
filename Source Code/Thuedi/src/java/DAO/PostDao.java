@@ -375,16 +375,41 @@ public class PostDao extends DBContext{
     }
     
     // List Post
-    public ArrayList<Post> getItems(int page) {
+    public ArrayList<Post> getItems(String district, String propertyType, int page) {
         ArrayList<Post> lst = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Post\n"
-                    + "ORDER BY Id DESC\n"
-                    + "OFFSET ? ROWS\n"
-                    + "FETCH FIRST 8 ROWS ONLY";
+            String sql = "SELECT T1.Id,\n" +
+                        "	T1.User_id,\n" +
+                        "	T1.Create_date,\n" +
+                        "	T1.Title,\n" +
+                        "	T1.Detail,\n" +
+                        "	T1.Price,\n" +
+                        "	T1.Area,\n" +
+                        "	T1.Number_of_bedrooms,\n" +
+                        "	T1.Number_of_restrooms,\n" +
+                        "	T1.Direction,\n" +
+                        "	T1.Address,\n" +
+                        "	T1.Address_detail,\n" +
+                        "	T1.Property_type_id,\n" +
+                        "	T1.Accept_covid_patient\n" +
+                        "FROM Post T1\n" +
+                        "LEFT JOIN Sub_district T2\n" +
+                        "	ON T1.Address = T2.Id\n" +
+                        "LEFT JOIN District T3\n" +
+                        "	ON T2.District_id = T3.Id\n" +
+                        "LEFT JOIN Property_type T4\n" +
+                        "	ON T1.Property_type_id = T4.Id\n" +
+                        "WHERE T3.Id= "+district+"\n" +
+                        "	AND T4.Id = "+propertyType+"\n" +
+                        "ORDER BY Id DESC\n" +
+                        "OFFSET ? ROWS\n" +
+                        "FETCH FIRST 8 ROWS ONLY";
 
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setInt(1, (page-1)*8);
+//            ps.setString(1, district);
+//            ps.setString(2, propertyType);
+              ps.setInt(1, (page-1)*8);
+            System.out.println(ps);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 lst.add(new Post(rs.getInt(1), rs.getInt(2), rs.getDate(3), rs.getString(4), rs.getString(5), rs.getInt(6), rs.getFloat(7), rs.getInt(8), rs.getInt(9), rs.getString(10), rs.getInt(11), rs.getString(12), rs.getInt(13), rs.getBoolean(14)));

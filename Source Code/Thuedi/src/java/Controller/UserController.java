@@ -5,27 +5,24 @@
  */
 package Controller;
 
-import DAO.DistrictDao;
-import DAO.PostDao;
-import DAO.PropertyTypeDao;
-import Model.District;
-import Model.Post;
-import Model.PropertyType;
+import DAO.UserDao;
+import Model.User;
+import Model.UserDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author TuanLA
+ * @author AnhPT
  */
-@WebServlet(name = "ListControl", urlPatterns = {"/list"})
-public class ListController extends HttpServlet {
+@WebServlet(name = "UserController", urlPatterns = {"/userDetail"})
+public class UserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,41 +35,16 @@ public class ListController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String page = request.getParameter("page");
-        if(page==null){
-            page = "1";
-        }
-        int indexPage = Integer.parseInt(page);
-        int numPage = new PostDao().getNumPage();
-        int numPost = new PostDao().getNumPost();
-        ArrayList<District> listDistricts = (ArrayList<District>) new DistrictDao().select();
-        ArrayList<PropertyType> listPropertyTypes = (ArrayList<PropertyType>) new PropertyTypeDao().select();
-        Integer districtId = request.getParameter("district") == null || request.getParameter("district").equals("") ? 0 : Integer.parseInt(request.getParameter("district"));
-        Integer propertyTypeId = request.getParameter("propertyType") == null || request.getParameter("propertyType").equals("") ? 0 : Integer.parseInt(request.getParameter("propertyType"));
-        String dis = "";
-        if(districtId == 0){
-            dis = "T3.Id";
-        } else{
-            dis = "" +districtId;
-        }
-        String pro = "";
-        if(propertyTypeId == 0){
-            pro = "T4.Id";
-        } else{
-            pro = "" +propertyTypeId;
-        }
+        HttpSession session = request.getSession();
+        User account = (User)session.getAttribute("user");
+        int id = account.getId();
+        User user = new UserDao().account(id);
+        UserDetail info = new UserDao().userInfo(id);
         
-        ArrayList<Post> lst = new PostDao().getItems(dis, pro, indexPage);
+        request.setAttribute("user", user);
+        request.setAttribute("info", info);
         
-        request.setAttribute("lst", lst);
-        request.setAttribute("numPage", numPage);
-        request.setAttribute("numPost", numPost);
-        request.setAttribute("page", page);
-        request.setAttribute("listDistricts", listDistricts);
-        request.setAttribute("listPropertyTypes", listPropertyTypes);
-        request.setAttribute("district", districtId);
-        request.setAttribute("propertyType", propertyTypeId);
-        request.getRequestDispatcher("/WEB-INF/list.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/userDetail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
