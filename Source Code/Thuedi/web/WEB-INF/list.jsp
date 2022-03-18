@@ -44,65 +44,87 @@
                 </div>
             </div>
 
-            <!--            <div class="filter">
-                            <div class="dropdown">
-                                <button
-                                    class="btn btn-secondary dropdown-toggle"
-                                    type="button"
-                                    id="dropdownMenuButton"
-                                    data-toggle="dropdown"
-                                    >
-                                    Khu vực
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <c:forEach items="${requestScope.listDistricts}" var="listDis">
-                <a class="dropdown-item" href="#" id="${listDis.id}">${listDis.name}</a>
-            </c:forEach>
-        </div>
-    </div>-->
-
-            <div class="w3-half w3-margin-bottom" >
-                <select class="btn btn-secondary dropdown-toggle"  name="district">
-                    <option value="">Khu vực</option>
-                    <c:forEach items="${requestScope.listDistricts}" var="listDis">
-                        <option value="${listDis.id}" <c:if test="${listDis.id == requestScope.district}">selected="selected"</c:if>>${listDis.name}</option>
-                    </c:forEach>
-                    <!--load tu database ra cac category-->
-                </select>
-            </div>
-
-            <!--            <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                                Loại bất động sản
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
-                <a class="dropdown-item" href="#">${listPro.name}</a>
-            </c:forEach>
-        </div>
-    </div>-->
-
-            <div class="w3-half w3-margin-bottom">
-                <select class="btn btn-secondary dropdown-toggle">
-                    <option value="">Loại bất động sản</option>
-                    <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
-                        <option value="${listPro.id}" <c:if test="${listPro.id == requestScope.propertyType}">selected="selected"</c:if>>${listPro.name}</option>
-                    </c:forEach>
-                    <!--load tu database ra cac category-->
-                </select>
-            </div>
-            <div class="w3-half w3-margin-bottom">
-                <select class="btn btn-secondary dropdown-toggle"  name="propertyType">
-                    <option value="">Giá thuê</option>
-                    <option value="">< 3 Triệu</option>
-                    <option value="">3 - 7 Triệu</option>
-                    <option value="">> 7 Triệu</option>
-                    <!--load tu database ra cac category-->
-                </select>
+            <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                >
+                  Khu vực
+                </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="list?district=0&propertyType=${propertyType}&price=${price}&covid=${covid}">Khu vực</a>
+                                <c:forEach items="${requestScope.listDistricts}" var="listDis">
+                                    <a class="dropdown-item"
+                                       href="list?district=${listDis.id}&propertyType=${propertyType}&price=${price}&covid=${covid}">
+                                        ${listDis.name}
+                                    </a>
+                                </c:forEach>
+                    </div>
             </div>
 
             <div class="dropdown">
-                <button class="btn btn-secondary" type="button">Lọc thêm</button>
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                >
+                  Loại Bất Động sản
+                </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="list?district=${district}&propertyType=0&price=${price}&covid=${covid}">Loại Bất Động sản</a>
+                                <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
+                                    <a class="dropdown-item"
+                                       href="list?district=${district}&propertyType=${listPro.id}&price=${price}&covid=${covid}">
+                                        ${listPro.name}
+                                    </a>
+                                </c:forEach>
+                    </div>
+            </div>
+
+            <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                >
+                  Giá Tiền
+                </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=0&covid=${covid}">Giá Tiền</a>
+                                <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=1&covid=${covid}">
+                                    < 3 Triệu
+                                </a>
+                                <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=2&covid=${covid}">
+                                    3 - 7 Triệu
+                                </a>
+                                <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=3&covid=${covid}">
+                                    > 7 Triệu
+                                </a>
+                    </div>
+            </div>
+
+            <div class="dropdown">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                >
+                  Hỗ trợ COVID
+                </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=2">Hỗ trợ COVID</a>
+                                <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=0">
+                                    Có
+                                </a>
+                                <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=1">
+                                    Không
+                                </a>
+                    </div>
             </div>
 
             </div>
@@ -162,7 +184,13 @@
                         </li>
                         <li class="page-item" aria-current="page"></li>
                             <c:forEach var="counter" begin="1" end="${requestScope.numPage}">
-                            <li class="page-item"><a class="page-link" <c:if test="${param.page eq counter}">style="font-weight: 800;"</c:if> href="list?page=${counter}">${counter}</a></li>    
+                            <li class="page-item">
+                                <a class="page-link"
+                                   <c:if test="${param.page eq counter}">style="font-weight: 800;"</c:if>
+                                   href="list?page=${counter}">
+                                    ${counter}
+                                </a>
+                            </li>    
                             </c:forEach>
                         <li class="page-item">
                             <a class="page-link" href="#">Next</a>

@@ -11,7 +11,7 @@ togglePassword.forEach((item) => {
 });
 function handleTogglePassword() {
   let inputType = "password";
-  const input = this.parentNode?.previousElementSibling;
+  const input = this.parentNode.previousElementSibling;
   if (this.matches(".eye-close")) {
     inputType = "text";
     const eyeOpen = this.previousElementSibling;
