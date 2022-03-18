@@ -97,7 +97,7 @@
                 <div class="manager-post-list">
                     <ul>
                         <!-- ITEMS LIST -->
-                        <c:forEach items="../${requestScope.post_bookmark}" var="o">
+                        <c:forEach items="${requestScope.post_bookmark}" var="o">
                             <li class="property-list-items">
                                 <a href="PostDetail?id=${o.getPost().getId()}">
                                     <ul class="item">
