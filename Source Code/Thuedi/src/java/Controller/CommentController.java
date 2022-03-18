@@ -21,62 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pinkd
  */
-@WebServlet(name = "CommentController", urlPatterns = {"/"})
+@WebServlet(name = "CommentController", urlPatterns = {"/comment"})
 public class CommentController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getServletPath();
-        System.out.println(action);
-        switch (action) {
-            case "/create":
-                createComment(request, response);
-                break;
-            case "/delete":
-                deleteComment(request, response);
-                break;
-        }
-    }
-
-    private void createComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Comment comment = new Comment();
-        comment.setPostId(Integer.parseInt(request.getParameter("id")));
-        comment.setComment(request.getParameter("content"));
-        comment.setCreateDate(new Date(System.currentTimeMillis()));
-        User user = (User) request.getSession().getAttribute("user");
-        if (user == null) {
-            String ms = "Ban phai dang nhap de binh luan";
-            response.sendRedirect("PostDetail?id=" + request.getParameter("id") + "&error=" + ms);
-        } else {
-            comment.setUserId(user.getId());
-            int id = new CommentDao().insertComment(comment);
-            response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
-        }
-    }
-
-    private void deleteComment(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        int id = Integer.parseInt(request.getParameter("commentId"));
-        User user = (User) request.getSession().getAttribute("user");
-        Comment comment = new CommentDao().selectById(id);
-        if (comment.getUserId() == user.getId()) {
-            int delete = new CommentDao().deleteComment(id);
-            response.sendRedirect("PostDetail?id=" + comment.getPostId());
-        } else {
-            String ms = "Ban khong co quyen xoa binh luan nay";
-            response.sendRedirect("PostDetail?id=" + comment.getPostId() + "&error=" + ms);
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -88,7 +35,6 @@ public class CommentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -102,9 +48,34 @@ public class CommentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String postId = request.getParameter("id");
+        if (postId != null) {
+            Comment comment = new Comment();
+            comment.setPostId(Integer.parseInt(postId));
+            comment.setComment(request.getParameter("content"));
+            comment.setCreateDate(new Date(System.currentTimeMillis()));
+            User user = (User) request.getSession().getAttribute("user");
+            if (user == null) {
+                String ms = "Ban phai dang nhap de binh luan";
+                response.sendRedirect("PostDetail?id=" + request.getParameter("id") + "&error=" + ms);
+            } else {
+                comment.setUserId(user.getId());
+                int id = new CommentDao().insertComment(comment);
+                response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
+            }
+        } else {
+            int id = Integer.parseInt(request.getParameter("commentId"));
+            User user = (User) request.getSession().getAttribute("user");
+            Comment comment = new CommentDao().selectById(id);
+            if (comment.getUserId() == user.getId()) {
+                int delete = new CommentDao().deleteComment(id);
+                response.sendRedirect("PostDetail?id=" + comment.getPostId());
+            } else {
+                String ms = "Ban khong co quyen xoa binh luan nay";
+                response.sendRedirect("PostDetail?id=" + comment.getPostId() + "&error=" + ms);
+            }
+        }
     }
-
     /**
      * Returns a short description of the servlet.
      *
