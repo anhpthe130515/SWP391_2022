@@ -5,6 +5,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -31,11 +32,10 @@
                     </div>
 
                     <ul class="list-unstyled components">
-                        <!-- <p>Dummy Heading</p> -->
-                        <li>
+                        <li >
                             <a href="dashboard">Dashboard</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="user">User</a>
                         </li>
                         <li>
@@ -44,27 +44,8 @@
                         <li>
                             <a href="post">Post</a>
                         </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
                     </ul>
 
-                    <ul class="list-unstyled CTAs">
-                        <li>
-                            <a
-                                href="https://bootstrapious.com/tutorial/files/sidebar.zip"
-                                class="download"
-                                >test1</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="https://bootstrapious.com/p/bootstrap-sidebar"
-                                class="article"
-                                >test1</a
-                            >
-                        </li>
-                    </ul>
                 </nav>
             </div>
             <!-- Page Content  -->
@@ -105,75 +86,37 @@
 
 
                 <div class="main-content">
-                    <div class="row">
-                        <div class="col-xl-4 card ">
-                            <div class="card-body card-1">
-                                <div class="row align-items-center">
-                                    <div class="col mr-4">
-                                        <div class="card-title text-uppercase">Tổng số bài đăng</div>
-                                        <div class="card-value font-weight-bold">${requestScope.numberPost}</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="65" height="65" fill="currentColor" class="card-icon" viewBox="0 0 16 16">
-                                        <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
-                                        <path d="M4 6.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-7zm0-3a.5.5 0 0 1 .5-.5H7a.5.5 0 0 1 0 1H4.5a.5.5 0 0 1-.5-.5z"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 card ">
-                            <div class="card-body card-2">
-                                <div class="row align-items-center">
-                                    <div class="col mr-4">
-                                        <div class="card-title text-uppercase">Tổng số người dùng</div>
-                                        <div class="card-value font-weight-bold">${requestScope.numberUser}</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="65" height="65" fill="currentColor" class="card-icon" viewBox="0 0 16 16">
-                                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                                        <path fill-rule="evenodd" d="M5.216 14A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216z"/>
-                                        <path d="M4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 card ">
-                            <div class="card-body card-3">
-                                <div class="row align-items-center">
-                                    <div class="col mr-4">
-                                        <div class="card-title text-uppercase">Tổng số report</div>
-                                        <div class="card-value font-weight-bold">${requestScope.numberReportPost}</div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="65" height="65" fill="currentColor" class="bi bi-exclamation-octagon-fill" viewBox="0 0 16 16">
-                                        <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                                        </svg>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <table>
+                    <h4>Quản lý người dùng</h4>
+                    <table class="table">
                         <tr>
-                            <th>User ID</th>
-                            <th>Họ và Tên</th>
-                            <th>Số điện thoại</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Ngày tạo</th>
+                            <th scope="col">#</th>
+                            <th scope="col">User Id</th>
+                            <th scope="col">Họ và tên</th>
+                            <th scope="col">Số điện thoại</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Ngày tạo</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
-                        <c:forEach items="${requestScope.allUser}" var="user">
+                        <c:forEach items="${requestScope.allUser}" var="user" varStatus="loop">
                             <tr>
+                                <th scope="row">${loop.index +1}</th>
                                 <td>${user.getUser().getId()}</td>
                                 <td>${user.getDetail().getName()}</td>
                                 <td>${user.getDetail().getPhone()}</td>
                                 <td>${user.getUser().getEmail()}</td>
                                 <td>${user.getUser().getRoleId()}</td>
-                                <td>${user.getUser().getCreateDate()}</td>
-                                <td><a href="../DeleteUser?id=${user.getUser().getId()}">Delete</a></td>
+                                <td>active</td>
+                                <td><fmt:formatDate pattern = "dd/MM/yyyy" value = "${user.getUser().getCreateDate()}"/></td>
+                                <td>
+                                    <a class="table-btn btn-delete" href="../DeleteUser?id=${user.getUser().getId()}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                        </svg> Delete</a></td>
                             </tr>
                         </c:forEach>
                     </table>

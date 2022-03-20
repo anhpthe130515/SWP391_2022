@@ -31,8 +31,7 @@
                     </div>
 
                     <ul class="list-unstyled components">
-                        <!-- <p>Dummy Heading</p> -->
-                        <li>
+                        <li class="active">
                             <a href="dashboard">Dashboard</a>
                         </li>
                         <li>
@@ -44,27 +43,8 @@
                         <li>
                             <a href="post">Post</a>
                         </li>
-                        <li>
-                            <a href="#">Contact</a>
-                        </li>
                     </ul>
 
-                    <ul class="list-unstyled CTAs">
-                        <li>
-                            <a
-                                href="https://bootstrapious.com/tutorial/files/sidebar.zip"
-                                class="download"
-                                >test1</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                href="https://bootstrapious.com/p/bootstrap-sidebar"
-                                class="article"
-                                >test1</a
-                            >
-                        </li>
-                    </ul>
                 </nav>
             </div>
             <!-- Page Content  -->

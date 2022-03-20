@@ -76,7 +76,7 @@ a:focus {
 
 #sidebar ul.components {
   padding: 20px 0;
-  border-bottom: 1px solid #47748b;
+  /* border-bottom: 1px solid #47748b; */
 }
 
 #sidebar ul p {
@@ -90,15 +90,15 @@ a:focus {
   display: block;
 }
 
-#sidebar ul li a:hover {
+/* #sidebar ul li a:hover {
   color: #7386d5;
   background: #fff;
-}
+} */
 
 #sidebar ul li.active > a,
 a[aria-expanded="true"] {
   color: #fff;
-  background: #6d7fcc;
+  background: #f8afc9 !important;
 }
 
 a[data-toggle="collapse"] {
@@ -222,6 +222,21 @@ a.article:hover {
 
 .dropdown-menu{
     left: -10px !important;
+}
+.table-btn{
+  /* background-color: red !important; */
+  color:white;
+  padding: 5px 10px;
+  border-radius: 6px;
+
+}
+
+.btn-edit{
+  background-color: #fd91a3;
+}
+.btn-delete{
+  background-color: #dc3545;
+  color:white;
 }
 
 
