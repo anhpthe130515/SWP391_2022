@@ -7,10 +7,13 @@ package DAO;
 
 import Model.User;
 import Model.UserDetail;
+import Model.UserUserDetail;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -47,20 +50,20 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
 
         return null;
     }
 
     /**
-    * Insert user to database
-    * 
-    * @author pinkd
-    * 
-    * @param  user   object
-    * @return id of the user just inserted into the database
-    */
+     * Insert user to database
+     *
+     * @author pinkd
+     *
+     * @param user object
+     * @return id of the user just inserted into the database
+     */
     public int insertUser(User user) {
         String sql = "INSERT INTO [User]([Email],[Password],[Role_id],[Create_date],[Is_deleted]) VALUES (?,?,?,?,?)";
         int id = 0;
@@ -93,19 +96,19 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
         return id;
     }
 
     /**
-    * Insert user detail to database
-    * 
-    * @author pinkd
-    * 
-    * @param  userDetail   object
-    * @return 
-    */
+     * Insert user detail to database
+     *
+     * @author pinkd
+     *
+     * @param userDetail object
+     * @return
+     */
     public void insertUserDetail(UserDetail userDetail) {
         String sql = "INSERT INTO [User_detail] VALUES (?,?,?,?,?,?)";
         try {
@@ -125,18 +128,18 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
 
     /**
-    * Check if the user exists in the database or not
-    * 
-    * @author pinkd
-    * 
-    * @param  email   email of user to check
-    * @return         true if user exist, false if not
-    */
+     * Check if the user exists in the database or not
+     *
+     * @author pinkd
+     *
+     * @param email email of user to check
+     * @return true if user exist, false if not
+     */
     public boolean checkUserExist(String email) {
         String sql = "SELECT * FROM [User]\n"
                 + "WHERE Email = ?\n";
@@ -155,11 +158,39 @@ public class UserDao extends DBContext {
             } catch (SQLException ex) {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
-        
+
         return false;
     }
+
+    public Collection<UserUserDetail> getAllUsers() {
+        String sql = "SELECT [id]\n"
+                + "      ,[Email]\n"
+                + "      ,[Password]\n"
+                + "      ,[Role_id]\n"
+                + "      ,[Create_date]\n"
+                + "      ,[Is_deleted]\n"
+                + "	  ,[Name]\n"
+                + "      ,[Phone]\n"
+                + "      ,[Image_link]\n"
+                + "      ,[Personal_id]\n"
+                + "      ,[Contacts]\n"
+                + "  FROM [thuedi].[dbo].[User]\n"
+                + "  INNER JOIN [thuedi].[dbo].[User_detail]\n"
+                + "  ON [dbo].[User].id = [dbo].[User_detail].[User_Id]"
+                + " WHERE Is_deleted = 0";
+        Collection<UserUserDetail> users = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                users.add(new UserUserDetail(new User(rs.getInt("id"), rs.getString("Email"), rs.getString("Password"), rs.getInt("Role_id"), rs.getDate("Create_date"), rs.getBoolean("Is_deleted")), 
+                        new UserDetail(rs.getInt("id"), rs.getString("Name"), rs.getString("Phone"), rs.getString("Image_link"), rs.getString("Personal_id"), rs.getString("Contacts"))));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
     
     public User select(int id) {
         String sql = "SELECT * FROM [User]\n"
@@ -189,14 +220,12 @@ public class UserDao extends DBContext {
         return null;
     }
     public UserDetail selectUserDetail(int id) {
-
         String sql = "SELECT [User_Id]\n"
                 + "      ,[Name]\n"
                 + "      ,[Phone]\n"
                 + "      ,[Image_link]\n"
                 + "      ,[Personal_id]\n"
                 + "      ,[Contacts]\n"
-
                 + "  FROM [thuedi].[dbo].[User_detail]\n"
                 + "  WHERE [User_Id] = ?";
         try {
@@ -204,7 +233,6 @@ public class UserDao extends DBContext {
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-
                 return new UserDetail(rs.getInt("User_id"),
                         rs.getString("Name"),
                         rs.getString("Phone"),
@@ -224,25 +252,17 @@ public class UserDao extends DBContext {
         }
         return null;
     }
-    
-    public User account(int id) {
-        String sql = "select *\n" +
-                    "from [User]\n" +
-                    "where id = ?";
+
+    public void deleteUser(int id) {
+        String sql = "UPDATE [thuedi].[dbo].[User]\n"
+                + "SET [Is_deleted] = 1\n"
+                + "WHERE id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                return new User(
-                        rs.getInt(1),
-                        rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getDate(5),
-                        rs.getBoolean(6)
-                );
-            }
+
+            int result = st.executeUpdate();
+            System.out.println("result = " + result);
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

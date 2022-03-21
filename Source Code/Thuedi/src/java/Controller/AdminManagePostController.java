@@ -5,29 +5,26 @@
  */
 package Controller;
 
+import DAO.PostDao;
 import DAO.UserDao;
-import Model.Role;
+import Model.Post;
 import Model.User;
+import Model.UserDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author TuanLA
+ * @author pinkd
  */
-@WebServlet(name = "LoginControl", urlPatterns = {"/login"})
-public class LoginController extends HttpServlet {
+@WebServlet(name = "AdminManagePostController", urlPatterns = {"/admin/post"})
+public class AdminManagePostController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,6 +37,14 @@ public class LoginController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Collection<Post> allPost = new PostDao().getAllPosts();
+        System.out.println(allPost.size());
+        User user = (User) request.getSession().getAttribute("user");
+        UserDetail userDetail = new UserDao().getUserDetail(user.getId());
+
+        request.setAttribute("userDetail", userDetail);
+        request.setAttribute("allPost", allPost);
+        request.getRequestDispatcher("/WEB-INF/adminPost.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,7 +59,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -68,43 +73,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String username = request.getParameter("email");
-        String password = request.getParameter("password");
-        String hashText = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-
-            // digest() method is called to calculate message digest
-            //  of an input digest() return array of byte
-            byte[] messageDigest = md.digest(password.getBytes());
-
-            // Convert byte array into signum representation
-            BigInteger number = new BigInteger(1, messageDigest);
-
-            // Convert message digest into hex value
-            hashText = number.toString(16);
-            while (hashText.length() < 32) {
-                hashText = "0" + hashText;
-            }
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(RegisterController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        User user = new UserDao().login(username, hashText);
-        if (user == null) {
-            String ms = "Sai tài khoản hoặc mật khẩu!";
-            request.setAttribute("error", ms);
-            request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        } else {
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            if (user.getRoleId() == Role.ADMIN.getId()) {
-                response.sendRedirect("admin/dashboard");
-            } else {
-                response.sendRedirect("list");
-            }
-        }
+        processRequest(request, response);
     }
 
     /**

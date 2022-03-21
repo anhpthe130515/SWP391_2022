@@ -23,7 +23,8 @@ import java.util.logging.Logger;
  *
  * @author Admin
  */
-public class PostDao extends DBContext{
+public class PostDao extends DBContext {
+
     public Post select(int id) {
         String sql = "SELECT [Id]\n"
                 + "      ,[User_id]\n"
@@ -41,30 +42,30 @@ public class PostDao extends DBContext{
                 + "      ,[Accept_covid_patient]\n"
                 + "  FROM [dbo].[Post] \n"
                 + "  WHERE [Id] = ?";
-        
+
         Post post = null;
-        
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
-            
+
             ResultSet rs = st.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 post = new Post(
-                    rs.getInt("Id"),
-                    rs.getInt("User_id"),
-                    rs.getDate("Create_date"),
-                    rs.getString("Title"),
-                    rs.getString("Detail"),
-                    rs.getInt("Price"),
-                    rs.getFloat("Area"),
-                    rs.getInt("Number_of_bedrooms"),
-                    rs.getInt("Number_of_restrooms"),
-                    rs.getString("Direction"),
-                    rs.getInt("Address"),
-                    rs.getString("Address_detail"),
-                    rs.getInt("Property_type_id"),
-                    rs.getBoolean("Accept_covid_patient"));
+                        rs.getInt("Id"),
+                        rs.getInt("User_id"),
+                        rs.getDate("Create_date"),
+                        rs.getString("Title"),
+                        rs.getString("Detail"),
+                        rs.getInt("Price"),
+                        rs.getFloat("Area"),
+                        rs.getInt("Number_of_bedrooms"),
+                        rs.getInt("Number_of_restrooms"),
+                        rs.getString("Direction"),
+                        rs.getInt("Address"),
+                        rs.getString("Address_detail"),
+                        rs.getInt("Property_type_id"),
+                        rs.getBoolean("Accept_covid_patient"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -76,9 +77,10 @@ public class PostDao extends DBContext{
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         return post;
     }
+
     public Collection<Post> selectByUserId(int id) {
         String sql = "SELECT [Id]\n"
                 + "      ,[User_id]\n"
@@ -96,15 +98,15 @@ public class PostDao extends DBContext{
                 + "      ,[Accept_covid_patient]\n"
                 + "  FROM [dbo].[Post] \n"
                 + "  WHERE [User_id] = ?";
-        
+
         Collection<Post> posts = new ArrayList<>();
-        
+
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
-            
+
             ResultSet rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 posts.add(
                         new Post(
                                 rs.getInt("Id"),
@@ -133,10 +135,50 @@ public class PostDao extends DBContext{
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         return posts;
     }
-    
+
+    public Collection<Post> getAllPosts() {
+        String sql = "SELECT *"
+                + "  FROM [dbo].[Post] \n";
+        Collection<Post> posts = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                posts.add(
+                        new Post(
+                                rs.getInt("Id"),
+                                rs.getInt("User_id"),
+                                rs.getDate("Create_date"),
+                                rs.getString("Title"),
+                                rs.getString("Detail"),
+                                rs.getInt("Price"),
+                                rs.getFloat("Area"),
+                                rs.getInt("Number_of_bedrooms"),
+                                rs.getInt("Number_of_restrooms"),
+                                rs.getString("Direction"),
+                                rs.getInt("Address"),
+                                rs.getString("Address_detail"),
+                                rs.getInt("Property_type_id"),
+                                rs.getBoolean("Accept_covid_patient"))
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return posts;
+    }
+
     public int insert(Post post) {
         String sql = "INSERT INTO [dbo].[Post]\n"
                 + "           ([User_id]\n"
@@ -234,7 +276,7 @@ public class PostDao extends DBContext{
             }
         }
     }
-    
+
     public int DeleteImages(int postId) {
         String sql = "DELETE FROM [dbo].[Post_image]\n"
                 + "      WHERE Post_id = ?";
@@ -264,7 +306,7 @@ public class PostDao extends DBContext{
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
-            
+
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Blob image = rs.getBlob(1);
@@ -373,7 +415,7 @@ public class PostDao extends DBContext{
             }
         }
     }
-    
+
     // List Post
     public ArrayList<Post> getItems(String district, String propertyType, String price, String covid, int page) {
         ArrayList<Post> lst = new ArrayList<>();
@@ -421,9 +463,8 @@ public class PostDao extends DBContext{
         }
         return lst;
     }
-    
-    public int getNumPage(String district, String propertyType, String price, String covid) {
 
+    public int getNumPage(String district, String propertyType, String price, String covid) {
         String sql = "select count(*)\n" +
                         "from District T1\n" +
                         "join Sub_district T2\n" +
@@ -453,9 +494,8 @@ public class PostDao extends DBContext{
         }
         return 0;
     }
-    
-    public int getNumPost(String district, String propertyType, String price, String covid) {
 
+    public int getNumPost(String district, String propertyType, String price, String covid) {
         String sql = "select count(*)\n" +
                         "from District T1\n" +
                         "join Sub_district T2\n" +
@@ -481,5 +521,5 @@ public class PostDao extends DBContext{
         }
         return 0;
     }
-    
+
 }

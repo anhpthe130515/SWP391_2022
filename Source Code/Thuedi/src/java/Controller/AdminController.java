@@ -3,22 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Control;
+package Controller;
 
+import DAO.PostDao;
+import DAO.ReportPostDao;
+import DAO.UserDao;
+import Model.Post;
+import Model.ReportPost;
+import Model.User;
+import Model.UserDetail;
+import Model.UserUserDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author TuanLA
+ * @author pinkd
  */
-@WebServlet(name = "AdminControl", urlPatterns = {"/Admin/dashboard"})
+@WebServlet(name = "AdminController", urlPatterns = {"/admin/dashboard"})
 public class AdminController extends HttpServlet {
 
     /**
@@ -35,14 +43,13 @@ public class AdminController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminControl</title>");
+            out.println("<title>Servlet AdminController</title>");
             out.println("</head>");
             out.println("<body>");
-            HttpSession session = request.getSession();
+            out.println("<h1>Servlet AdminController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -60,7 +67,18 @@ public class AdminController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Collection<Post> allPost = new PostDao().getAllPosts();
+        Collection<UserUserDetail> allUser = new UserDao().getAllUsers();
+        Collection<ReportPost> allReportPost = new ReportPostDao().select();
+        User user = (User)request.getSession().getAttribute("user");
+        UserDetail userDetail = new UserDao().getUserDetail(user.getId());
+        
+        request.setAttribute("userDetail", userDetail);
+        request.setAttribute("numberPost", allPost.size());
+        request.setAttribute("numberUser", allUser.size());
+        request.setAttribute("numberReportPost", allReportPost.size());
+
+        request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
 
     /**
