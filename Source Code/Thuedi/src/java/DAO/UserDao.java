@@ -185,13 +185,21 @@ public class UserDao extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                users.add(new UserUserDetail(new User(rs.getInt("id"), rs.getString("Email"), rs.getString("Password"), rs.getInt("Role_id"), rs.getDate("Create_date"), rs.getBoolean("Is_deleted")), 
+                users.add(new UserUserDetail(new User(rs.getInt("id"), rs.getString("Email"), rs.getString("Password"), rs.getInt("Role_id"), rs.getDate("Create_date"), rs.getBoolean("Is_deleted")),
                         new UserDetail(rs.getInt("id"), rs.getString("Name"), rs.getString("Phone"), rs.getString("Image_link"), rs.getString("Personal_id"), rs.getString("Contacts"))));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-    
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return users;
+    }
+
     public User select(int id) {
         String sql = "SELECT * FROM [User]\n"
                 + "WHERE id = ?\n";
@@ -219,6 +227,7 @@ public class UserDao extends DBContext {
         }
         return null;
     }
+
     public UserDetail selectUserDetail(int id) {
         String sql = "SELECT [User_Id]\n"
                 + "      ,[Name]\n"
@@ -272,13 +281,12 @@ public class UserDao extends DBContext {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return null;
     }
-    
+
     public UserDetail userInfo(int id) {
-        String sql = "select *\n" +
-                    "from [User_detail]\n" +
-                    "where [User_Id] = ?";
+        String sql = "select *\n"
+                + "from [User_detail]\n"
+                + "where [User_Id] = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);

@@ -65,7 +65,7 @@ public class AdminManageUserController extends HttpServlet {
             throws ServletException, IOException {
         Collection<UserUserDetail> allUser = new UserDao().getAllUsers();
         User user = (User) request.getSession().getAttribute("user");
-        UserDetail userDetail = new UserDao().getUserDetail(user.getId());
+        UserDetail userDetail = new UserDao().selectUserDetail(user.getId());
 
         request.setAttribute("userDetail", userDetail);
         request.setAttribute("allUser", allUser);

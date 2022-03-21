@@ -38,7 +38,7 @@ public class UserController extends HttpServlet {
         HttpSession session = request.getSession();
         User account = (User)session.getAttribute("user");
         int id = account.getId();
-        User user = new UserDao().account(id);
+        User user = new UserDao().select(id);
         UserDetail info = new UserDao().userInfo(id);
         
         request.setAttribute("user", user);

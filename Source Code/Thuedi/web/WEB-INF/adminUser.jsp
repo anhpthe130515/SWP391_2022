@@ -109,8 +109,8 @@
                                 <td>${user.getDetail().getPhone()}</td>
                                 <td>${user.getUser().getEmail()}</td>
                                 <td>${user.getUser().getRoleId()}</td>
-                                <td>active</td>
                                 <td><fmt:formatDate pattern = "dd/MM/yyyy" value = "${user.getUser().getCreateDate()}"/></td>
+                                <td>active</td>
                                 <td>
                                     <a class="table-btn btn-delete" href="../DeleteUser?id=${user.getUser().getId()}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

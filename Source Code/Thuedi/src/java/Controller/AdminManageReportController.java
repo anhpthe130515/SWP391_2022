@@ -39,7 +39,7 @@ public class AdminManageReportController extends HttpServlet {
             throws ServletException, IOException {
         Collection<ReportPost> allReportPost = new ReportPostDao().select();
         User user = (User) request.getSession().getAttribute("user");
-        UserDetail userDetail = new UserDao().getUserDetail(user.getId());
+        UserDetail userDetail = new UserDao().selectUserDetail(user.getId());
 
         request.setAttribute("userDetail", userDetail);
         request.setAttribute("allReportPost", allReportPost);
