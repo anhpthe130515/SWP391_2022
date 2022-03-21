@@ -25,52 +25,7 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEaRkuGOICP3om0r-q8qdGYqv2Ur1Wf1s&libraries=places&callback=initialize" async defer></script>
     </head>
     <body>
-        <section class="header">
-            <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="#">THUEDI</a>
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                    >
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="#"
-                               >Trang chủ</a
-                            >
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Bài đăng</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Khám Phá</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Lê Anh Tuấn</a>
-                        </li>
-                        <li class="nav-item" >
-                            <a class="nav-link" href="#">Đăng nhập</a>
-                        </li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <button
-                            class="btn btn-outline-success my-2 my-sm-0 ml-3"
-                            type="submit"
-                            >
-                            Đăng bài
-                        </button>
-                    </form>
-                </div>
-            </nav>
-        </section>
+        <%@include file="navbar.jsp" %>
 
         <section class="main-content">
             <section class="property">
@@ -468,7 +423,7 @@
             phoneNumber.innerHTML = hiddenPhone;
             showPhoneNumber.addEventListener("click", function () {
                 phoneNumber.innerHTML = phoneNumber.innerHTML.slice(0, 6) + slidePhone;
-            })
+            });
 
 
         </script>
@@ -508,42 +463,7 @@
             }
         </script>
 
-<<<<<<< HEAD
-=======
-        <form method="post" action="comment?id=${requestScope.post.getId()}">
-            <textarea name="content"></textarea>
-            <button>Comment</button>
-        </form>
-        <c:forEach items="${requestScope.comments}" var="comment">
-            <div>
-                <h5>${comment.getComment().getComment()}</h5>
-                <h5>${comment.getUserDetail().getName()}</h5>
-                <h5>${comment.getUserDetail().getImageLink()}</h5>
-                <h5>${comment.getComment().getCreateDate()}</h5>
-                <form method="post" action="comment?commentId=${comment.getId()}">
-                    <button>Delete</button>
-                </form>
-            </div>
-        </c:forEach>
 
-        <!-- JAVASCRIPT -->
-        <script>
-            let slider = document.querySelectorAll(".carousel-item");
-            let phoneNumber = document.querySelector(".phone-number");
-            let showPhoneNumber = document.querySelector(".btn-show-phone");
-            slider[0].classList.add("active");
-
-            //hidden phone number
-            let slidePhone = phoneNumber.innerHTML.slice(6);
-            let hiddenPhone = phoneNumber.innerHTML.slice(0, 6) + "****";
-            phoneNumber.innerHTML = hiddenPhone;
-            showPhoneNumber.addEventListener("click", function () {
-                phoneNumber.innerHTML = phoneNumber.innerHTML.slice(0, 6) + slidePhone;
-            })
-
-
-        </script>
->>>>>>> 24caef562141e1162ded002f049467ffd457e579
         <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

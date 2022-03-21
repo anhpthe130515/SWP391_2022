@@ -11,12 +11,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" href="Styles/style.css" />
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+            crossorigin="anonymous"
+            />
+        <title>Thuedi</title>
     </head>
     <body>
-        <c:forEach items="${requestScope.subdistricts}" var="o">
-            <h3><a href="AreaReview?sub_id=${o.getId()}">${o.getName()}</a></h3>
-        </c:forEach>
-        <p>${requestScope.reviewdata.getAreaReview() != null ? requestScope.reviewdata.getAreaReview() : "To be added later"}</p>
+        <%@include file="navbar.jsp" %>
+        <div class="container">
+            <c:forEach items="${requestScope.subdistricts}" var="o">
+                <h3><a href="AreaReview?sub_id=${o.getId()}">${o.getName()}</a></h3>
+                </c:forEach>
+            <p>${requestScope.reviewdata.getAreaReview() != null ? requestScope.reviewdata.getAreaReview() : "To be added later"}</p>
+        </div>
     </body>
 </html>

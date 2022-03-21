@@ -13,7 +13,9 @@ and open the template in the editor.
     margin: 0;
     box-sizing: border-box;
 }
-
+body{
+    /*font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;*/
+}
 ul,
 li {
     text-decoration: none;
@@ -44,11 +46,22 @@ a:hover {
     background-color: #ffb0bd !important;
 }
 
+.navbar a{
+    color: #8a4762 !important;
+    font-weight: 600 !important;
+}
+.nav-item:hover{
+    background-color: #fff;
+    transition: 0.3s;
+}
 /* .search-section {
     display: flex;
     justify-content: space-between;
 } */
 
+.btn-filter{
+    border:1px solid #3c4146 !important;
+}
 .search-filter-section {
     display: flex;
     justify-content: space-between;
@@ -111,7 +124,7 @@ a:hover {
     width: 375px;
     height: fit-content;
     position: sticky;
-    top: 20px;
+    top: 72px;
 }
 
 .widget-item > p {

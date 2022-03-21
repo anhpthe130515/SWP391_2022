@@ -46,85 +46,85 @@
 
             <div class="dropdown">
                 <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                >
-                  Khu vực
+                    class="btn-filter btn dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    >
+                    Khu vực
                 </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="list?district=0&propertyType=${propertyType}&price=${price}&covid=${covid}">Khu vực</a>
-                                <c:forEach items="${requestScope.listDistricts}" var="listDis">
-                                    <a class="dropdown-item"
-                                       href="list?district=${listDis.id}&propertyType=${propertyType}&price=${price}&covid=${covid}">
-                                        ${listDis.name}
-                                    </a>
-                                </c:forEach>
-                    </div>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="list?district=0&propertyType=${propertyType}&price=${price}&covid=${covid}">Khu vực</a>
+                    <c:forEach items="${requestScope.listDistricts}" var="listDis">
+                        <a class="dropdown-item"
+                           href="list?district=${listDis.id}&propertyType=${propertyType}&price=${price}&covid=${covid}">
+                            ${listDis.name}
+                        </a>
+                    </c:forEach>
+                </div>
             </div>
 
             <div class="dropdown">
                 <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                >
-                  Loại Bất Động sản
+                    class="btn btn-filter dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    >
+                    Loại Bất Động sản
                 </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="list?district=${district}&propertyType=0&price=${price}&covid=${covid}">Loại Bất Động sản</a>
-                                <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
-                                    <a class="dropdown-item"
-                                       href="list?district=${district}&propertyType=${listPro.id}&price=${price}&covid=${covid}">
-                                        ${listPro.name}
-                                    </a>
-                                </c:forEach>
-                    </div>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="list?district=${district}&propertyType=0&price=${price}&covid=${covid}">Loại Bất Động sản</a>
+                    <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
+                        <a class="dropdown-item"
+                           href="list?district=${district}&propertyType=${listPro.id}&price=${price}&covid=${covid}">
+                            ${listPro.name}
+                        </a>
+                    </c:forEach>
+                </div>
             </div>
 
             <div class="dropdown">
                 <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                >
-                  Giá Tiền
+                    class="btn btn-filter dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    >
+                    Giá Tiền
                 </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=0&covid=${covid}">Giá Tiền</a>
-                                <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=1&covid=${covid}">
-                                    < 3 Triệu
-                                </a>
-                                <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=2&covid=${covid}">
-                                    3 - 7 Triệu
-                                </a>
-                                <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=3&covid=${covid}">
-                                    > 7 Triệu
-                                </a>
-                    </div>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=0&covid=${covid}">Giá Tiền</a>
+                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=1&covid=${covid}">
+                        < 3 Triệu
+                    </a>
+                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=2&covid=${covid}">
+                        3 - 7 Triệu
+                    </a>
+                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=3&covid=${covid}">
+                        > 7 Triệu
+                    </a>
+                </div>
             </div>
 
             <div class="dropdown">
                 <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-toggle="dropdown"
-                >
-                  Hỗ trợ COVID
+                    class="btn btn-filter dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    >
+                    Hỗ trợ COVID
                 </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=2">Hỗ trợ COVID</a>
-                                <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=0">
-                                    Có
-                                </a>
-                                <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=1">
-                                    Không
-                                </a>
-                    </div>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=2">Hỗ trợ COVID</a>
+                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=0">
+                        Có
+                    </a>
+                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=1">
+                        Không
+                    </a>
+                </div>
             </div>
 
             </div>
@@ -153,12 +153,12 @@
                                             <li>${a.numberOfRestrooms} VS</li>
                                             <li>${a.numberOfBedrooms} PN</li>
                                         </ul>
-                                        <li class="price">${a.price} triệu</li>
+                                        <li class="price">${a.price} VNĐ</li>
                                         <li class="item-date"><fmt:formatDate pattern = "dd/MM/yyyy" value = "${a.createDate}" /></li>
                                     </ul>
                                 </ul>
                             </a>
-                                    <a class="add-favorite" href="/Thuedi/User/AddBookmark?id=${a.id}">
+                            <a class="add-favorite" href="/Thuedi/User/AddBookmark?id=${a.id}">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="18"
@@ -191,7 +191,7 @@
                                     ${counter}
                                 </a>
                             </li>    
-                            </c:forEach>
+                        </c:forEach>
                         <li class="page-item">
                             <a class="page-link" href="#">Next</a>
                         </li>

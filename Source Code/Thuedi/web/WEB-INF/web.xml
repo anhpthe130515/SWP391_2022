@@ -4,6 +4,9 @@
         <filter-name>UnicodeFilter</filter-name>
         <filter-class>Filter.UnicodeFilter</filter-class>
     </filter>
+    <welcome-file-list>  
+        <welcome-file>list</welcome-file>  
+    </welcome-file-list>  
     <filter>
         <filter-name>RequireUserFilter</filter-name>
         <filter-class>Filter.RequireUserFilter</filter-class>
@@ -24,12 +27,10 @@
         <error-code>403</error-code>
         <location>/WEB-INF/403.html</location>
     </error-page>
-    
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/404.html</location>
     </error-page>
-    
     <filter-mapping>
         <filter-name>UnicodeFilter</filter-name>
         <url-pattern>/*</url-pattern>
