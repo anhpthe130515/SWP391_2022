@@ -75,7 +75,7 @@
         <section class="main-content">
             <h4 class="mt-5">User Information</h4>
 
-            <div class="user-profile">
+            <div class="user-profile" >
                 <div class="container">
                     <div class="row">
                         <div class="col-3 avatar user-profile-avatar">
@@ -106,8 +106,8 @@
                             </div>
 
                             <div class="text-center">
-                                <p class="font-weight-bold h5 mb-1">Lê Anh Tuấn</p>
-                                <p>Ngày tham gia: 20/02/2022</p>
+                                <p class="font-weight-bold h5 mb-1">${info.name}</p>
+                                <p>Ngày tham gia: ${user.createDate}</p>
                             </div>
                         </div>
                         <div class="col-9 user-profile-infor">
@@ -115,11 +115,11 @@
                                 <div class="row">
                                     <div class="col">
                                         <div><label for="email">Email</label></div>
-                                        <input type="text" name="email" id="email" disabled />
+                                        <input type="text" name="email" id="email" value="${user.email}" disabled />
                                         <div><label for="phone">Phone</label></div>
-                                        <input type="text" name="phone" id="phone" />
+                                        <input type="text" name="phone" id="phone" value="${info.phone}"/>
                                         <div><label for="contact">Contact</label></div>
-                                        <input type="text" name="contact" id="contact" />
+                                        <input type="text" name="contact" id="contact" value="${info.contact}"/>
                                     </div>
                                     <div class="col">
                                         <div class="field">
