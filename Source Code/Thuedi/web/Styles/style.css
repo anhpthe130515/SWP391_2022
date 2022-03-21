@@ -513,3 +513,8 @@ textarea {
     transition: 0.3s;
 }
 
+.nav-button{
+    background-color: #fff;
+    border-radius: 5px;
+}
+
