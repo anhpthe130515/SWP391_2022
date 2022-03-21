@@ -42,4 +42,28 @@ public class SubdistrictDao extends DBContext{
         
         return subdistricts;
     }
+    
+        public Subdistrict select(int id) {
+        String sql = "SELECT * FROM [Sub_district]"
+                + "  WHERE [Id] = ?";
+        Subdistrict subdistrict = null;
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                subdistrict = new Subdistrict(rs.getInt("Id"), rs.getString("Name"), rs.getInt("District_id") ,rs.getString("Area_review"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return subdistrict;
+    }
 }

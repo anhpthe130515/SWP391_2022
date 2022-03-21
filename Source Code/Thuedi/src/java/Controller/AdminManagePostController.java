@@ -40,7 +40,7 @@ public class AdminManagePostController extends HttpServlet {
         Collection<Post> allPost = new PostDao().getAllPosts();
         System.out.println(allPost.size());
         User user = (User) request.getSession().getAttribute("user");
-        UserDetail userDetail = new UserDao().getUserDetail(user.getId());
+        UserDetail userDetail = new UserDao().selectUserDetail(user.getId());
 
         request.setAttribute("userDetail", userDetail);
         request.setAttribute("allPost", allPost);

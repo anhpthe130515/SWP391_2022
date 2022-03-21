@@ -5,12 +5,16 @@
  */
 package Controller;
 
+import DAO.CommentDao;
+import DAO.DistrictDao;
+import DAO.PostDao;
+import DAO.PropertyTypeDao;
+import DAO.SubdistrictDao;
 import DAO.UserDao;
-import Model.User;
-import Model.UserDetail;
-import Model.UserUserDetail;
+import Model.Post;
+import Model.Comment;
+import Model.CommentUserDetail;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Collection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,10 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pinkd
+ * @author Admin
  */
-@WebServlet(name = "AdminManageUserController", urlPatterns = {"/admin/user"})
-public class AdminManageUserController extends HttpServlet {
+@WebServlet(name = "PostDetailController", urlPatterns = {"/PostDetail"})
+public class PostDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,19 +40,33 @@ public class AdminManageUserController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminManageUserController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdminManageUserController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        if (request.getParameter("id") == null) {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }
+
+        request.setAttribute("error", request.getParameter("error"));
+
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        request.setAttribute("propertyType", new PropertyTypeDao().select());
+        request.setAttribute("district", new DistrictDao().select());
+        request.setAttribute("subdistrict", new SubdistrictDao().select());
+
+        Post post = new PostDao().select(id);
+        request.setAttribute("post", post);
+
+        request.setAttribute("author", new UserDao().select(post.getUserId()));
+        
+        request.setAttribute("authorDetail", new UserDao().selectUserDetail(post.getUserId()));
+
+
+        request.setAttribute("listImageId", new PostDao().getAllImageId(id));
+
+        Collection<CommentUserDetail> comments = new CommentDao().selectByPostId(id);
+        request.setAttribute("comments", comments);
+        System.out.println("comment: " + comments.size());
+
+        request.getRequestDispatcher("/WEB-INF/postdetail.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,13 +81,7 @@ public class AdminManageUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Collection<UserUserDetail> allUser = new UserDao().getAllUsers();
-        User user = (User) request.getSession().getAttribute("user");
-        UserDetail userDetail = new UserDao().selectUserDetail(user.getId());
-
-        request.setAttribute("userDetail", userDetail);
-        request.setAttribute("allUser", allUser);
-        request.getRequestDispatcher("/WEB-INF/adminUser.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**

@@ -5,14 +5,12 @@
  */
 package Controller;
 
-import DAO.ReportPostDao;
-import DAO.UserDao;
-import Model.ReportPost;
+import DAO.CommentDao;
+import Model.Comment;
 import Model.User;
-import Model.UserDetail;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,30 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pinkd
  */
-@WebServlet(name = "AdminManageReportController", urlPatterns = {"/admin/report"})
-public class AdminManageReportController extends HttpServlet {
+@WebServlet(name = "CommentController", urlPatterns = {"/comment"})
+public class CommentController extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        Collection<ReportPost> allReportPost = new ReportPostDao().select();
-        User user = (User) request.getSession().getAttribute("user");
-        UserDetail userDetail = new UserDao().selectUserDetail(user.getId());
-
-        request.setAttribute("userDetail", userDetail);
-        request.setAttribute("allReportPost", allReportPost);
-        request.getRequestDispatcher("/WEB-INF/adminReport.jsp").forward(request, response);
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -58,7 +35,6 @@ public class AdminManageReportController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**
@@ -72,9 +48,23 @@ public class AdminManageReportController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String postId = request.getParameter("id");
+        if (postId != null) {
+            Comment comment = new Comment();
+            comment.setPostId(Integer.parseInt(postId));
+            comment.setComment(request.getParameter("content"));
+            comment.setCreateDate(new Date(System.currentTimeMillis()));
+            User user = (User) request.getSession().getAttribute("user");
+            if (user == null) {
+                String ms = "Ban phai dang nhap de binh luan";
+                response.sendRedirect("PostDetail?id=" + request.getParameter("id") + "&error=" + ms);
+            } else {
+                comment.setUserId(user.getId());
+                int id = new CommentDao().insertComment(comment);
+                response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
+            }
+        } 
     }
-
     /**
      * Returns a short description of the servlet.
      *

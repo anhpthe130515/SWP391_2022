@@ -185,38 +185,31 @@ public class UserDao extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                users.add(new UserUserDetail(new User(rs.getInt("id"), rs.getString("Email"), rs.getString("Password"), rs.getInt("Role_id"), rs.getDate("Create_date"), rs.getBoolean("Is_deleted")), 
+                users.add(new UserUserDetail(new User(rs.getInt("id"), rs.getString("Email"), rs.getString("Password"), rs.getInt("Role_id"), rs.getDate("Create_date"), rs.getBoolean("Is_deleted")),
                         new UserDetail(rs.getInt("id"), rs.getString("Name"), rs.getString("Phone"), rs.getString("Image_link"), rs.getString("Personal_id"), rs.getString("Contacts"))));
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
-
         return users;
     }
 
-    public UserDetail getUserDetail(int id) {
-        String sql = "SELECT [User_Id]\n"
-                + "      ,[Name]\n"
-                + "      ,[Phone]\n"
-                + "      ,[Image_link]\n"
-                + "      ,[Personal_id]\n"
-                + "      ,[Contacts]\n"
-                + "  FROM [dbo].[User_detail]\n"
-                + " WHERE User_Id = ?";
+    public User select(int id) {
+        String sql = "SELECT * FROM [User]\n"
+                + "WHERE id = ?\n";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                return new UserDetail(id, rs.getString("Name"), rs.getString("Phone"), rs.getString("Image_link"), rs.getString("Personal_id"), rs.getString("Contacts"));
+                return new User(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getDate(5),
+                        rs.getBoolean(6)
+                );
             }
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -228,7 +221,40 @@ public class UserDao extends DBContext {
             }
         }
         return null;
+    }
 
+    public UserDetail selectUserDetail(int id) {
+        String sql = "SELECT [User_Id]\n"
+                + "      ,[Name]\n"
+                + "      ,[Phone]\n"
+                + "      ,[Image_link]\n"
+                + "      ,[Personal_id]\n"
+                + "      ,[Contacts]\n"
+                + "  FROM [thuedi].[dbo].[User_detail]\n"
+                + "  WHERE [User_Id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new UserDetail(rs.getInt("User_id"),
+                        rs.getString("Name"),
+                        rs.getString("Phone"),
+                        rs.getString("Image_link"),
+                        rs.getString("Personal_id"),
+                        rs.getString("Contacts")
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 
     public void deleteUser(int id) {
@@ -241,7 +267,6 @@ public class UserDao extends DBContext {
 
             int result = st.executeUpdate();
             System.out.println("result = " + result);
-
         } catch (SQLException ex) {
             Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -251,6 +276,36 @@ public class UserDao extends DBContext {
                 Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    public UserDetail userInfo(int id) {
+        String sql = "select *\n"
+                + "from [User_detail]\n"
+                + "where [User_Id] = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return new UserDetail(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6)
+                );
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
     }
 
 }

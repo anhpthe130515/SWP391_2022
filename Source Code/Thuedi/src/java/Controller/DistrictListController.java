@@ -5,13 +5,11 @@
  */
 package Controller;
 
-import DAO.UserDao;
-import Model.User;
-import Model.UserDetail;
-import Model.UserUserDetail;
+import DAO.DistrictDao;
+import Model.District;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collection;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,10 +18,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author pinkd
+ * @author Admin
  */
-@WebServlet(name = "AdminManageUserController", urlPatterns = {"/admin/user"})
-public class AdminManageUserController extends HttpServlet {
+@WebServlet(name = "DistrictListController", urlPatterns = {"/DistrictList"})
+public class DistrictListController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,19 +34,9 @@ public class AdminManageUserController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AdminManageUserController</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AdminManageUserController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        request.setAttribute("districts", new DistrictDao().select());
+        
+        request.getRequestDispatcher("/WEB-INF/districtlist.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -63,13 +51,7 @@ public class AdminManageUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Collection<UserUserDetail> allUser = new UserDao().getAllUsers();
-        User user = (User) request.getSession().getAttribute("user");
-        UserDetail userDetail = new UserDao().selectUserDetail(user.getId());
-
-        request.setAttribute("userDetail", userDetail);
-        request.setAttribute("allUser", allUser);
-        request.getRequestDispatcher("/WEB-INF/adminUser.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
