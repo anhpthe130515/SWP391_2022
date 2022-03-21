@@ -4,6 +4,7 @@
     Author     : TuanLA
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <section class="header">
@@ -32,23 +33,45 @@
                     <a class="nav-link" href="#">Bài đăng</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Khám Phá</a>
+                    <a class="nav-link" href="/">Khám Phá</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Le Anh Tuan</a>
-                </li>
-                <li class="nav-item" >
-                    <a class="nav-link" href="#">Đăng nhập</a>
-                </li>
+
+                <c:choose>
+                    <c:when test="${sessionScope.user eq null}">
+                        <li class="nav-item" >
+                            <a class="nav-link" href="login">Đăng nhập</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="login">Đăng ký</a>
+                        </li>
+                    </c:when>
+                    <c:otherwise>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button
+                                    class="btn user-btn"
+                                    type="button"
+                                    id="dropdownMenuButton"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true"
+                                    aria-expanded="false"
+                                    >
+                                    Tài khoản
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="">Thông tin</a>
+                                    <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item nav-button ml-1">
+                            <a class="nav-link " href="#">Đăng bài</a>
+                        </li>
+                    </c:otherwise>
+                </c:choose>
+
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <button
-                    class="btn btn-outline-success my-2 my-sm-0 ml-3"
-                    type="submit"
-                    >
-                    Đăng bài
-                </button>
-            </form>
+
         </div>
     </nav>
 </section>
