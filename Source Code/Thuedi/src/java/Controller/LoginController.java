@@ -68,6 +68,7 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
         response.setContentType("text/html;charset=UTF-8");
         String username = request.getParameter("email");
         String password = request.getParameter("password");
@@ -95,9 +96,9 @@ public class LoginController extends HttpServlet {
         if (user == null) {
             String ms = "Sai tài khoản hoặc mật khẩu!";
             request.setAttribute("error", ms);
+            session.setAttribute("user", null);
             request.getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } else {
-            HttpSession session = request.getSession();
             session.setAttribute("user", user);
             if (user.getRoleId() == Role.ADMIN.getId()) {
                 response.sendRedirect("admin/dashboard");
