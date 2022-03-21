@@ -102,9 +102,11 @@ public class LoginController extends HttpServlet {
             session.setAttribute("user", user);
             if (user.getRoleId() == Role.ADMIN.getId()) {
                 response.sendRedirect("admin/dashboard");
-            } else {
+            }
+            else {
                 response.sendRedirect("list");
             }
+
         }
     }
 

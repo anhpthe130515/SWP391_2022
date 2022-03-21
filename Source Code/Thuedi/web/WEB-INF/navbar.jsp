@@ -61,6 +61,10 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="/Thuedi/userDetail">Thông tin</a>
+                                    <a class="dropdown-item" href="/Thuedi/User/Bookmark">Bookmark</a>
+                                    <c:if test = "${sessionScope.user.getRoleId() == 3}">
+                                        <a class="dropdown-item" href="/Thuedi/Landlord/ManagePost">Quản lý bài đăng</a>
+                                    </c:if>
                                     <a class="dropdown-item" href="/Thuedi/logout">Đăng xuất</a>
                                 </div>
                             </div>
