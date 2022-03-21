@@ -76,7 +76,7 @@
                                             ${requestScope.userDetail.getName()}
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Logout</a>
+                                            <a class="dropdown-item" href="../logout">Logout</a>
                                         </div>
                                     </div>
                                 </li>
@@ -111,8 +111,21 @@
                                 <td>${post.getDetail()}</td>
                                 <td>${post.getPrice()}</td>
                                 <td>${post.getAddress()}</td>
-                                <td>${post.getPropertyType()}</td>
-                                <td>${post.isAcceptCovidPatient()}</td>
+                                <c:choose>
+                                    <c:when test="${post.getPropertyType() == 1}">
+                                        <td>Nhà</td>
+                                    </c:when>
+                                    <c:when test="${post.getPropertyType() == 2}">
+                                        <td>Chung cư</td>
+                                    </c:when>
+                                    <c:when test="${post.getPropertyType() == 2}">
+                                        <td>Phòng trọ</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>Mặt bằng</td>
+                                    </c:otherwise>
+                                </c:choose>
+                                <td>${post.isAcceptCovidPatient() ? 'Chấp nhận' : 'Không chấp nhận'}</td>
                                 <td>${post.getCreateDate()}</td>
                                 <td><a class="table-btn btn-delete" href="../Landlord/DeletePost?id=${post.getId()}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

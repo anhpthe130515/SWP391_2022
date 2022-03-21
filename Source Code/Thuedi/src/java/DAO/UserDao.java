@@ -178,8 +178,7 @@ public class UserDao extends DBContext {
                 + "      ,[Contacts]\n"
                 + "  FROM [thuedi].[dbo].[User]\n"
                 + "  INNER JOIN [thuedi].[dbo].[User_detail]\n"
-                + "  ON [dbo].[User].id = [dbo].[User_detail].[User_Id]"
-                + " WHERE Is_deleted = 0";
+                + "  ON [dbo].[User].id = [dbo].[User_detail].[User_Id]";
         Collection<UserUserDetail> users = new ArrayList<>();
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -262,9 +261,30 @@ public class UserDao extends DBContext {
         return null;
     }
 
-    public void deleteUser(int id) {
+    public void banUser(int id) {
         String sql = "UPDATE [thuedi].[dbo].[User]\n"
                 + "SET [Is_deleted] = 1\n"
+                + "WHERE id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+
+            int result = st.executeUpdate();
+            System.out.println("result = " + result);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void unbanUser(int id) {
+        String sql = "UPDATE [thuedi].[dbo].[User]\n"
+                + "SET [Is_deleted] = 0\n"
                 + "WHERE id = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);

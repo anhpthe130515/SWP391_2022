@@ -75,7 +75,7 @@
                                             ${requestScope.userDetail.getName()}
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Logout</a>
+                                            <a class="dropdown-item" href="../logout">Logout</a>
                                         </div>
                                     </div>
                                 </li>
@@ -108,15 +108,30 @@
                                 <td>${user.getDetail().getName()}</td>
                                 <td>${user.getDetail().getPhone()}</td>
                                 <td>${user.getUser().getEmail()}</td>
-                                <td>${user.getUser().getRoleId()}</td>
+                                <c:choose>
+                                    <c:when test="${user.getUser().getRoleId() == 1}">
+                                        <td>Admin</td>
+                                    </c:when>
+                                    <c:when test="${user.getUser().getRoleId() == 2}">
+                                        <td>User</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>Landlord</td>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td><fmt:formatDate pattern = "dd/MM/yyyy" value = "${user.getUser().getCreateDate()}"/></td>
-                                <td>active</td>
+                                <td>${user.getUser().isIsDeleted() ? 'Không hoạt động' : 'Hoạt động'}</td>
                                 <td>
-                                    <a class="table-btn btn-delete" href="../DeleteUser?id=${user.getUser().getId()}">
+                                    <a class="table-btn btn-delete" href="../banUser?id=${user.getUser().getId()}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                        </svg> Delete</a></td>
+                                        </svg>Ban</a></td>
+                                <td><a class="table-btn btn-delete" href="../unbanUser?id=${user.getUser().getId()}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                        </svg>Unban</a></td>
                             </tr>
                         </c:forEach>
                     </table>

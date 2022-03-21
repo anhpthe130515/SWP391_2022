@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pinkd
  */
-@WebServlet(name = "DeleteUserController", urlPatterns = {"/banUser"})
-public class DeleteUserController extends HttpServlet {
+@WebServlet(name = "UnbanUserController", urlPatterns = {"/unbanUser"})
+public class UnbanUserController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,7 +33,7 @@ public class DeleteUserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String url = request.getHeader("referer");
-        new UserDao().banUser(Integer.parseInt(request.getParameter("id")));
+        new UserDao().unbanUser(Integer.parseInt(request.getParameter("id")));
         
         response.sendRedirect(url != null ? url : "/Thuedi/admin/user");
     }

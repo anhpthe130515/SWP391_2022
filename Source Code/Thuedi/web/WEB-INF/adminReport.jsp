@@ -74,7 +74,7 @@
                                             ${requestScope.userDetail.getName()}
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item" href="#">Logout</a>
+                                            <a class="dropdown-item" href="../logout">Logout</a>
                                         </div>
                                     </div>
                                 </li>
