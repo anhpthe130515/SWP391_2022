@@ -24,12 +24,10 @@
         <error-code>403</error-code>
         <location>/WEB-INF/403.html</location>
     </error-page>
-    
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/404.html</location>
     </error-page>
-    
     <filter-mapping>
         <filter-name>UnicodeFilter</filter-name>
         <url-pattern>/*</url-pattern>
