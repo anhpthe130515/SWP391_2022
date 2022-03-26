@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="col-9 user-profile-infor">
-                            <form action="">
+                            <form class="change-pw" method="POST">
                                 <div class="row">
                                     <div class="col">
                                         <div><label for="email">Email</label></div>
@@ -203,6 +203,7 @@
                                                 </svg>
                                             </div>
                                         </div>
+                                        <p style="color: red">${requestScope.error}</p>
                                         <div class="submit">
                                             <input type="submit" value="Save" />
                                         </div>

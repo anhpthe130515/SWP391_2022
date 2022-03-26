@@ -332,5 +332,72 @@ public class UserDao extends DBContext {
         }
         return null;
     }
+    
+    // change pw
+    
+    public void updatePw(int id, String pw) {
+        String sql = "update [User]\n" +
+                    "set [Password] = '"+pw+"'\n" +
+                    "where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            int result = st.executeUpdate();
+            System.out.println("result = " + result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    // update role
+    
+    public void updateR(int id) {
+        String sql = "update [User]\n" +
+                    "set Role_id = 3\n" +
+                    "where id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            int result = st.executeUpdate();
+            System.out.println("result = " + result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    public void updateL(int id, String personalId, String contact) {
+        String sql = "update [User_detail]\n" +
+                    "set Personal_id = '"+personalId+"', Contacts = '"+contact+"'\n" +
+                    "where User_Id = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            int result = st.executeUpdate();
+            System.out.println("result = " + result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
 }
