@@ -5,24 +5,31 @@
  */
 package Model;
 
+import java.sql.Date;
+
 /**
  *
  * @author Admin
  */
 public class ReportPost {
+
     private int Id;
     private int PostId;
     private int UserId;
     private String Detail;
+    private Date date;
+    private String status;
 
     public ReportPost() {
     }
 
-    public ReportPost(int Id, int PostId, int UserId, String Detail) {
+    public ReportPost(int Id, int PostId, int UserId, String Detail, Date date, String status) {
         this.Id = Id;
         this.PostId = PostId;
         this.UserId = UserId;
         this.Detail = Detail;
+        this.date = date;
+        this.status = status;
     }
 
     public int getId() {
@@ -55,5 +62,21 @@ public class ReportPost {
 
     public void setDetail(String Detail) {
         this.Detail = Detail;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
