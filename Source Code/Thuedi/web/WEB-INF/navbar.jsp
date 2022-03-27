@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active py-1">
-                    <a class="nav-link" href="#"
+                    <a class="nav-link" href="/Thuedi/LandingPage"
                        >Trang chủ</a
                     >
                 </li>
@@ -72,9 +72,12 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="nav-item  ml-1 py-1">
+                        <c:if test = "${sessionScope.user.getRoleId() == 3}">
+                             <li class="nav-item  ml-1 py-1">
                             <a class="nav-link nav-button" href="/Thuedi/Landlord/CreatePost">Đăng bài</a>
                         </li>
+                        </c:if>
+                       
                     </c:otherwise>
                 </c:choose>
 

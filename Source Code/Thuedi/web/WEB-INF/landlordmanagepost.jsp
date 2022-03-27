@@ -24,7 +24,7 @@
     </head>
 
     <body>
-         <%@include file="navbar.jsp" %>
+        <%@include file="navbar.jsp" %>
 
         <section class="main-content">
             <h5 class="mb-2">Quản Lý Bài Đăng</h5>
@@ -69,7 +69,7 @@
                                                 <li>${o.getNumberOfBedrooms()} PN</li>
                                             </ul>
                                             <li class="price">${o.getPrice()} VNĐ</li>
-                                            <c:set var = "date" value="${o.getCreateDate()}"/>
+                                                <c:set var = "date" value="${o.getCreateDate()}"/>
                                             <li class="item-date"><fmt:formatDate pattern = "dd/MM/yyyy" value = "${date}" /></li>
                                         </ul>
                                     </ul>
@@ -96,12 +96,34 @@
                                         />
                                     </svg>
                                 </a>
+
+                                <!-- DELETE-MODAL -->
+                                <div class="modal fade" id="deleteModal${o.getId()}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Thông báo</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Bạn chắc chắn muốn xóa bài viết này?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                <!--<button type="button" class="btn btn-primary">Đồng ý</button>-->
+                                                <a href="DeletePost?id=${o.getId()}" class="btn btn-primary">Đồng ý</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- DELETE BUTTON -->
                                 <button
-                                    type="button"
-                                    class="btn-delete"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#deleteModal${o.getId()}"
+                                    type="button" 
+                                    class="btn-delete" 
+                                    data-toggle="modal" 
+                                    data-target="#deleteModal${o.getId()}"
                                     >
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
@@ -120,69 +142,15 @@
                                         />
                                     </svg>
                                 </button>
-                                <!-- DELETE-MODAL -->
-                                <div
-                                    class="modal fade"
-                                    id="deleteModal${o.getId()}"
-                                    tabindex="-1"
-                                    aria-labelledby="exampleModalLabel"
-                                    aria-hidden="true"
-                                    >
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                    Thông báo
-                                                </h5>
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-light"
-                                                    data-bs-dismiss="modal"
-                                                    aria-label="Close"
-                                                    >
-                                                    <svg
-                                                        xmlns="http://www.w3.org/2000/svg"
-                                                        width="16"
-                                                        height="16"
-                                                        fill="currentColor"
-                                                        class="bi bi-x-lg"
-                                                        viewBox="0 0 16 16"
-                                                        >
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"
-                                                        />
-                                                    <path
-                                                        fill-rule="evenodd"
-                                                        d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"
-                                                        />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Bạn có muốn xóa bài viết này không ?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button
-                                                    type="button"
-                                                    class="btn btn-secondary"
-                                                    data-bs-dismiss="modal"
-                                                    >
-                                                    Thoát
-                                                </button>
-                                                <a href="DeletePost?id=${o.getId()}" class="btn btn-primary">
-                                                    Đồng ý
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+
                             </li>
                         </c:forEach>
                     </ul>
                 </div>
             </section>
         </section>
+
         <!--<section class="footer">Footer demo</section>-->
 
         <!-- JAVASCRIPT -->
@@ -192,9 +160,22 @@
             let formatedDate = date.toLocaleDateString();
             joinDate.innerHTML = formatedDate;
         </script>
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+        ></script>
     </body>
 </html>
 

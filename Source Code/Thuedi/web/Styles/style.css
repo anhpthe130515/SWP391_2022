@@ -638,4 +638,7 @@ textarea {
 .modal-body-postDetail{
     padding: 20px 20px 5px 20px !important;
 }
+.dropdown-menu{
+    left:-50px !important;
+}
 

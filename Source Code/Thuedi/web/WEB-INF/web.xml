@@ -4,9 +4,9 @@
         <filter-name>UnicodeFilter</filter-name>
         <filter-class>Filter.UnicodeFilter</filter-class>
     </filter>
-    <welcome-file-list>  
-        <welcome-file>list</welcome-file>  
-    </welcome-file-list>  
+    <welcome-file-list>
+        <welcome-file>LandingPage</welcome-file>
+    </welcome-file-list>
     <filter>
         <filter-name>RequireUserFilter</filter-name>
         <filter-class>Filter.RequireUserFilter</filter-class>
