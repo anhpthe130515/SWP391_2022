@@ -5,5 +5,5 @@
 --%>
 
     <section class="footer">
-        Footer demo
+        <p>thuedi.com</p>
     </section>
