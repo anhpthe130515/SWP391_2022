@@ -201,7 +201,7 @@
 
             <!-- SIDEBAR -->
             <div class="side-bar">
-                <div class="widget-item" style="background-color: #000;">
+                <div class="widget-item" style="background-color: #ffb0bd; color: #8a4762">
                     <p>Tình hình Covid-19 đang rất phức tạp, mỗi cá nhân nên chủ động tự bảo vệ sức khỏe của mình và tuân thủ thông điệp 5K của Bộ Y Tế</p>
                 </div>
                 
