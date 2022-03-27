@@ -25,7 +25,7 @@
     <body class="createpost-body">
         <%@include file="navbar.jsp" %>
 
-        <div class="createpost-section">
+        <div class="createpost-section" style="width: 20%;">
             <h4>Update Role</h4>
 
             <form class="update-role-form" method="POST">
@@ -34,11 +34,11 @@
                         <div><label for="email">Email</label></div>
                         <input type="email" id="email" name="email" value="${user.email}" disabled />
                         <div><label for="name">CCCD/CMND</label></div>
-                        <input type="text" id="cccd" name="cccd" required />
-                        <div><label for="name">Contacts</label></div>
-                        <input type="text" id="ll" name="ll" required />
+                        <input type="text" id="cccd" name="cccd" style="width: 100%;" required />
+                        <div><label for="name" >Contacts</label></div>
+                        <input type="text" id="ll" name="ll" style="width: 100%;"required />
 
-                        <button class="submit register-submit">Đăng ký</button>
+                        <button class="submit register-submit mt-2" style="justify-content: center;">Đăng ký</button>
                     </div>
                 </div>
 
