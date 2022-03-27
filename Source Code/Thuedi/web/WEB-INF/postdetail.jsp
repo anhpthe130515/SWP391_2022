@@ -233,7 +233,7 @@
                                             </div>
                                         </form>
 
-                                        <h3>2 Bình luận</h3>
+                                        <!--<h3>Bình luận</h3>-->
 
                                         <ul class="cmt-list">
                                             <!-- COMMENT  - START -->
