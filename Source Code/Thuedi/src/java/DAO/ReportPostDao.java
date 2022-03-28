@@ -78,7 +78,7 @@ public class ReportPostDao extends DBContext {
         String sql = "INSERT INTO [dbo].[Post_report]\n"
                 + "           ([Post_id]\n"
                 + "           ,[User_id]\n"
-                + "           ,[Detail])\n"
+                + "           ,[Detail]\n"
                 + "           ,[Date]\n"
                 + "           ,[Status])\n"
                 + "     VALUES\n"

@@ -107,7 +107,7 @@
                         <c:forEach items="${requestScope.allPost}" var="post" varStatus="loop">
                             <tr>
                                 <th scope="row">${loop.index +1}</th>
-                                <td><img src="/Thuedi/PostImage/${post.id}" style="width:150px" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/></td>
+                                <td><img src="/Thuedi/SinglePostImage/${post.id}" style="width:150px" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/></td>
                                 <td>${post.getTitle()}</td>
                                 <td>${post.getDetail()}</td>
                                 <td>${post.getPrice()}</td>
