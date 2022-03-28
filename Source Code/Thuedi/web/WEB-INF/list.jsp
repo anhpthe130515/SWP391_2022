@@ -9,7 +9,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
-
+<html style="height: 100%">
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -19,7 +19,7 @@
     <title>Thuedi</title>
 </head>
 
-<body style="position: relative">
+<body style="position: relative;min-height: 100%; padding-bottom: 21rem">
     <%@include file="navbar.jsp" %>
 
     <section class="main-content mt-4">
