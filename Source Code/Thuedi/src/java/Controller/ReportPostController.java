@@ -9,6 +9,7 @@ import DAO.ReportPostDao;
 import Model.ReportPost;
 import Model.User;
 import java.io.IOException;
+import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,6 +42,8 @@ public class ReportPostController extends HttpServlet {
         report.setPostId(Integer.parseInt(request.getParameter("id")));
         report.setUserId(account.getId());
         report.setDetail(request.getParameter("detail"));
+        report.setDate(new Date(System.currentTimeMillis()));
+        report.setStatus("waiting");
         
         new ReportPostDao().insert(report);
         
