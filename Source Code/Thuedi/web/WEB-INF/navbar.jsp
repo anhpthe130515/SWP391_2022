@@ -9,7 +9,7 @@
 
 <section class="header sticky-top">
     <nav class="navbar navbar-expand-lg py-0">
-        <a class="navbar-brand" href="/Thuedi/home">THUEDI</a>
+        <a class="navbar-brand" href="/Thuedi">THUEDI</a>
         <button
             class="navbar-toggler"
             type="button"
@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active py-1">
-                    <a class="nav-link" href="/Thuedi/LandingPage"
+                    <a class="nav-link" href="/Thuedi"
                        >Trang chủ</a
                     >
                 </li>
@@ -42,7 +42,7 @@
                             <a class="nav-link" href="login">Đăng nhập</a>
                         </li>
                         <li class="nav-item py-1" >
-                            <a class="nav-link" href="login">Đăng ký</a>
+                            <a class="nav-link" href="register">Đăng ký</a>
                         </li>
                     </c:when>
                     <c:otherwise>
