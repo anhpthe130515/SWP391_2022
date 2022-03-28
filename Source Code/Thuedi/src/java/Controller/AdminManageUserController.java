@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pinkd
  */
-@WebServlet(name = "AdminManageUserController", urlPatterns = {"/admin/user"})
+@WebServlet(name = "AdminManageUserController", urlPatterns = {"/Admin/user"})
 public class AdminManageUserController extends HttpServlet {
 
     /**
