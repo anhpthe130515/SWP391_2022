@@ -146,7 +146,7 @@
                             <a href="PostDetail?id=${a.id}" >
                                 <ul class="item">
                                     <div class="item-img">
-                                        <img src="/Thuedi/PostImage/${a.id}" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/>
+                                        <img src="/Thuedi/SinglePostImage/${a.id}" onError="this.onerror=null;this.src='https://dichvuchuyendo.net/wp-content/uploads/2020/10/phong-tro.jpg'"/>
                                     </div>
                                     <ul class="item-infor">
                                         <li class="item-infor-title">${a.title}</li>
@@ -190,7 +190,7 @@
                             <li class="page-item">
                                 <a class="page-link"
                                    <c:if test="${param.page eq counter}">style="font-weight: 800;"</c:if>
-                                   href="list?page=${counter}">
+                                   href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=${covid}&page=${counter}">
                                     ${counter}
                                 </a>
                             </li>    

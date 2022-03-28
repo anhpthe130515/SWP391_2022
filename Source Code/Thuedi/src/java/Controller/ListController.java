@@ -86,6 +86,7 @@ public class ListController extends HttpServlet {
         
         
         request.setAttribute("lst", lst);
+        request.setAttribute("postDao", new PostDao());
         request.setAttribute("numPage", numPage);
         request.setAttribute("numPost", numPost);
         request.setAttribute("page", page);
