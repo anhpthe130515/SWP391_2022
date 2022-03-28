@@ -325,6 +325,34 @@ public class PostDao extends DBContext {
             }
         }
     }
+    
+    public byte[] selectImageByPostId(int id) {
+        String sql = "SELECT TOP 1 [Image]\n"
+                + "  FROM [dbo].[Post_image]\n"
+                + "  WHERE [Post_id] = ?";
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Blob image = rs.getBlob(1);
+                return image.getBytes(1, (int) image.length());
+            } else {
+                throw new SQLException("Id not found");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
     public int DeletePost(int id) {
         String sql = "DELETE FROM [dbo].[Post]\n"
