@@ -84,6 +84,7 @@ public class UpdateRoleController extends HttpServlet {
         new UserDao().updateR(id);
         new UserDao().updateL(id, personalId, contacts);
         User user = new UserDao().select(id);
+        account.setRoleId(3);
         
         request.setAttribute("user", user);
         

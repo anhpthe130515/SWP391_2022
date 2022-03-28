@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pinkd
  */
-@WebServlet(name = "CommentController", urlPatterns = {"/comment"})
+@WebServlet(name = "CommentController", urlPatterns = {"/User/comment"})
 public class CommentController extends HttpServlet {
 
     /**
@@ -57,11 +57,11 @@ public class CommentController extends HttpServlet {
             User user = (User) request.getSession().getAttribute("user");
             if (user == null) {
                 String ms = "Ban phai dang nhap de binh luan";
-                response.sendRedirect("PostDetail?id=" + request.getParameter("id") + "&error=" + ms);
+                response.sendRedirect("/Thuedi/PostDetail?id=" + request.getParameter("id") + "&error=" + ms);
             } else {
                 comment.setUserId(user.getId());
                 int id = new CommentDao().insertComment(comment);
-                response.sendRedirect("PostDetail?id=" + request.getParameter("id"));
+                response.sendRedirect("/Thuedi/PostDetail?id=" + request.getParameter("id"));
             }
         } 
     }

@@ -398,6 +398,30 @@ public class PostDao extends DBContext {
 
         return listImageId;
     }
+    
+    public ArrayList<Integer> getOneImageId(int postId) {
+        String sql = "SELECT TOP 1 [Id] FROM [thuedi].[dbo].[Post_image] WHERE Post_id = ?";
+        ArrayList<Integer> listImageId = new ArrayList<>();
+
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, postId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                listImageId.add(rs.getInt("Id"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PostDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        return listImageId;
+    }
 
     public void update(Post post) {
         System.out.println("ID = " + post.getId());

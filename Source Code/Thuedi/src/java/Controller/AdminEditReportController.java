@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pinkd
  */
-@WebServlet(name = "AdminEditReportController", urlPatterns = {"/Admin/report/status"})
+@WebServlet(name = "AdminEditReportController", urlPatterns = {"/admin/report/status"})
 public class AdminEditReportController extends HttpServlet {
 
     /**
