@@ -8,7 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -24,7 +24,7 @@
         <title>Thuedi</title>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEaRkuGOICP3om0r-q8qdGYqv2Ur1Wf1s&libraries=places&callback=initialize" async defer></script>
     </head>
-    <body style="position: relative">
+    <body style="position: relative;min-height: 100%; padding-bottom: 21rem">
         <%@include file="navbar.jsp"%>
 
         <section class="main-content ">
