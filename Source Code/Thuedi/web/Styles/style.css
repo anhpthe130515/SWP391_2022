@@ -654,5 +654,5 @@ textarea {
 .dropdown-menu{
     /*top: 128px !important;*/
     max-height: 600px !important;
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
 }
