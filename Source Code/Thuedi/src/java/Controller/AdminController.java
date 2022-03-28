@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author pinkd
  */
-@WebServlet(name = "AdminController", urlPatterns = {"/Admin/dashboard"})
+@WebServlet(name = "AdminController", urlPatterns = {"/admin/dashboard"})
 public class AdminController extends HttpServlet {
 
     /**

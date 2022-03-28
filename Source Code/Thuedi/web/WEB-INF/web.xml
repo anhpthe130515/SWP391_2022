@@ -37,7 +37,7 @@
     </filter-mapping>
     <filter-mapping>
         <filter-name>RequireAdminFilter</filter-name>
-        <url-pattern>/Admin/*</url-pattern>
+        <url-pattern>/admin/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>RequireLandlordFilter</filter-name>

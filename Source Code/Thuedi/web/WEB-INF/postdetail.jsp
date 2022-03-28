@@ -210,7 +210,7 @@
                                 <div class="row">
                                     <div class="col-sm">
                                         <!--FORM-->
-                                        <form method="post" action="comment?id=${requestScope.post.getId()}">
+                                        <form method="post" action="/Thuedi/User/comment?id=${requestScope.post.getId()}">
                                             <div class="media pb-0 border-0 cmt-box">
                                                 <a class="pull-left" href="#"
                                                    ><img
