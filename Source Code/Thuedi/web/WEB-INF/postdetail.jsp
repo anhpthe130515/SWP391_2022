@@ -24,10 +24,10 @@
         <title>Thuedi</title>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEaRkuGOICP3om0r-q8qdGYqv2Ur1Wf1s&libraries=places&callback=initialize" async defer></script>
     </head>
-    <body>
-        <%@include file="navbar.jsp" %>
+    <body style="position: relative">
+        <%@include file="navbar.jsp"%>
 
-        <section class="main-content">
+        <section class="main-content ">
             <section class="property">
                 <div class="property-list">
 

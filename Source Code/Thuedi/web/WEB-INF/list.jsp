@@ -19,119 +19,122 @@
     <title>Thuedi</title>
 </head>
 
-<body>
+<body style="position: relative">
     <%@include file="navbar.jsp" %>
 
     <section class="main-content mt-4">
         <section class="search-filter-section">
-            <div class="search">
-                <div class="input-group mb-3">
-                    <input
-                        type="text"
-                        class="form-control"
-                        placeholder="Từ khóa, Đường, Quận"
-                        style="border: 1px solid black"
-                        />
-                    <div class="input-group-append">
-                        <button
-                            class="btn btn-outline-secondary"
-                            type="button"
-                            id="button-addon2"
-                            >
-                            Search
-                        </button>
-                    </div>
-                </div>
-            </div>
+            <!--            <div class="search">
+                            <div class="input-group mb-3">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Từ khóa, Đường, Quận"
+                                    style="border: 1px solid black"
+                                    />
+                                <div class="input-group-append">
+                                    <button
+                                        class="btn btn-outline-secondary"
+                                        type="button"
+                                        id="button-addon2"
+                                        >
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>-->
 
-            <div class="dropdown">
-                <button
-                    class="btn-filter btn dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    >
-                    Khu vực
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="list?district=0&propertyType=${propertyType}&price=${price}&covid=${covid}">Khu vực</a>
-                    <c:forEach items="${requestScope.listDistricts}" var="listDis">
-                        <a class="dropdown-item"
-                           href="list?district=${listDis.id}&propertyType=${propertyType}&price=${price}&covid=${covid}">
-                            ${listDis.name}
-                        </a>
-                    </c:forEach>
-                </div>
-            </div>
 
-            <div class="dropdown">
-                <button
-                    class="btn btn-filter dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    >
-                    Loại Bất Động sản
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="list?district=${district}&propertyType=0&price=${price}&covid=${covid}">Loại Bất Động sản</a>
-                    <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
-                        <a class="dropdown-item"
-                           href="list?district=${district}&propertyType=${listPro.id}&price=${price}&covid=${covid}">
-                            ${listPro.name}
-                        </a>
-                    </c:forEach>
-                </div>
-            </div>
-
-            <div class="dropdown">
-                <button
-                    class="btn btn-filter dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    >
-                    Giá Tiền
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=0&covid=${covid}">Giá Tiền</a>
-                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=1&covid=${covid}">
-                        < 3 Triệu
-                    </a>
-                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=2&covid=${covid}">
-                        3 - 7 Triệu
-                    </a>
-                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=3&covid=${covid}">
-                        > 7 Triệu
-                    </a>
-                </div>
-            </div>
-
-            <div class="dropdown">
-                <button
-                    class="btn btn-filter dropdown-toggle"
-                    type="button"
-                    id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    >
-                    Hỗ trợ COVID
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=2">Hỗ trợ COVID</a>
-                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=0">
-                        Có
-                    </a>
-                    <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=1">
-                        Không
-                    </a>
-                </div>
-            </div>
 
             </div>
         </section>
 
         <section class="property mt-3">
             <div class="property-list">
+                <div class=" mb-3"style="display: flex; ">
+                    <div class="dropdown mr-2">
+                        <button
+                            class="btn-filter btn dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            >
+                            Khu vực
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="list?district=0&propertyType=${propertyType}&price=${price}&covid=${covid}">Khu vực</a>
+                            <c:forEach items="${requestScope.listDistricts}" var="listDis">
+                                <a class="dropdown-item"
+                                   href="list?district=${listDis.id}&propertyType=${propertyType}&price=${price}&covid=${covid}">
+                                    ${listDis.name}
+                                </a>
+                            </c:forEach>
+                        </div>
+                    </div>
+
+                    <div class="dropdown mr-2">
+                        <button
+                            class="btn btn-filter dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            >
+                            Loại Bất Động sản
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="list?district=${district}&propertyType=0&price=${price}&covid=${covid}">Loại Bất Động sản</a>
+                            <c:forEach items="${requestScope.listPropertyTypes}" var="listPro">
+                                <a class="dropdown-item"
+                                   href="list?district=${district}&propertyType=${listPro.id}&price=${price}&covid=${covid}">
+                                    ${listPro.name}
+                                </a>
+                            </c:forEach>
+                        </div>
+                    </div>
+
+                    <div class="dropdown mr-2">
+                        <button
+                            class="btn btn-filter dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            >
+                            Giá Tiền
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=0&covid=${covid}">Giá Tiền</a>
+                            <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=1&covid=${covid}">
+                                < 3 Triệu
+                            </a>
+                            <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=2&covid=${covid}">
+                                3 - 7 Triệu
+                            </a>
+                            <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=3&covid=${covid}">
+                                > 7 Triệu
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown mr-2">
+                        <button
+                            class="btn btn-filter dropdown-toggle"
+                            type="button"
+                            id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            >
+                            Hỗ trợ COVID
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=2">Hỗ trợ COVID</a>
+                            <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=0">
+                                Có
+                            </a>
+                            <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=1">
+                                Không
+                            </a>
+                        </div>
+                    </div>
+                </div>   
                 <h5>Phòng Trọ Sinh Viên Giá Hạt Ngô</h5>
                 <div class="property-list-result">
                     <b>${requestScope.page*8-7} - <c:out default="None" value="${requestScope.page*8 > numPost ? numPost : page*8}"/> trong ${requestScope.numPost} kết quả</b>
@@ -204,7 +207,7 @@
                 <div class="widget-item" style="background-color: #ffb0bd; color: #8a4762">
                     <p>Tình hình Covid-19 đang rất phức tạp, mỗi cá nhân nên chủ động tự bảo vệ sức khỏe của mình và tuân thủ thông điệp 5K của Bộ Y Tế</p>
                 </div>
-                
+
                 <div class="widget-item">
                     <p>Loại bất động sản</p>
                     <ul>
@@ -216,9 +219,12 @@
                 </div>
 
             </div>
+
         </section>
+
     </section>
     <%@include file="footer.jsp" %>
+
 
     <!-- JAVASCRIPT -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
