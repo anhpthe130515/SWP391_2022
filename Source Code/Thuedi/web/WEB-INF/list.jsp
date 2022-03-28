@@ -208,11 +208,10 @@
                 <div class="widget-item">
                     <p>Loại bất động sản</p>
                     <ul>
-                        <li>Phòng trọ</li>
-                        <li>Chung cư</li>
-                        <li>Nhà</li>
-                        <li>Văn Phòng</li>
-                        <li>Mặt bằng</li>
+                        <li><a href="list?district=${district}&propertyType=1&price=${price}&covid=${covid}">Nhà</a></li>
+                        <li><a href="list?district=${district}&propertyType=2&price=${price}&covid=${covid}">Chung cư</a></li>
+                        <li><a href="list?district=${district}&propertyType=3&price=${price}&covid=${covid}">Phòng trọ</a></li>
+                        <li><a href="list?district=${district}&propertyType=4&price=${price}&covid=${covid}">Mặt bằng</a></li>
                     </ul>
                 </div>
 
