@@ -221,12 +221,12 @@ a:hover {
 
     margin-top: 48px;
     padding: 20px;
-    height: 200px;
+    height: 300px;
     background-color: #ffb0bd;
     text-align: center;
     position: absolute;
     width: 100%;
-    bottom: -300px;
+    bottom: -500px;
 
 }
 
@@ -388,7 +388,7 @@ button.submit {
 }
 
 .register-section {
-    height: 510px;
+    height: fit-content;
     margin-top: 10vh;
     flex-direction: row;
 }
@@ -655,5 +655,5 @@ textarea {
 .dropdown-menu{
     /*top: 128px !important;*/
     max-height: 600px !important;
-    overflow: scroll;
+    overflow-y: scroll !important;
 }
