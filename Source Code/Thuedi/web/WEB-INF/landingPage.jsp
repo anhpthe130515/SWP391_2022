@@ -7,7 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,10 +21,16 @@
             href="https://use.fontawesome.com/releases/v5.0.4/css/all.css"
             rel="stylesheet"
             />
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>-->
         <link href="Styles/landingPage.css" rel="stylesheet" />
+        <!--<link href="Styles/style.css" rel="stylesheet" />-->
+        <style>
+            .dropdown-menu{
+                left:-60px;
+            }
+        </style>
     </head>
     <body>
         <!-- Navigation -->
@@ -160,7 +166,7 @@
         </section>
         <%@include file="footer.jsp" %>
         <!-- JavaScript Bundle with Popper -->
-        <script
+         <script
             src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
             integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
             crossorigin="anonymous"

@@ -127,10 +127,10 @@
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=2">Hỗ trợ COVID</a>
                             <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=0">
-                                Có
+                                Không
                             </a>
                             <a class="dropdown-item" href="list?district=${district}&propertyType=${propertyType}&price=${price}&covid=1">
-                                Không
+                                Có
                             </a>
                         </div>
                     </div>
